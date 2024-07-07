@@ -11,8 +11,12 @@
             "id": "0ac720c4d4bfa059",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "index.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -69,7 +73,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -89,6 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,6 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +133,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "index.md"
+              }
             }
           }
         ],
@@ -152,8 +161,8 @@
   },
   "active": "0ac720c4d4bfa059",
   "lastOpenFiles": [
-    "docs/mogacko/team's.html",
     "index.md",
+    "docs/mogacko/team's.html",
     "docs/mogacko/team's-blog/코딩황제들-1.html",
     "docs/mogacko/team's-blog/코딩황제들.html",
     "docs/mogacko/team's-blog",
@@ -166,7 +175,6 @@
     "docs/lib/search-index.json",
     "docs/lib/metadata.json",
     "docs/lib/styles/other-plugins.css",
-    "docs/lib/styles/obsidian.css",
     "docs/lib/media/favicon.png",
     "docs/lib/media/3d6c1bdc4d87cde4de67.svg",
     "docs/lib/media/874d8b8e340f75575caa.svg",
