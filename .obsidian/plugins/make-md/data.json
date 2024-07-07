@@ -27,7 +27,7 @@
   "spacesEnabled": true,
   "syncFormulaToFrontmatter": true,
   "spacesPerformance": false,
-  "currentWaypoint": 0,
+  "currentWaypoint": 1,
   "enableFolderNote": true,
   "folderIndentationLines": true,
   "revealActiveFile": false,
@@ -40,6 +40,7 @@
   "showRibbon": true,
   "deleteFileOption": "trash",
   "expandedSpaces": [
+    "//Tags",
     "/"
   ],
   "expandFolderOnClick": true,
