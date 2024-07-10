@@ -42,10 +42,8 @@
   "expandedSpaces": [
     "//Tags",
     "/",
-    "//docs",
     "//team's blog",
-    "//team's blog/team's blog/코딩황제들",
-    "//mogacko"
+    "//team's blog/team's blog/코딩황제들"
   ],
   "expandFolderOnClick": true,
   "menuTriggerChar": "/",

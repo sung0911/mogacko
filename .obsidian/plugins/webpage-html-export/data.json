@@ -46,9 +46,9 @@
   "exportPath": "C:\\\\Users\\home\\Documents\\GitHub\\mogacko\\docs",
   "filesToExport": [
     [
-      "index.md",
-      "README.md",
-      "test.md"
+      "mogacko",
+      "team's blog",
+      "index.md"
     ]
   ]
 }
