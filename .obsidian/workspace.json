@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "team's blog/코딩황제들/index.md",
+                "file": "모각코/코딩황제들/index.md",
                 "mode": "source",
                 "source": false
               }
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "team's blog/코딩황제들/index.md",
+                "file": "index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "team's blog/코딩황제들/index.md",
+                "file": "index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "team's blog/코딩황제들/index.md"
+                "file": "index.md"
               }
             }
           }
@@ -159,26 +159,68 @@
       "webpage-html-export:Export Vault to HTML": false
     }
   },
-  "active": "0ac720c4d4bfa059",
+  "floating": {
+    "id": "1867a1c8f16c2c86",
+    "type": "floating",
+    "children": [
+      {
+        "id": "d83922395d5994cf",
+        "type": "window",
+        "children": [
+          {
+            "id": "f39d87d7f21e8bb0",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "cd08493909ba841c",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "index.md",
+                    "mode": "source",
+                    "source": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical",
+        "x": 317,
+        "y": 316,
+        "width": 902,
+        "height": 500,
+        "maximize": false,
+        "zoom": 0
+      }
+    ]
+  },
+  "active": "cd08493909ba841c",
   "lastOpenFiles": [
+    "docs/모각코/코딩황제들/7월-14일-모각코.html",
+    "docs/모각코/코딩황제들/7월-21일-모각코.html",
+    "docs/모각코/코딩황제들",
+    "docs/모각코",
+    "mogacko/team's-blog/코딩황제들/index.html.md",
+    "모각코/코딩황제들/index.md",
+    "모각코/코딩황제들/8월 18일 모각코.md",
+    "모각코/코딩황제들/8월 11일 모각코.md",
+    "모각코/코딩황제들/8월 4일 모각코.md",
+    "모각코/코딩황제들/7월 28일 모각코.md",
+    "모각코/코딩황제들/7월 14일 모각코.md",
+    "모각코/코딩황제들/7월 21일 모각코.md",
+    "Tags",
     "docs/mogacko/team's-blog/코딩황제들/index.html.html",
     "docs/mogacko/team's-blog/코딩황제들",
     "docs/mogacko/team's-blog",
     "docs/mogacko",
-    "mogacko/team's-blog/코딩황제들/index.html.md",
-    "team's blog/코딩황제들/index.md",
-    "team's blog/코딩황제들/7월 7일 모각코.md",
     "index.md",
     "mogacko/team's-blog/코딩황제들",
     "mogacko/team's-blog",
-    "mogacko",
-    "docs/mogacko/team's.html",
-    "docs/mogacko/team's-blog/코딩황제들-1.html",
-    "docs/mogacko/team's-blog/코딩황제들.html",
     "mogacko/team's.md",
     "mogacko/team's-blog/코딩황제들 1.md",
     "mogacko/team's-blog/코딩황제들.md",
-    "docs/lib/search-index.json",
     "docs/lib/media/favicon.png",
     "docs/lib/media/3d6c1bdc4d87cde4de67.svg",
     "docs/lib/media/874d8b8e340f75575caa.svg",
