@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "team's blog/코딩황제들/index.md",
                 "mode": "source",
                 "source": false
               }
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "index.md",
+                "file": "team's blog/코딩황제들/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "index.md",
+                "file": "team's blog/코딩황제들/index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md"
+                "file": "team's blog/코딩황제들/index.md"
               }
             }
           }
@@ -161,25 +161,27 @@
   },
   "active": "0ac720c4d4bfa059",
   "lastOpenFiles": [
+    "docs/mogacko/team's-blog/코딩황제들/index.html.html",
+    "docs/mogacko/team's-blog/코딩황제들",
+    "docs/mogacko/team's-blog",
+    "docs/mogacko",
+    "mogacko/team's-blog/코딩황제들/index.html.md",
+    "team's blog/코딩황제들/index.md",
+    "team's blog/코딩황제들/7월 7일 모각코.md",
     "index.md",
+    "mogacko/team's-blog/코딩황제들",
+    "mogacko/team's-blog",
+    "mogacko",
     "docs/mogacko/team's.html",
     "docs/mogacko/team's-blog/코딩황제들-1.html",
     "docs/mogacko/team's-blog/코딩황제들.html",
-    "docs/mogacko/team's-blog",
-    "docs/mogacko",
     "mogacko/team's.md",
     "mogacko/team's-blog/코딩황제들 1.md",
     "mogacko/team's-blog/코딩황제들.md",
-    "mogacko/team's-blog",
-    "mogacko",
     "docs/lib/search-index.json",
-    "docs/lib/metadata.json",
-    "docs/lib/styles/other-plugins.css",
     "docs/lib/media/favicon.png",
     "docs/lib/media/3d6c1bdc4d87cde4de67.svg",
     "docs/lib/media/874d8b8e340f75575caa.svg",
-    "team's blog/코딩황제들/index.md",
-    "team's blog/코딩황제들/7월 7일 모각코.md",
     "Untitled.md",
     "my blog/성준혁.md",
     "team's blog/김채연.md",

@@ -41,7 +41,11 @@
   "deleteFileOption": "trash",
   "expandedSpaces": [
     "//Tags",
-    "/"
+    "/",
+    "//docs",
+    "//team's blog",
+    "//team's blog/team's blog/코딩황제들",
+    "//mogacko"
   ],
   "expandFolderOnClick": true,
   "menuTriggerChar": "/",
