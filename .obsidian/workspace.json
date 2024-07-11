@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "team's blog/코딩황제들/7월 28일 모각코.md",
+                "file": "team's blog/코딩황제들/index.md",
                 "mode": "source",
                 "source": false
               }
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "index.md",
+                "file": "team's blog/코딩황제들/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "index.md",
+                "file": "team's blog/코딩황제들/index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md"
+                "file": "team's blog/코딩황제들/index.md"
               }
             }
           }
@@ -187,38 +187,37 @@
           }
         ],
         "direction": "vertical",
-        "x": 317,
+        "x": 316,
         "y": 316,
-        "width": 902,
-        "height": 500,
+        "width": 908,
+        "height": 503,
         "maximize": false,
         "zoom": 0
       }
     ]
   },
-  "active": "9bdfcf54a440345b",
+  "active": "3391390c3d91c287",
   "lastOpenFiles": [
+    "team's blog/코딩황제들/index.md",
+    "team's blog/코딩황제들/7월 14일 모각코.md",
+    "team's blog/코딩황제들/7월 28일 모각코.md",
+    "index.md",
     "docs/team's-blog/코딩황제들/7월-28일-모각코.html",
     "docs/team's-blog/코딩황제들/7월-21일-모각코.html",
     "docs/team's-blog/코딩황제들/7월-14일-모각코.html",
-    "team's blog/코딩황제들/index.md",
     "team's blog/코딩황제들/8월 18일 모각코.md",
     "team's blog/코딩황제들/8월 11일 모각코.md",
     "team's blog/코딩황제들/8월 4일 모각코.md",
-    "team's blog/코딩황제들/7월 28일 모각코.md",
     "team's blog/코딩황제들/7월 21일 모각코.md",
-    "team's blog/코딩황제들/7월 14일 모각코.md",
     "mogacko/team's-blog/코딩황제들/index.html.md",
     "docs/mogacko/team's-blog/코딩황제들/index.html.html",
     "docs/mogacko/team's-blog/코딩황제들",
     "docs/mogacko/team's-blog",
     "docs/mogacko",
     "team's blog/코딩황제들/7월 7일 모각코.md",
-    "index.md",
     "mogacko/team's-blog/코딩황제들",
     "mogacko/team's-blog",
     "mogacko",
-    "docs/mogacko/team's.html",
     "mogacko/team's.md",
     "mogacko/team's-blog/코딩황제들 1.md",
     "mogacko/team's-blog/코딩황제들.md",
