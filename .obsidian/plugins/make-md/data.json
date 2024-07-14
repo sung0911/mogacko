@@ -44,7 +44,10 @@
     "//team's blog/team's blog/코딩황제들",
     "//mogacko/mogacko/team's-blog",
     "//mogacko/mogacko/team's-blog/mogacko/team's-blog/코딩황제들",
-    "//team's blog"
+    "//team's-blog",
+    "//team's-blog/team's-blog/코딩황제들",
+    "//team's blog",
+    "//mogacko"
   ],
   "expandFolderOnClick": true,
   "menuTriggerChar": "/",

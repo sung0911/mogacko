@@ -1,4 +1,5 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[mogacko]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>mogacko</title><link/></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Sun, 14 Jul 2024 14:26:09 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Sun, 14 Jul 2024 14:26:09 GMT</pubDate><ttl>60</ttl><dc:creator/><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[mogacko]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>mogacko</title><link/></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Sun, 14 Jul 2024 15:04:11 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Sun, 14 Jul 2024 15:04:10 GMT</pubDate><ttl>60</ttl><dc:creator/><item><title><![CDATA[index]]></title><description><![CDATA[ 
+ ]]></description><link>mogacko\team's-blog\코딩황제들\index.html</link><guid isPermaLink="false">mogacko/team's-blog/코딩황제들/index.md</guid><pubDate>Sun, 14 Jul 2024 14:30:27 GMT</pubDate></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
  <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다.<br><br><br><br>wassertein 손실함수의 정의 및 배경 특히 이를 이해하기 위해 필요한 개념인 Earth Mover's Distance (EMD) 에 대해 알아본다.<br><br><br>Wasserstein Distance를 최소화하는 방식으로 GAN을 훈련시키는 손실함수<br><br>GAN 에서 주로 사용하는 loss fuction인  bce loss의 문제점 때문에 나오게 되었습니다.<br>
 BCE LOSS의 문제점<br>
 *1. mode collapse(모드 붕괴): 생성자가 다양한 이미지를  만들어내지 못하고 비슷한 이미지만 계속해서 생성하는 경우<br>
@@ -14,9 +15,16 @@ BCE LOSS의 문제점<br>
 <br>기울기 유지:<br>
 - EMD의 기울기는 분포 간 차이가 커질수록 계속해서 유의미한 값을 유지합니다. 이는 생성자가 받는 기울기가 0에 가까워지지 않음을 의미합니다.<br>
 - 결과적으로, GAN의 생성자는 계속해서 학습할 수 있는 유의미한 피드백을 받게 되어 기울기 소실 문제를 겪지 않습니다.<br>
-Wassertain Distance*<br>
-EMD의 특정형태로, 두 확률 분포 사이의 최적 운송 비용을 수학적으로 정의합니다.
-]]></description><link>team's-blog\코딩황제들\7월-14일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 14일 모각코.md</guid><pubDate>Sun, 14 Jul 2024 14:18:20 GMT</pubDate><enclosure url="lib\media\pasted-image-20240714212929.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\pasted-image-20240714212929.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[팀 소개]]></title><description><![CDATA[ 
+공식<br>
+<img alt="Pasted image 20240714234641.png" src="lib\media\pasted-image-20240714234641.png">
+<br><br> inf(infimum): 하한, 주어진 범위에서의 최소값<br>
+γ(감마): P와 Q사이의 가능한 모든 운송 계획, P의 질량을 Q로 옮기는 방법을 의미합니다.<br>
+E(기댓값): 주어진 결합 분포 γ에 대해, x와 y 사이의 거리에 대한 기대값을 의미합니다.<br>Wassertain Distance*<br>
+EMD의 특정형태로, 두 확률 분포 사이의 최적 운송 비용을 수학적으로 정의합니다.]]></description><link>team's-blog\코딩황제들\7월-14일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 14일 모각코.md</guid><pubDate>Sun, 14 Jul 2024 15:01:54 GMT</pubDate><enclosure url="lib\media\pasted-image-20240714212929.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\pasted-image-20240714212929.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[모각코 활동 기록]]></title><description><![CDATA[ 
+ <br>모각코 활동을 소개하는 페이지<br><br>
+<br>2024 여름방학: <a class="internal-link" data-href="/mogacko/team's-blog/코딩황제들/index.html" href="mogacko\team's-blog\코딩황제들\index.html.html" target="_self" rel="noopener">코딩황제들</a>
+<br>
+]]></description><link>index.html</link><guid isPermaLink="false">index.md</guid><pubDate>Sun, 14 Jul 2024 14:38:05 GMT</pubDate></item><item><title><![CDATA[팀 소개]]></title><description><![CDATA[ 
  <br><br>안녕하세요, 저희는 코딩황제들입니다. 저희 팀은 인공지능학과 4명의 학생으로 구성되어 있습니다.<br>
 팀원 블로그 링크<br><br>저희의 목표는 생성형 AI를 만들기 위한 모델 디자인 및 구조를 짜기 위해 이론적인 공부를 심도 있게 진행하는 것입니다.<br><br>매주  22:00 ~ 01:00<br>
 1회차 : 2024/07/14 22:00 ~ 01:00<br>
@@ -30,8 +38,4 @@ EMD의 특정형태로, 두 확률 분포 사이의 최적 운송 비용을 수�
  ]]></description><link>team's-blog\코딩황제들\7월-28일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 28일 모각코.md</guid><pubDate>Wed, 10 Jul 2024 21:24:39 GMT</pubDate></item><item><title><![CDATA[8월 4일 모각코]]></title><description><![CDATA[ 
  ]]></description><link>team's-blog\코딩황제들\8월-4일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 4일 모각코.md</guid><pubDate>Wed, 10 Jul 2024 21:24:39 GMT</pubDate></item><item><title><![CDATA[8월 11일 모각코]]></title><description><![CDATA[ 
  ]]></description><link>team's-blog\코딩황제들\8월-11일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 11일 모각코.md</guid><pubDate>Wed, 10 Jul 2024 21:24:40 GMT</pubDate></item><item><title><![CDATA[8월 18일 모각코]]></title><description><![CDATA[ 
- ]]></description><link>team's-blog\코딩황제들\8월-18일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 18일 모각코.md</guid><pubDate>Wed, 10 Jul 2024 21:24:40 GMT</pubDate></item><item><title><![CDATA[모각코 활동 기록]]></title><description><![CDATA[ 
- <br>모각코 활동을 소개하는 페이지<br><br>
-<br>2024 여름방학: <a class="internal-link" data-href="/mogacko/team's-blog/코딩황제들/index.html" href="mogacko\team's-blog\코딩황제들\index.html.html" target="_self" rel="noopener">코딩황제들</a>
-<br>
-]]></description><link>index.html</link><guid isPermaLink="false">index.md</guid><pubDate>Wed, 10 Jul 2024 21:37:24 GMT</pubDate></item></channel></rss>
+ ]]></description><link>team's-blog\코딩황제들\8월-18일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 18일 모각코.md</guid><pubDate>Wed, 10 Jul 2024 21:24:40 GMT</pubDate></item></channel></rss>

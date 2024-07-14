@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "26e64564bba57c11",
+        "id": "7b8e22ec13eb8878",
         "type": "tabs",
         "children": [
           {
-            "id": "966b21de1d511364",
+            "id": "b1b17670982b70bc",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -73,7 +73,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -158,30 +159,34 @@
       "webpage-html-export:Export Vault to HTML": false
     }
   },
-  "active": "966b21de1d511364",
+  "active": "b1b17670982b70bc",
   "lastOpenFiles": [
-    "team's blog/코딩황제들/7월 14일 모각코.md",
-    "Pasted image 20240714225208.png",
-    "Pasted image 20240714212929.png",
-    "team's blog/코딩황제들/index.md",
     "index.md",
+    "docs/mogacko/team's-blog/코딩황제들/index.html",
+    "team's blog/코딩황제들/7월 14일 모각코.md",
+    "mogacko/team's-blog/코딩황제들/index.md",
+    "Pasted image 20240714234641.png",
+    "mogacko/team's-blog/코딩황제들/index.html.md",
+    "team's-blog/코딩황제들/index.html.md",
+    "team's-blog/코딩황제들",
+    "team's-blog",
+    "team's-blog/코딩황제들/index.md",
+    "team's blog/코딩황제들/index.md",
     "team's blog/코딩황제들/7월 28일 모각코.md",
+    "team's blog/코딩황제들/8월 4일 모각코.md",
+    "team's blog/코딩황제들/8월 18일 모각코.md",
+    "Pasted image 20240714212929.png",
+    "Pasted image 20240714225208.png",
     "docs/team's-blog/코딩황제들/7월-28일-모각코.html",
     "docs/team's-blog/코딩황제들/7월-21일-모각코.html",
     "docs/team's-blog/코딩황제들/7월-14일-모각코.html",
-    "team's blog/코딩황제들/8월 18일 모각코.md",
     "team's blog/코딩황제들/8월 11일 모각코.md",
-    "team's blog/코딩황제들/8월 4일 모각코.md",
     "team's blog/코딩황제들/7월 21일 모각코.md",
-    "mogacko/team's-blog/코딩황제들/index.html.md",
     "docs/mogacko/team's-blog/코딩황제들/index.html.html",
     "docs/mogacko/team's-blog/코딩황제들",
     "docs/mogacko/team's-blog",
     "docs/mogacko",
     "team's blog/코딩황제들/7월 7일 모각코.md",
-    "mogacko/team's-blog/코딩황제들",
-    "mogacko/team's-blog",
-    "mogacko",
     "mogacko/team's.md",
     "mogacko/team's-blog/코딩황제들 1.md",
     "mogacko/team's-blog/코딩황제들.md",
@@ -196,9 +201,6 @@
     "test.md",
     "team's blog/신우석.md",
     "personal blog link.md",
-    "Untitled Kanban.md",
-    "이름 없는 보드.md",
-    "이름 없는 보드 1.md",
-    "2024-06-26.md"
+    "Untitled Kanban.md"
   ]
 }
