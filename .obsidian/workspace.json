@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "15b7ca2a0279dcb8",
+        "id": "26e64564bba57c11",
         "type": "tabs",
         "children": [
           {
-            "id": "3391390c3d91c287",
+            "id": "966b21de1d511364",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "path:\"team's blog\"  ",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -73,12 +73,11 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "right": {
     "id": "b8b53b513e17a2f3",
@@ -159,10 +158,12 @@
       "webpage-html-export:Export Vault to HTML": false
     }
   },
-  "active": "3391390c3d91c287",
+  "active": "966b21de1d511364",
   "lastOpenFiles": [
-    "team's blog/코딩황제들/index.md",
     "team's blog/코딩황제들/7월 14일 모각코.md",
+    "Pasted image 20240714225208.png",
+    "Pasted image 20240714212929.png",
+    "team's blog/코딩황제들/index.md",
     "index.md",
     "team's blog/코딩황제들/7월 28일 모각코.md",
     "docs/team's-blog/코딩황제들/7월-28일-모각코.html",

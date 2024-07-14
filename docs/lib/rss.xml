@@ -1,5 +1,22 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[mogacko]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>mogacko</title><link/></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Fri, 12 Jul 2024 12:27:36 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Fri, 12 Jul 2024 12:27:35 GMT</pubDate><ttl>60</ttl><dc:creator/><item><title><![CDATA[계획]]></title><description><![CDATA[ 
- <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다.<br>]]></description><link>team's-blog\코딩황제들\7월-14일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 14일 모각코.md</guid><pubDate>Thu, 11 Jul 2024 12:16:08 GMT</pubDate></item><item><title><![CDATA[팀 소개]]></title><description><![CDATA[ 
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[mogacko]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>mogacko</title><link/></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Sun, 14 Jul 2024 14:18:58 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Sun, 14 Jul 2024 14:18:58 GMT</pubDate><ttl>60</ttl><dc:creator/><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+ <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다.<br><br><br><br>wassertein 손실함수의 정의 및 배경 특히 이를 이해하기 위해 필요한 개념인 Earth Mover's Distance (EMD) 에 대해 알아본다.<br><br><br>Wasserstein Distance를 최소화하는 방식으로 GAN을 훈련시키는 손실함수<br><br>GAN 에서 주로 사용하는 loss fuction인  bce loss의 문제점 때문에 나오게 되었습니다.<br>
+BCE LOSS의 문제점<br>
+*1. mode collapse(모드 붕괴): 생성자가 다양한 이미지를  만들어내지 못하고 비슷한 이미지만 계속해서 생성하는 경우<br>
+2.  vanishing gradient(기울기 소실): bce 손실함수는 판별자가 점점 더 정확해짐에 따라 0 또는 1에 가까운 극단적인 값을 출력하게 만듭니다. 이는 판별자가 실제와 가짜 데이터를 잘 구분할수록 생성자가 받는 그래디언트 값이 매우 작아져서 학습이 정체되게  됩니다. 생성자는 더 이상 유의미한 피드백을 받지 못하고, 학습이 중지될 수 있습니다.<br><br> earth는 흙, 그래서 흙을 움직이는 거리라는 의미이다.<br>
+***정의: 두 확률 분포 P와 Q 사이의 EMD는 P에서 Q로의 '흙'을 옮기는 최소 비용으로 정의된다. 즉, 생성된분포를 진짜와 동일하게 만드는 데 필요한 노력의 양을 추정하여 이 두 분포가 얼마나 다른지를 측정합니다. <br>분산은 같지만 평균이 다른 생성된 분포와 진짜 분포를 사용하며, 이들이 정규 분포라고 가정!<br><img alt="Pasted image 20240714212929.png" src="lib\media\pasted-image-20240714212929.png"><br>
+함수는 생성된 분포를 이동해야 하는 거리와 양에 따라 다릅니다.(양과 거리의 함수)<br>
+<img alt="Pasted image 20240714225208.png" src="lib\media\pasted-image-20240714225208.png"><br>
+<br>거리의 한계 없음:
+
+<br>EMD는 두 분포 사이의 최적 운송 비용을 측정하며, 이 거리는 0과 1로 제한되지 않습니다. 즉, 분포 간의 차이가 클수록 거리가 계속 증가할 수 있습니다.
+
+
+<br>기울기 유지:<br>
+- EMD의 기울기는 분포 간 차이가 커질수록 계속해서 유의미한 값을 유지합니다. 이는 생성자가 받는 기울기가 0에 가까워지지 않음을 의미합니다.<br>
+- 결과적으로, GAN의 생성자는 계속해서 학습할 수 있는 유의미한 피드백을 받게 되어 기울기 소실 문제를 겪지 않습니다.<br>
+Wassertain Distance*<br>
+EMD의 특정형태로, 두 확률 분포 사이의 최적 운송 비용을 수학적으로 정의합니다.
+]]></description><link>team's-blog\코딩황제들\7월-14일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 14일 모각코.md</guid><pubDate>Sun, 14 Jul 2024 14:18:20 GMT</pubDate><enclosure url="lib\media\pasted-image-20240714212929.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\pasted-image-20240714212929.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[팀 소개]]></title><description><![CDATA[ 
  <br><br>안녕하세요, 저희는 코딩황제들입니다. 저희 팀은 인공지능학과 4명의 학생으로 구성되어 있습니다.<br>
 팀원 블로그 링크<br><br>저희의 목표는 생성형 AI를 만들기 위한 모델 디자인 및 구조를 짜기 위해 이론적인 공부를 심도 있게 진행하는 것입니다.<br><br>매주  22:00 ~ 01:00<br>
 1회차 : 2024/07/14 22:00 ~ 01:00<br>
