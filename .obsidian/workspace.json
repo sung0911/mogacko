@@ -11,11 +11,9 @@
             "id": "b1b17670982b70bc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "mk-space",
               "state": {
-                "file": "team's blog/코딩황제들/7월 14일 모각코.md",
-                "mode": "source",
-                "source": false
+                "path": "team's blog/코딩황제들/7월 14일 모각코"
               }
             }
           }
@@ -94,7 +92,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "team's blog/코딩황제들/7월 14일 모각코.md",
+                "file": "Vault.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +109,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "team's blog/코딩황제들/7월 14일 모각코.md",
+                "file": "Vault.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +132,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "team's blog/코딩황제들/7월 14일 모각코.md"
+                "file": "Vault.md"
               }
             }
           }
@@ -159,33 +157,77 @@
       "webpage-html-export:Export Vault to HTML": false
     }
   },
-  "active": "b1b17670982b70bc",
+  "floating": {
+    "id": "1cc59a5d4e27f77f",
+    "type": "floating",
+    "children": [
+      {
+        "id": "d566c8c373ea907e",
+        "type": "window",
+        "children": [
+          {
+            "id": "65267f924dcc030e",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "c2e4bf5c8464b05c",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "Vault.md",
+                    "mode": "source",
+                    "source": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical",
+        "x": 317,
+        "y": 316,
+        "width": 902,
+        "height": 500,
+        "maximize": false,
+        "zoom": 0
+      }
+    ]
+  },
+  "active": "c2e4bf5c8464b05c",
   "lastOpenFiles": [
-    "team's blog/코딩황제들/7월 14일 모각코.md",
-    "mogacko/team's-blog/코딩황제들/index.md",
+    "team's blog/코딩황제들/7월 14일 모각코/7월 14일 모각코.md",
+    "team's blog/코딩황제들/7월 14일 모각코/image for first day/image for first day.md",
+    "team's blog/코딩황제들/7월 14일 모각코/image for first day/Pasted image 20240714225208.png",
+    "team's blog/코딩황제들/7월 14일 모각코/image for first day/Pasted image 20240714212929.png",
+    "team's blog/코딩황제들/7월 14일 모각코/image for first day/모각코 1일차 시간 인증.jpg",
+    "team's blog/코딩황제들/7월 14일 모각코/image for first day/모각코 1일차 회의 인증.png",
+    "team's blog/코딩황제들/7월 14일 모각코/image for first day/Pasted image 20240714234641.png",
+    "team's blog/코딩황제들/코딩황제들.md",
+    "team's blog/코딩황제들/7월 14일 모각코/image for first day",
+    "team's blog/코딩황제들/7월 14일 모각코/Untitled.md",
+    "team's blog/코딩황제들/7월 14일 모각코",
     "team's blog/코딩황제들/index.md",
     "index.md",
-    "docs/mogacko/team's-blog/코딩황제들/index.html",
-    "Pasted image 20240714234641.png",
+    "team's blog/코딩황제들/7월 28일 모각코.md",
+    "team's blog/코딩황제들/7월 21일 모각코.md",
+    "Vault.md",
     "mogacko/team's-blog/코딩황제들/index.html.md",
+    "team's blog/team's blog.md",
+    "mogacko/team's-blog/코딩황제들/index.md",
+    "docs/mogacko/team's-blog/코딩황제들/index.html",
     "team's-blog/코딩황제들/index.html.md",
     "team's-blog/코딩황제들",
     "team's-blog",
     "team's-blog/코딩황제들/index.md",
-    "team's blog/코딩황제들/7월 28일 모각코.md",
     "team's blog/코딩황제들/8월 4일 모각코.md",
     "team's blog/코딩황제들/8월 18일 모각코.md",
-    "Pasted image 20240714212929.png",
-    "Pasted image 20240714225208.png",
     "docs/team's-blog/코딩황제들/7월-28일-모각코.html",
     "docs/team's-blog/코딩황제들/7월-21일-모각코.html",
     "docs/team's-blog/코딩황제들/7월-14일-모각코.html",
     "team's blog/코딩황제들/8월 11일 모각코.md",
-    "team's blog/코딩황제들/7월 21일 모각코.md",
     "docs/mogacko/team's-blog/코딩황제들/index.html.html",
     "docs/mogacko/team's-blog/코딩황제들",
-    "docs/mogacko/team's-blog",
-    "docs/mogacko",
     "team's blog/코딩황제들/7월 7일 모각코.md",
     "mogacko/team's.md",
     "mogacko/team's-blog/코딩황제들 1.md",
@@ -196,11 +238,6 @@
     "Untitled.md",
     "my blog/성준혁.md",
     "team's blog/김채연.md",
-    "README.md",
-    "team's blog/박세준.md",
-    "test.md",
-    "team's blog/신우석.md",
-    "personal blog link.md",
-    "Untitled Kanban.md"
+    "README.md"
   ]
 }
