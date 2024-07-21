@@ -11,9 +11,11 @@
             "id": "b1b17670982b70bc",
             "type": "leaf",
             "state": {
-              "type": "mk-space",
+              "type": "markdown",
               "state": {
-                "path": "team's blog/코딩황제들/7월 14일 모각코"
+                "file": "team's blog/코딩황제들/7월 21일 모각코.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -185,6 +187,37 @@
           }
         ],
         "direction": "vertical",
+        "x": 316,
+        "y": 316,
+        "width": 908,
+        "height": 503,
+        "maximize": false,
+        "zoom": 0
+      },
+      {
+        "id": "22be3b5d7233f050",
+        "type": "window",
+        "children": [
+          {
+            "id": "7e673b95cbd38541",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "e9b9d8d7fd734d2d",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "Vault.md",
+                    "mode": "source",
+                    "source": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical",
         "x": 317,
         "y": 316,
         "width": 902,
@@ -194,24 +227,30 @@
       }
     ]
   },
-  "active": "c2e4bf5c8464b05c",
+  "active": "e9b9d8d7fd734d2d",
   "lastOpenFiles": [
+    "team's blog/코딩황제들/7월 21일 모각코.md",
+    "Pasted image 20240721231544.png",
+    "Pasted image 20240721225502.png",
+    "Pasted image 20240721225433.png",
+    "Pasted image 20240721225402.png",
+    "Pasted image 20240721225330.png",
+    "Pasted image 20240721225301.png",
+    "Wasserstein-GAN-I-75-2048.webp",
+    "Pasted image 20240721221302.png",
+    "Vault.md",
+    "team's blog/코딩황제들/7월 28일 모각코.md",
+    "team's blog/코딩황제들/8월 11일 모각코.md",
     "team's blog/코딩황제들/7월 14일 모각코/7월 14일 모각코.md",
     "team's blog/코딩황제들/7월 14일 모각코/image for first day/image for first day.md",
     "team's blog/코딩황제들/7월 14일 모각코/image for first day/Pasted image 20240714225208.png",
     "team's blog/코딩황제들/7월 14일 모각코/image for first day/Pasted image 20240714212929.png",
-    "team's blog/코딩황제들/7월 14일 모각코/image for first day/모각코 1일차 시간 인증.jpg",
-    "team's blog/코딩황제들/7월 14일 모각코/image for first day/모각코 1일차 회의 인증.png",
-    "team's blog/코딩황제들/7월 14일 모각코/image for first day/Pasted image 20240714234641.png",
     "team's blog/코딩황제들/코딩황제들.md",
     "team's blog/코딩황제들/7월 14일 모각코/image for first day",
     "team's blog/코딩황제들/7월 14일 모각코/Untitled.md",
     "team's blog/코딩황제들/7월 14일 모각코",
     "team's blog/코딩황제들/index.md",
     "index.md",
-    "team's blog/코딩황제들/7월 28일 모각코.md",
-    "team's blog/코딩황제들/7월 21일 모각코.md",
-    "Vault.md",
     "mogacko/team's-blog/코딩황제들/index.html.md",
     "team's blog/team's blog.md",
     "mogacko/team's-blog/코딩황제들/index.md",
@@ -225,16 +264,12 @@
     "docs/team's-blog/코딩황제들/7월-28일-모각코.html",
     "docs/team's-blog/코딩황제들/7월-21일-모각코.html",
     "docs/team's-blog/코딩황제들/7월-14일-모각코.html",
-    "team's blog/코딩황제들/8월 11일 모각코.md",
     "docs/mogacko/team's-blog/코딩황제들/index.html.html",
     "docs/mogacko/team's-blog/코딩황제들",
     "team's blog/코딩황제들/7월 7일 모각코.md",
     "mogacko/team's.md",
     "mogacko/team's-blog/코딩황제들 1.md",
     "mogacko/team's-blog/코딩황제들.md",
-    "docs/lib/media/favicon.png",
-    "docs/lib/media/3d6c1bdc4d87cde4de67.svg",
-    "docs/lib/media/874d8b8e340f75575caa.svg",
     "Untitled.md",
     "my blog/성준혁.md",
     "team's blog/김채연.md",

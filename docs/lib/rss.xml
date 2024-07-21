@@ -1,4 +1,74 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[mogacko]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>mogacko</title><link/></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Mon, 15 Jul 2024 18:25:04 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Mon, 15 Jul 2024 18:25:04 GMT</pubDate><ttl>60</ttl><dc:creator/><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[mogacko]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>mogacko</title><link/></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Sun, 21 Jul 2024 14:46:31 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Sun, 21 Jul 2024 14:46:31 GMT</pubDate><ttl>60</ttl><dc:creator/><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+ <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다.<br>회의방법<br>
+온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다.<br>팀원 블로그<br>
+박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/clip.html" target="_blank">https://kepler-dev-3141.github.io/clip.html</a><br>
+신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223512772098" target="_blank">https://blog.naver.com/sws040201/223512772098</a><br>
+김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br><br><br><br> Earth Mover's Distance (EMD) 개념을 바탕으로 wassertein distance 및 wassertein 손실함수에 대한 개념을 확실히 정립한다.<br><br><br>러시아 수학자 Leanid Vaserstein 의 이름을 딴 것으로 Roland Dobtushin 교수가 1970년에 확률론에 도입한 것이다.<br>
+<img alt="Pasted image 20240721221302.png" src="lib\media\pasted-image-20240721221302.png"><br>
+GAN에서 discriminator가 학습도중에 잘 죽는 현상이 나타나는데, 이를 해결하고자 하는것이 wasserstain loss이다. 이는 wasserstein distance를 최소화시키는 것이 목표이다.<br>
+위식에서 위의 내용이 Wasserstein distance의 정의다.<br>여기에서 <img src="https://t1.daumcdn.net/cfile/tistory/9984A03359A4215B2E" referrerpolicy="no-referrer"> 는 두 확률분포 , P,Q의 결합확률분포(joint distribution)들을 모은 집합이고, 그 중에&nbsp;<br><img src="https://t1.daumcdn.net/cfile/tistory/991E073359A4217412" referrerpolicy="no-referrer">는 그 중 하나입니다. 즉 모든 결합확률분포&nbsp;<img src="https://t1.daumcdn.net/cfile/tistory/9951703359A4218E22" referrerpolicy="no-referrer">&nbsp;중에서 d(x,y)의 기댓값을 가장 작게 추정한 값을 의미합니다. <br>즉 두 확률분포의 연관성을 측정하여 그 거리의 기대값이 가장 작을때의 distance를 wasserstein distance라고 얘기를 합니다. <br><br>주변 확률 분포 P와 Q:<br>
+<br>
+P와 Q는 각각 X와 Y의 주변 확률 분포입니다.
+
+<br>
+주변 확률 분포는 각각의 확률 변수가 따르는 분포의 모양을 나타냅니다.
+
+<br>
+예를 들어, P와 Q가 모두 정규 분포라면, X와 Y는 각각 정규 분포를 따릅니다.<br>
+결합 확률 분포 γ:
+
+<br>
+γ는 X와 Y의 결합 확률 분포로, w에 따라 샘플링된 X와 Y의 쌍의 분포를 나타냅니다.
+
+<br>
+결합 확률 분포는 두 확률 변수 간의 관계(의존성)를 나타냅니다.
+
+<br>
+다양한 γ는 서로 다른 X와 Y의 결합 방식을 의미합니다.
+
+<br><br><img alt="Pasted image 20240721231544.png" src="lib\media\pasted-image-20240721231544.png"><br>
+표본 공간에서 w를 하나 샘플링 하면 X(w)와 Y(w)를 뽑을 수 있고 이때 두 점 간의 거리 d(X(w),Y(w)) 역시 계산 할수 있다.<br><br><img alt="Pasted image 20240721225330.png" src="lib\media\pasted-image-20240721225330.png"><br>
+샘플링을 계속 할수록 (X, Y)의 결합 확률 분포 γ의 윤곽이 나오게 더불어서 (P, Q)는 γ의 주변확률분포가 됩니다.<br><br><img alt="Pasted image 20240721225402.png" src="lib\media\pasted-image-20240721225402.png"><br>
+이때 γ가 두 확률변수 X, Y의 연관성을 어떻게 측정하느냐에 따라 d(X, Y)의 분포가 달라지게 됩니다.<br><br><img alt="Pasted image 20240721225433.png" src="lib\media\pasted-image-20240721225433.png"><br>
+주의할 점은 P와 Q는 바뀌지 않기 때문에 각 X와 Y 가 분포하는 모양은 변하지 않습니다. 다만 w에 따라 뽑히는 경향이 달라질 뿐이다.<br><br>
+<br>
+P와 Q:
+
+<br>X는 정규 분포 P를 따릅니다.
+<br>Y는 균등 분포 Q를 따릅니다.
+
+
+<br>
+결합 확률 분포 γ1​:
+
+<br>γ1​에서는 X가 클 때 Y도 클 확률이 높습니다.
+<br>즉, ω가 큰 값을 가질 때 X(ω)와 Y(ω) 모두 큰 값을 가질 경향이 있습니다.
+
+
+<br>
+결합 확률 분포 γ2​:
+- γ2​에서는 X가 클 때 Y가 작을 확률이 높습니다.
+- 즉, ω가 큰 값을 가질 때 X(ω)는 큰 값을, Y(ω)는 작은 값을 가질 경향이 있습니다.
+Copy
+요약
+
+<br>
+변하지 않는 것:
+
+<br>P와 Q의 모양(즉, X와 Y의 분포)은 변하지 않습니다.
+<br>X는 항상 정규 분포를 따르고, Y는 항상 균등 분포를 따릅니다.
+
+
+<br>
+변하는 것:
+
+<br>γ에 따라 X와 Y가 뽑히는 경향이 달라집니다.
+<br>즉, 두 변수 X와 Y의 결합 관계(의존성)가 달라집니다.
+
+
+<br><br><img alt="Pasted image 20240721225502.png" src="lib\media\pasted-image-20240721225502.png"><br>
+Wasserstein distance 는 이렇게 여러가지 γ중에서 d(X, Y) 의 기댓값이 가장 작게 나오는 확률분포를 취하게 된다.<br>그래서 Wasserstein GAN은 이 Wasserstein distance를 이용해서 GAN의 문제를 푸는 것이다.<br>출처: <a rel="noopener" class="external-link" href="https://dogfoottech.tistory.com/185" target="_blank">https://dogfoottech.tistory.com/185</a> [Magritte 기술블로그:티스토리]]]></description><link>team's-blog\코딩황제들\7월-21일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 21일 모각코.md</guid><pubDate>Sun, 21 Jul 2024 14:36:57 GMT</pubDate><enclosure url="lib\media\pasted-image-20240721221302.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\pasted-image-20240721221302.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[Vault]]></title><description><![CDATA[ 
+ ]]></description><link>vault.html</link><guid isPermaLink="false">Vault.md</guid><pubDate>Mon, 15 Jul 2024 18:16:48 GMT</pubDate></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
  <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다.<br>회의방법<br>
 온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다.<br>팀원 블로그<br>
 박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/clip.html" target="_blank">https://kepler-dev-3141.github.io/clip.html</a><br>
@@ -56,8 +126,7 @@ CLIP은 데이터를 인터넷에서 수집하여 학습하므로 사회적 편�
 <br>2024 여름방학: <a class="internal-link" data-href="/mogacko/team's-blog/코딩황제들/index.html" href="mogacko\team's-blog\코딩황제들\index.html.html" target="_self" rel="noopener">코딩황제들</a>
 <br>
 ]]></description><link>index.html</link><guid isPermaLink="false">index.md</guid><pubDate>Sun, 14 Jul 2024 14:38:05 GMT</pubDate></item><item><title><![CDATA[index.html]]></title><description><![CDATA[ 
- ]]></description><link>mogacko\team's-blog\코딩황제들\index.html.html</link><guid isPermaLink="false">mogacko/team's-blog/코딩황제들/index.html.md</guid><pubDate>Wed, 10 Jul 2024 21:37:24 GMT</pubDate></item><item><title><![CDATA[7월 21일 모각코]]></title><description><![CDATA[ 
- ]]></description><link>team's-blog\코딩황제들\7월-21일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 21일 모각코.md</guid><pubDate>Wed, 10 Jul 2024 21:24:39 GMT</pubDate></item><item><title><![CDATA[7월 28일 모각코]]></title><description><![CDATA[ 
+ ]]></description><link>mogacko\team's-blog\코딩황제들\index.html.html</link><guid isPermaLink="false">mogacko/team's-blog/코딩황제들/index.html.md</guid><pubDate>Wed, 10 Jul 2024 21:37:24 GMT</pubDate></item><item><title><![CDATA[7월 28일 모각코]]></title><description><![CDATA[ 
  ]]></description><link>team's-blog\코딩황제들\7월-28일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 28일 모각코.md</guid><pubDate>Wed, 10 Jul 2024 21:24:39 GMT</pubDate></item><item><title><![CDATA[8월 4일 모각코]]></title><description><![CDATA[ 
  ]]></description><link>team's-blog\코딩황제들\8월-4일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 4일 모각코.md</guid><pubDate>Wed, 10 Jul 2024 21:24:39 GMT</pubDate></item><item><title><![CDATA[8월 11일 모각코]]></title><description><![CDATA[ 
  ]]></description><link>team's-blog\코딩황제들\8월-11일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 11일 모각코.md</guid><pubDate>Wed, 10 Jul 2024 21:24:40 GMT</pubDate></item><item><title><![CDATA[8월 18일 모각코]]></title><description><![CDATA[ 
