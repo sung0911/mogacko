@@ -3,9 +3,9 @@
 안녕하세요 저희는 코딩황제들입니다. 저희 팀은 인공지능학과 4명의 학생으로 구성되어 있습니다.
 
 # 팀원 블로그 링크
-박세준 https://kepler-dev-3141.github.io/clip.html
-신우석 https://blog.naver.com/sws040201/223512772098
-김채연
+박세준 https://kepler-dev-3141.github.io/
+신우석 https://blog.naver.com/sws040201/
+김채연 https://kcyeon0127.github.io/
 
 # 팀 계획 및 목표
 저희의 목표는 생성형 AI를 만들기 위한 모델 디자인 및 구조를 짜기 위해 이론적인 공부를 심도 있게 진행하는 것입니다.
