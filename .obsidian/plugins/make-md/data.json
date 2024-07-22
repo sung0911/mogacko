@@ -54,12 +54,12 @@
     "//docs/docs/lib/docs/lib/media/docs/lib/media/team-blog-images/docs/lib/media/team-blog-images/코딩황제들/docs/lib/media/team-blog-images/코딩황제들/first-week",
     "//docs/docs/team's-blog",
     "//docs/docs/team's-blog/docs/team's-blog/코딩황제들",
-    "//Tags",
-    "//team's blog",
     "//team's blog/team's blog/코딩황제들",
     "//mogacko",
-    "//docs",
-    "//docs/docs/lib"
+    "//docs/docs/lib",
+    "//Tags",
+    "//team's blog",
+    "//docs"
   ],
   "expandFolderOnClick": true,
   "menuTriggerChar": "/",
