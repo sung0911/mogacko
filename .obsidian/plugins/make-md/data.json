@@ -55,7 +55,9 @@
     "//docs/docs/lib/docs/lib/media",
     "//docs/docs/lib/docs/lib/media/docs/lib/media/team-blog-images",
     "//docs/docs/lib/docs/lib/media/docs/lib/media/team-blog-images/docs/lib/media/team-blog-images/코딩황제들",
-    "//docs/docs/lib/docs/lib/media/docs/lib/media/team-blog-images/docs/lib/media/team-blog-images/코딩황제들/docs/lib/media/team-blog-images/코딩황제들/first-week"
+    "//docs/docs/lib/docs/lib/media/docs/lib/media/team-blog-images/docs/lib/media/team-blog-images/코딩황제들/docs/lib/media/team-blog-images/코딩황제들/first-week",
+    "//docs/docs/team's-blog",
+    "//docs/docs/team's-blog/docs/team's-blog/코딩황제들"
   ],
   "expandFolderOnClick": true,
   "menuTriggerChar": "/",
