@@ -58,8 +58,7 @@
     "//mogacko",
     "//docs/docs/lib",
     "//Tags",
-    "//team's blog",
-    "//docs"
+    "//team's blog"
   ],
   "expandFolderOnClick": true,
   "menuTriggerChar": "/",

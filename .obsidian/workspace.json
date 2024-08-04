@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "team's blog/코딩황제들/7월 21일 모각코.md",
+                "file": "team's blog/코딩황제들/7월 28일 모각코.md",
                 "mode": "source",
                 "source": false
               }
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "team's blog/코딩황제들/7월 21일 모각코.md",
+                "file": "team's blog/코딩황제들/7월 28일 모각코.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "team's blog/코딩황제들/7월 21일 모각코.md",
+                "file": "team's blog/코딩황제들/7월 28일 모각코.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "team's blog/코딩황제들/7월 21일 모각코.md"
+                "file": "team's blog/코딩황제들/7월 28일 모각코.md"
               }
             }
           }
@@ -183,39 +183,10 @@
           }
         ],
         "direction": "vertical",
-        "x": 316,
-        "y": 316,
-        "width": 912,
-        "height": 504,
-        "maximize": false,
-        "zoom": 0
-      },
-      {
-        "id": "22be3b5d7233f050",
-        "type": "window",
-        "children": [
-          {
-            "id": "7e673b95cbd38541",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "e9b9d8d7fd734d2d",
-                "type": "leaf",
-                "state": {
-                  "type": "release-notes",
-                  "state": {
-                    "currentVersion": "1.6.7"
-                  }
-                }
-              }
-            ]
-          }
-        ],
-        "direction": "vertical",
-        "x": 316,
-        "y": 316,
-        "width": 911,
-        "height": 504,
+        "x": 182,
+        "y": 116,
+        "width": 918,
+        "height": 508,
         "maximize": false,
         "zoom": 0
       }
@@ -223,22 +194,22 @@
   },
   "active": "b1b17670982b70bc",
   "lastOpenFiles": [
-    "docs/lib/media/favicon.png",
+    "team's blog/코딩황제들/7월 28일 모각코.md",
     "team's blog/코딩황제들/7월 21일 모각코.md",
+    "team's blog/코딩황제들/7월 14일 모각코.md",
+    "team's blog/코딩황제들/8월 4일 모각코.md",
+    "team's blog/코딩황제들/8월 11일 모각코.md",
+    "docs/lib/media/favicon.png",
     "docs/lib/media/team-blog-코딩황제들-2024-week2.wasserstain설명5.png",
     "docs/lib/media/team-blog-코딩황제들-2024-week2.모각코2일차회의인증.png",
     "docs/lib/media/team-blog-코딩황제들-2024-week2.모각코2일차시간인증.JPG",
-    "team's blog/코딩황제들/7월 14일 모각코.md",
     "Pasted image 20240721231544.png",
     "Pasted image 20240721225502.png",
     "Pasted image 20240721225433.png",
     "Pasted image 20240721225402.png",
     "Pasted image 20240721225330.png",
     "Pasted image 20240721225301.png",
-    "Wasserstein-GAN-I-75-2048.webp",
     "Vault.md",
-    "team's blog/코딩황제들/7월 28일 모각코.md",
-    "team's blog/코딩황제들/8월 11일 모각코.md",
     "team's blog/코딩황제들/7월 14일 모각코/7월 14일 모각코.md",
     "team's blog/코딩황제들/7월 14일 모각코/image for first day/image for first day.md",
     "team's blog/코딩황제들/코딩황제들.md",
@@ -255,7 +226,6 @@
     "team's-blog/코딩황제들",
     "team's-blog",
     "team's-blog/코딩황제들/index.md",
-    "team's blog/코딩황제들/8월 4일 모각코.md",
     "team's blog/코딩황제들/8월 18일 모각코.md",
     "docs/team's-blog/코딩황제들/7월-28일-모각코.html",
     "docs/team's-blog/코딩황제들/7월-21일-모각코.html",
