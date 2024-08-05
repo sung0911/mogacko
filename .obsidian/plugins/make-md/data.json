@@ -56,9 +56,10 @@
     "//docs/docs/team's-blog/docs/team's-blog/코딩황제들",
     "//team's blog/team's blog/코딩황제들",
     "//mogacko",
-    "//docs/docs/lib",
     "//Tags",
-    "//team's blog"
+    "//team's blog",
+    "//docs",
+    "//docs/docs/lib"
   ],
   "expandFolderOnClick": true,
   "menuTriggerChar": "/",
