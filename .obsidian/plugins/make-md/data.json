@@ -42,7 +42,6 @@
   "expandedSpaces": [
     "/",
     "//mogacko/mogacko/team's-blog",
-    "//mogacko/mogacko/team's-blog/mogacko/team's-blog/코딩황제들",
     "//team's-blog",
     "//team's-blog/team's-blog/코딩황제들",
     "//코딩황제들",
@@ -59,7 +58,10 @@
     "//Tags",
     "//team's blog",
     "//docs",
-    "//docs/docs/lib"
+    "//docs/docs/lib",
+    "//compare to GAN with BCE to with WSTN",
+    "//docs/docs/lib/docs/lib/notebooks",
+    "//docs/docs/lib/docs/lib/notebooks/docs/lib/notebooks/compare to GAN with BCE to with WSTN"
   ],
   "expandFolderOnClick": true,
   "menuTriggerChar": "/",
