@@ -1,9 +1,297 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[mogacko]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>mogacko</title><link/></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Mon, 19 Aug 2024 15:05:10 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Mon, 19 Aug 2024 15:05:09 GMT</pubDate><ttl>60</ttl><dc:creator/><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[mogacko]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>mogacko</title><link/></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Mon, 19 Aug 2024 15:40:32 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Mon, 19 Aug 2024 15:40:28 GMT</pubDate><ttl>60</ttl><dc:creator/><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+ <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다.<br>회의방법<br>
+온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다.<br>팀원 블로그<br>
+박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
+신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/" target="_blank">https://blog.naver.com/sws040201/</a><br>
+김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br><br>wassertein 손실함수의 정의 및 배경 특히 이를 이해하기 위해 필요한 개념인 Earth Mover's Distance (EMD) 에 대해 알아본다.<br><br><br>Wasserstein Distance를 최소화하는 방식으로 GAN을 훈련시키는 손실함수<br><br>GAN 에서 주로 사용하는 loss fuction인  bce loss의 문제점 때문에 나오게 되었습니다.<br>
+BCE LOSS의 문제점<br>
+*1. mode collapse(모드 붕괴): 생성자가 다양한 이미지를  만들어내지 못하고 비슷한 이미지만 계속해서 생성하는 경우<br>
+2.  vanishing gradient(기울기 소실): bce 손실함수는 판별자가 점점 더 정확해짐에 따라 0 또는 1에 가까운 극단적인 값을 출력하게 만듭니다. 이는 판별자가 실제와 가짜 데이터를 잘 구분할수록 생성자가 받는 그래디언트 값이 매우 작아져서 학습이 정체되게  됩니다. 생성자는 더 이상 유의미한 피드백을 받지 못하고, 학습이 중지될 수 있습니다.<br><br> earth는 흙, 그래서 흙을 움직이는 거리라는 의미이다.<br>
+*정의: 두 확률 분포 P와 Q 사이의 EMD는 P에서 Q로의 '흙'을 옮기는 최소 비용으로 정의된다. 즉, 생성된분포를 진짜와 동일하게 만드는 데 필요한 노력의 양을 추정하여 이 두 분포가 얼마나 다른지를 측정합니다. <br>분산은 같지만 평균이 다른 생성된 분포와 진짜 분포를 사용하며, 이들이 정규 분포라고 가정!<br><img alt="team-blog-코딩황제들-2024-week1.20240714212929.png" src="lib\media\team-blog-코딩황제들-2024-week1.20240714212929.png"><br>
+함수는 생성된 분포를 이동해야 하는 거리와 양에 따라 다릅니다.(양과 거리의 함수)<br>
+<img alt="lib/media/team-blog-코딩황제들-2024-week1.20240714225208.png" src="lib\media\team-blog-코딩황제들-2024-week1.20240714225208.png"><br>
+<br>거리의 한계 없음:
+
+<br>EMD는 두 분포 사이의 최적 운송 비용을 측정하며, 이 거리는 0과 1로 제한되지 않습니다. 즉, 분포 간의 차이가 클수록 거리가 계속 증가할 수 있습니다.
+
+
+<br>기울기 유지:<br>
+- EMD의 기울기는 분포 간 차이가 커질수록 계속해서 유의미한 값을 유지합니다. 이는 생성자가 받는 기울기가 0에 가까워지지 않음을 의미합니다.<br>
+- 결과적으로, GAN의 생성자는 계속해서 학습할 수 있는 유의미한 피드백을 받게 되어 기울기 소실 문제를 겪지 않습니다.<br>
+공식<br>
+<img alt="lib/media/team-blog-코딩황제들-2024-week1.20240714234641.png" src="lib\media\team-blog-코딩황제들-2024-week1.20240714234641.png">
+<br><br> inf(infimum): 하한, 주어진 범위에서의 최소값<br>
+*γ(감마): P와 Q사이의 가능한 모든 운송 계획, P의 질량을 Q로 옮기는 방법을 의미합니다.<br>
+E(기댓값): 주어진 결합 분포 γ에 대해, x와 y 사이의 거리에 대한 기대값을 의미합니다.<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>CLIP 학습 방법의 정의와 전반적인 개념 학습<br><br><br>
+CLIP: Contrastive Language–Image Pre-training
+<br>기존 SOTA<a data-href="1" href="1" class="internal-link" target="_self" rel="noopener">1</a>(<a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/#fn-1-e3f99f632f1087fe" target="_blank">https://kepler-dev-3141.github.io/#fn-1-e3f99f632f1087fe</a>)&nbsp;Computer vision 시스템은 ImageNet과 같이 crowd-labeled 데이터셋을 이용하여 학습합니다. 이것은 정해진 카테고리 내에서 예측하도록 학습합니다. 이러한 학습 방법은 기존 데이터셋에 없는 라벨을 분류하기 위해서는 추가적인 데이터가 필요하고, 이것은 일반성과 사용성을 해치는 단점이 있습니다.<br>
+자연어 처리 부분에서는 crowd-labeled 데이터셋을 사용하는 것 보다 웹 규모의 텍스트 모음을 사용하는 것이 좋은 결과를 가져온다는 선례가 있었습니다. 기존 SOTA Computer vision 시스템은 crowd-labeled 데이터셋을 사용하여 pre-training 하는 것이 일반적이었습니다. 이러한 방법을 Computer vision에도 적용하면 성능이 좋아지지 않을까 하며 만들어진 것이 CLIP입니다.<br><br><br>자연어를 supervision<a data-href="2" href="2" class="internal-link" target="_self" rel="noopener">2</a>(<a data-tooltip-position="top" aria-label="https://kepler-dev-3141.github.io/#fn-2-e3f99f632f1087fe)%EC%9C%BC%EB%A1%9C" rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/#fn-2-e3f99f632f1087fe)%EC%9C%BC%EB%A1%9C" target="_blank">https://kepler-dev-3141.github.io/#fn-2-e3f99f632f1087fe)으로</a> 사용하는 접근법입니다. 모델은 이미지와 자연어 문장을 한 쌍으로 학습하게 되며 이러한 접근법은 다음과 같은 장점을 가집니다.<br>
+<br>crowd-sourced labeling에 비해서 자연어 지도를 확장하는 것이 쉽다.
+<br>단순히 표현을 학습하는 것이 아니라 표현을 언어롸 연결시켜 zero-shot을 가능하도록 한다.
+<br><br>기존 연구에서는 주로 MS-COCO, Visual Genome, YFCC100M 세 가지 데이터셋을 사용 해 왔습니다. MS-COCO와 Visual Genome는 crowd-sorced labeling 된 데이터셋이지만, 각각 약 10만 개의 적은 수의 학습용 이미지를 가지고 있는 문제가 있었습니다. YFCC100M은 1억 개의 이미지로 구성되어 있지만 이미지의 메타데이터가 부족하고 데이터의 품질이 들쭉날쭉하다는 문제가 있었습니다. 이러한 문제로 기존 데이터셋을 이용하지 않고 인터넷에서 4억개의 이미지와 텍스트 쌍을 수집하여 새로운 데이터셋을 구축하였습니다.<br><br>(이미지, 텍스트)를 한 쌍으로 하는 N개의 배치에 대하여 CLIP은 N × N개의 가능한 경우에 대하여 예측하도록 학습됩니다. N개의 올바른 경우에 대해서는 이미지와 텍스트 임베딩의 코사인 유사성을 최대화하고, N² - N개의 잘못된 임베딩에 대해서는 최소화합니다. 유사성 점수는 Symmetric Cross Entropy Loss를 이용하여 최적화합니다. 학습 중 사용된 유일한 데이터 증강은 크기가 조정된 정사각형 자르기입니다.<br><img alt="team-blog-코딩황제들-2024-week1.세준1.png" src="lib\media\team-blog-코딩황제들-2024-week1.세준1.png"><br><br>이미지 인코더는 변형된<br>
+Gloabal Average Pooling을 Attention Pooling으로 대체한 ResNet-50과 임베딩에 Layer Normalization을 적용한 Vision Transformer 두 아키텍처를 고려하였습니다.<br>텍스트 인코더는 트랜스포머를 사용했습니다. 기본 크기로 6300만 매개변수의 12 레이어, 512폭의 모델을 8개의 attention head와 함께 사용했습니다. 트랜스포머는 49,152 크기의 소문자 바이트 페어 인코딩으로 텍스트를 처리합니다.<br><br>
+<br>유연하고 일반적<br>
+CLIP 모델은 zero-shot 방식으로 사용하도록 의도되었고 실제로도 작업에서 zero-shot으로 수행을 할 수 있다. 특히 ImageNet모델에서는 발생하지 않았던 OCR 학습이 일어났다.
+<br>자연어 이해<br>
+CLIP은 이미지와 자연어를 쌍으로 학습하여 텍스트 기반 이미지 검색 또는 이미지 분류를 할 수 있습니다.
+<br>구체적이나 복잡한 작업에서는 성능 저하<br>
+CLIP 모델은 일반적인 객체를 인식하는 부분에서는 좋은 성능을 보여주지만, 이미지에서 차량이 얼마나 가까운지, 자동차 또는 꽃 종류를 구분하는 작업에서는 성능이 좋지 못함을 보여주었다.
+<br>데이터 편향성<br>
+CLIP은 데이터를 인터넷에서 수집하여 학습하므로 사회적 편향을 학습하게 되는 문제가 있다.
+<br>이 글은 아래의 글들을 참고하여 작성되었습니다.<br><a rel="noopener" class="external-link" href="https://arxiv.org/abs/2103.00020" target="_blank">https://arxiv.org/abs/2103.00020</a><br><a rel="noopener" class="external-link" href="https://openai.com/index/clip/" target="_blank">https://openai.com/index/clip/</a><br><a data-tooltip-position="top" aria-label="https://velog.io/@conel77/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0-CLIP-Learning-Transferable-Visual-Models-From-Natural-Language-Supervision%EC%9E%91%EC%84%B1%EC%A4%91" rel="noopener" class="external-link" href="https://velog.io/@conel77/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0-CLIP-Learning-Transferable-Visual-Models-From-Natural-Language-Supervision%EC%9E%91%EC%84%B1%EC%A4%91" target="_blank">https://velog.io/@conel77/논문-리뷰-CLIP-Learning-Transferable-Visual-Models-From-Natural-Language-Supervision작성중</a><br><a rel="noopener" class="external-link" href="https://ffighting.net/deep-learning-paper-review/multimodal-model/clip/#3_CLIP" target="_blank">https://ffighting.net/deep-learning-paper-review/multimodal-model/clip/#3_CLIP</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>categorical cross entropy (CCE)에 대해 알아본다.<br><br>Categorical Cross Entropy : 분류해야할 클래스가 3개 이상인 멀티 클래스 분포에 사용하며 one-hot 형태이다.<br>
+정보량(놀람) : 확률과 반비례. 확률이 1이면 (0~1) 정보량은 0<br>​<br>cross entropy는 두 가지 확률 분포간의 차이를 나타낼 수 있다.<br><br>p는 실제 확률분포, q는 예측한 확률분포.<br>​Categorical Cross Entropy는 분류해야할 클래스가 3개 이상인 멀티 클래스 분포에 사용하며,<br>라벨이 one-hot 형태일 때 사용된다. ex) [1,0,0], [0,1,0], [0,0,1]<br>( 라벨이 정수 형태인 경우 Sparse_Catecorical Cross Entropy 사용. ex) [0, 1, 2, ... ] )<br><br>N은 훈련 샘플의 갯수, C는 클래수의 갯수<br>ont-hot 형태이기 때문에 정답에 가까워 질수록 0에 수렴한다.<br> 확률이 1이면 정보량은 0이기 때문에 때문<br>softmax 활성함수와 같이 쓰이는 경우가 많아 softmax activation function이라고도 불린다.<br>softmax : 로짓(점수)이 있는 벡터를 받아 합이 1인 확률을 가진 벡터를 출력<br>[출처] <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201/223512772098" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223512772098" target="_blank">Categorical Cross Entropy</a>|작성자 <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201" target="_blank">sws040201</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>Binary Cross-Entropy (BCE) Loss에 대한 개념을 학습한다.<br><br>Binary Cross-Entropy (BCE) Loss란?<br>
+이진 분류 문제에서 실제 클래스와 예측 확률 사이의 차이를 측정하는 손실 함수<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><img alt="team-blog-코딩황제들-2024-week1.모각코1일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week1.모각코1일차회의인증.png"><img alt="team-blog-코딩황제들-2024-week1.모각코1일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week1.모각코1일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\7월-14일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 14일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 15:39:51 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week1.20240714212929.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week1.20240714212929.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+ <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다.<br>회의방법<br>
+온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다.<br>팀원 블로그<br>
+박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
+신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/" target="_blank">https://blog.naver.com/sws040201/</a><br>
+김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br><br> Earth Mover's Distance (EMD) 개념을 바탕으로 wassertein distance 및 wassertein 손실함수에 대한 개념을 확실히 정립한다.<br><br><br>러시아 수학자 Leanid Vaserstein 의 이름을 딴 것으로 Roland Dobtushin 교수가 1970년에 확률론에 도입한 것이다.<br>
+<img alt="team-blog-코딩황제들-2024-week2.wasserstain공식.png" src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain공식.png"><br>
+GAN에서 discriminator가 학습도중에 잘 죽는 현상이 나타나는데, 이를 해결하고자 하는것이 wasserstain loss이다. 이는 wasserstein distance를 최소화시키는 것이 목표이다.<br>
+위식에서 위의 내용이 Wasserstein distance의 정의다.<br>여기에서 <img src="https://t1.daumcdn.net/cfile/tistory/9984A03359A4215B2E" referrerpolicy="no-referrer"> 는 두 확률분포 , P,Q의 결합확률분포(joint distribution)들을 모은 집합이고, 그 중에&nbsp;<br><img src="https://t1.daumcdn.net/cfile/tistory/991E073359A4217412" referrerpolicy="no-referrer">는 그 중 하나입니다. 즉 모든 결합확률분포&nbsp;<img src="https://t1.daumcdn.net/cfile/tistory/9951703359A4218E22" referrerpolicy="no-referrer">&nbsp;중에서 d(x,y)의 기댓값을 가장 작게 추정한 값을 의미합니다. <br>즉 두 확률분포의 연관성을 측정하여 그 거리의 기대값이 가장 작을때의 distance를 wasserstein distance라고 얘기를 합니다. <br><br>주변 확률 분포 P와 Q:<br>
+<br>
+P와 Q는 각각 X와 Y의 주변 확률 분포입니다.
+
+<br>
+주변 확률 분포는 각각의 확률 변수가 따르는 분포의 모양을 나타냅니다.
+
+<br>
+예를 들어, P와 Q가 모두 정규 분포라면, X와 Y는 각각 정규 분포를 따릅니다.<br>
+결합 확률 분포 γ:
+
+<br>
+γ는 X와 Y의 결합 확률 분포로, w에 따라 샘플링된 X와 Y의 쌍의 분포를 나타냅니다.
+
+<br>
+결합 확률 분포는 두 확률 변수 간의 관계(의존성)를 나타냅니다.
+
+<br>
+다양한 γ는 서로 다른 X와 Y의 결합 방식을 의미합니다.
+
+<br><br><img alt="team-blog-코딩황제들-2024-week2.wasserstain설명1.png" src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain설명1.png"><br>표본 공간에서 w를 하나 샘플링 하면 X(w)와 Y(w)를 뽑을 수 있고 이때 두 점 간의 거리 d(X(w),Y(w)) 역시 계산 할수 있다.<br><br><img alt="team-blog-코딩황제들-2024-week2.wasserstain설명2.png" src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain설명2.png"><br>샘플링을 계속 할수록 (X, Y)의 결합 확률 분포 γ의 윤곽이 나오게 더불어서 (P, Q)는 γ의 주변확률분포가 됩니다.<br><br><img alt="team-blog-코딩황제들-2024-week2.wasserstain설명3.png" src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain설명3.png"><br>
+이때 γ가 두 확률변수 X, Y의 연관성을 어떻게 측정하느냐에 따라 d(X, Y)의 분포가 달라지게 됩니다.<br><br><img alt="team-blog-코딩황제들-2024-week2.wasserstain설명4.png" src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain설명4.png"><br>
+주의할 점은 P와 Q는 바뀌지 않기 때문에 각 X와 Y 가 분포하는 모양은 변하지 않습니다. 다만 w에 따라 뽑히는 경향이 달라질 뿐이다.<br><br>
+<br>
+P와 Q:
+
+<br>X는 정규 분포 P를 따릅니다.
+<br>Y는 균등 분포 Q를 따릅니다.
+
+
+<br>
+결합 확률 분포 γ1​:
+
+<br>γ1​에서는 X가 클 때 Y도 클 확률이 높습니다.
+<br>즉, ω가 큰 값을 가질 때 X(ω)와 Y(ω) 모두 큰 값을 가질 경향이 있습니다.
+
+
+<br>
+결합 확률 분포 γ2​:<br>
+- γ2​에서는 X가 클 때 Y가 작을 확률이 높습니다.<br>
+- 즉, ω가 큰 값을 가질 때 X(ω)는 큰 값을, Y(ω)는 작은 값을 가질 경향이 있습니다.<br>
+요약
+
+<br>
+변하지 않는 것:
+
+<br>P와 Q의 모양(즉, X와 Y의 분포)은 변하지 않습니다.
+<br>X는 항상 정규 분포를 따르고, Y는 항상 균등 분포를 따릅니다.
+
+
+<br>
+변하는 것:
+
+<br>γ에 따라 X와 Y가 뽑히는 경향이 달라집니다.
+<br>즉, 두 변수 X와 Y의 결합 관계(의존성)가 달라집니다.
+
+
+<br><br><img alt="team-blog-코딩황제들-2024-week2.wasserstain설명5.png" src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain설명5.png"><br>
+Wasserstein distance 는 이렇게 여러가지 γ중에서 d(X, Y) 의 기댓값이 가장 작게 나오는 확률분포를 취하게 된다.<br>그래서 Wasserstein GAN은 이 Wasserstein distance를 이용해서 GAN의 문제를 푸는 것이다.<br><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>Diffusion Model의 간단한 정의와 학습 방법에 대해 알아보기<br><br><br>Diffusion Model이란 입력 이미지에 여러 단계로 노이즈를 가하고, 거꾸로 노이즈를 없애는 방향으로 학습을 하여 입력 이미지와 비슷한 이미지를 생성하는 모델입니다. Diffusion Model은 기존 모델이 가지고 있는 tractability와 flexibility의 trade-off 관계를 해결하기 위해 만들어졌습니다. tractable하다는 것은 분석적으로 평가할 수 있고 잘 설명할 수 있다는 것 이고 flexible하다는 것은 많은 데이터에 대해 설명할 수 있다는 것을 말합니다.<br>논문 저자들이 제안한 새로운 확률 모델의 특징은 아래와 같습니다.<br>
+<br>모델 구조의 극단적인 유연성
+<br>정확한 샘플링
+<br>다른 분포와의 쉬운 곱셈
+<br>모델 로그 가능도와 개별 상태의 확률을 저렴하게 평가할 수 있음
+<br><br><br><img alt="team-blog-코딩황제들-2024-week2.세준1.png" src="lib\media\team-blog-코딩황제들-2024-week2.세준1.png"><br>
+Forward Diffusion 과정은 원본 이미지 X0에서 점차 노이즈를 가해 최종적으로는 완전한 노이즈 이미지인 XT가 되게 됩니다.<br><br><img alt="team-blog-코딩황제들-2024-week2.세준2.png" src="lib\media\team-blog-코딩황제들-2024-week2.세준2.png"><br>
+Forward Diffusion 과정은 노이즈 이미지 XT로부터 노이즈를 점차 제거해 나가 X0가 되게 됩니다.<br><br><a rel="noopener" class="external-link" href="https://proceedings.mlr.press/v37/sohl-dickstein15.html" target="_blank">https://proceedings.mlr.press/v37/sohl-dickstein15.html</a><br>
+<a rel="noopener" class="external-link" href="https://aigong.tistory.com/569" target="_blank">https://aigong.tistory.com/569</a><br>
+<a rel="noopener" class="external-link" href="https://ffighting.net/deep-learning-paper-review/diffusion-model/diffusion-model-basic/" target="_blank">https://ffighting.net/deep-learning-paper-review/diffusion-model/diffusion-model-basic/</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>sparse_categorical cross entropy (CCE)에 대해 알아본다.<br><br>Sparse_Categorical Cross Entropy : 라벨이 정수 형태로 주어지는 CCE이다.<br>​라벨이 정수 형태인 경우 Sparse_Categorical Cross Entropy를 사용한다. ex) [0, 1, 2, ... ]<br><br>yj는\ 훈련\ 샘플의\ 라벨,\ \ qyj는\ \ 예측한\ \ 클래스\ \ yj에\ \ 대한\ \ 확률<br>모델 학습 과정<br>​입력 데이터가 모델을 통해 전달되어 각 클래스에 대한 예측 확률을 출력한다. 이때 주로 softmax 활성화 함수를 사용하여 예측 확률을 계산한다.<br>CCE 손실 함수를 사용하여 예측 확률과 실제 레이블 간의 차이를 측정한다.<br>손실 함수의 미분값(그래디언트)을 계산하여 모델의 가중치를 업데이트하여 예측을 더 정확하게 만들 수 있다.<br>[출처] <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201/223520799869" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223520799869" target="_blank">Sparse_Categorical Cross Entropy (7/21)</a>|작성자 <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201" target="_blank">sws040201</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>BCELoss, BCEWithLogitsLoss, CrossEntropyLoss function에 대해 알아본다.<br><br>BCELoss 크로스 엔트로피 손실 함수는 정보 이론에서 크로스 엔트로피 개념을 기계 학습에 적용한 것이다. 이 함수는 두 확률 분포 간의 차이를 측정하는 방법으로, BCE 손실 함수는 크로스 엔트로피 손실 함수를 이진 분류 문제에 적용한 형태이다.<br><br>BCELoss는 모델의 구조 상에 마지막 Layer가 Sigmoid 혹은 Softmax로 되어 있는 경우 이를 사용한다. 즉, 모델의 출력이 각 라벨에 대한 확률값으로 구성되었을 때 사용이 가능하다. ''' torch.nn.BCELoss(weight=None, size_average=None, reduce=None, reduction='mean') '''<br>''' import torch import torch.nn as nn m = nn.Sigmoid() loss = nn.BCELoss() input = torch.randn(3, 2, requires_grad=True) target = torch.rand(3, 2) output = loss(m(input), target) output.backward() '''<br>BCEWithLogitsLoss ''' torch.nn.BCEWithLogitsLoss(weight=None, size_average=None, reduce=None, reduction='mean', pos_weight=None) '''<br>BCEWithLogitsLoss는 이름에서도 유추해볼 수 있듯 BCELoss를 위 과정에서 확률값(Logits)으로 변환하지 않더라도 계산되는 것을 의미한다. 기본적인 BCE 손실 함수는 모델의 출력이 시그모이드 함수를 통과한 확률 값이어야 한다. 그러나 이 경우수치적 불안정성(시그모이드 함수의 출력은 0과 1 사이의 값이기 때문에, 극단적인 값(예: 매우 큰 음수나 양수)에 대해 수치적으로 불안정할 수 있다.) 효율성 문제(시그모이드 함수와 BCE 손실 함수를 따로 적용하면 계산 비용이 증가할 수 있다.)가 존재할 수 있다<br>따라서 BCEWithLogitsLoss는 시그모이드 활성화 함수를 적용한 후 BCE 손실을 계산하는 과정을 하나의 함수로 처리한다. 내부적으로 시그모이드 함수를 적용하고 BCE 손실을 계산하므로, 더 안정적이고 효율적이다.<br><br>여기서:<br>
+<br>( N )은 샘플의 수
+<br>( y_i )는 실제 레이블 (0 또는 1)
+<br>( z_i )는 모델의 출력(로그 확률)
+<br>( \sigma(z) )는 시그모이드 함수로, (\sigma(z) = \frac{1}{1 + e^{-z}} )
+<br>CrossEntropyLoss ''' torch.nn.CrossEntropyLoss(weight=None, size_average=None, ignore_index=-100, reduce=None, reduction='mean', label_smoothing=0.0) ''' weight:<br>타입: Tensor, 선택 사항 설명: 각 클래스에 대한 가중치를 지정할 수 있습니다. 클래스 불균형 문제를 해결하기 위해 사용됩니다. None으로 설정하면 모든 클래스에 동일한 가중치가 적용됩니다. size_average:<br>타입: bool, 선택 사항 (기본값: None) 설명: 이 파라미터는 더 이상 사용되지 않습니다. reduction 파라미터로 대체되었습니다. True로 설정하면 손실이 평균화되고, False로 설정하면 합산됩니다. ignore_index:<br>타입: int, 선택 사항 설명: 특정 클래스 인덱스를 무시할 수 있습니다. 주로 시퀀스 모델링에서 패딩 토큰을 무시하는 데 사용됩니다. 기본값은 -100입니다. reduce:<br>타입: bool, 선택 사항 (기본값: None) 설명: 이 파라미터도 더 이상 사용되지 않습니다. reduction 파라미터로 대체되었습니다. True로 설정하면 손실이 축소되고, False로 설정하면 축소되지 않습니다. reduction:<br>타입: str, 선택 사항 설명: 손실 결과를 어떻게 축소할지를 정의합니다. 세 가지 옵션이 있습니다: 'none': 손실을 축소하지 않고 각 샘플에 대한 손실을 반환합니다. 'mean': 손실을 평균화합니다. (size_average=True와 동일) 'sum': 손실을 합산합니다. (reduce=False와 동일) label_smoothing:<br>타입: float, 선택 사항 설명: 라벨 스무딩을 적용합니다. label_smoothing 값을 [0, 1] 사이로 설정하면, 라벨을 약간의 확률로 스무딩합니다. 이는 모델이 과도하게 확신하는 것을 방지하고 일반화 성능을 향상시킬 수 있습니다. 기본값은 0.0입니다.<br>이전에 다룬 BCELoss와 BCEWithLogitsLoss는 Binary Classification을 위한 손실 함수다. 반면에 CrossEntropyLoss는 다중 분류를 위한 손실 함수다. 예를 들어, 라벨이 5개라고 한다면 입력은 각 라벨에 대한 확률값을 표현하고, 정답 라벨은 라벨 값 혹은 라벨에 대한 확률값으로 표현할 수 있다. 소프트맥스 활성화 함수와 크로스 엔트로피 손실을 결합한 함수로 예측 값과 실제 값 간의 차이를 직관적으로 표현할 수 있지만, 확률이 매우 작은 경우, 로그 함수로 인해 수치적 불안정성이 발생할 수 있고, 클래스가 불균형한 경우 성능이 저하될 수 있습니다. 이 문제를 해결하기 위해 가중치 조정 등을 사용할 수 있다.<br><br>여기서:<br>
+<br>( N )은 샘플의 수
+<br>( C )는 클래스의 수
+<br>( y_{ic} )는 실제 레이블의 원-핫 인코딩 (실제 레이블이 ( c ) 클래스일 때 1, 그렇지 않으면 0)
+<br>( p_{ic} )는 모델이 샘플 ( i )에 대해 클래스 ( c )일 확률로 예측한 값 (소프트맥스 함수의 출력)
+<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><img alt="team-blog-코딩황제들-2024-week2.모각코2일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week2.모각코2일차회의인증.png"><br><img alt="team-blog-코딩황제들-2024-week2.모각코2일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week2.모각코2일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\7월-21일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 21일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 15:39:38 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week2.wasserstain공식.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain공식.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+ <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다.<br>회의방법<br>
+온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다. <br>팀원 블로그<br>
+박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
+신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/" target="_blank">https://blog.naver.com/sws040201/</a><br>
+김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br><br>Wasserstein Loss를 사용한 GAN 예제 코드를 작성해보면서 이를 통해 GAN의 기본 개념과 WGAN의 작동 방식을 이해해본다<br><br>이 WGAN 예제는 단순히 1차원 정규 분포 데이터를 생성자와 판별자가 학습하도록 설계를 하였습니다.<br><a data-tooltip-position="top" aria-label="https://colab.research.google.com/drive/1aHY4LrJE3tFZJ_ZwJFUZ5qGxkTtHY0fG#scrollTo=wex4SWI7G0qU&amp;uniqifier=1" rel="noopener" class="external-link" href="https://colab.research.google.com/drive/1aHY4LrJE3tFZJ_ZwJFUZ5qGxkTtHY0fG#scrollTo=wex4SWI7G0qU&amp;uniqifier=1" target="_blank">WGAN  example.ipynb - Colab (google.com)</a><br>
+<br>
+
+
+<br>
+<br>
+라이브러리 임포트:
+
+<br>numpy와 tensorflow 라이브러리를 임포트합니다.
+
+
+<br>
+Wasserstein 손실 함수 정의:
+
+<br>wasserstein_loss(y_true, y_pred): 실제 값과 예측 값의 곱의 평균을 계산하는 손실 함수입니다.
+
+
+<br>
+생성자 모델 정의:
+
+<br>build_generator(): 단순한 두 개의 Dense 레이어로 구성된 생성자 모델입니다.
+<br>첫 번째 레이어는 16개의 노드를 사용하고, 두 번째 레이어는 단일 값을 출력합니다.
+
+
+<br>
+판별자 모델 정의:
+
+<br>build_discriminator(): 단순한 두 개의 Dense 레이어로 구성된 판별자 모델입니다.
+<br>첫 번째 레이어는 16개의 노드를 사용하고, 두 번째 레이어는 단일 값을 출력합니다.
+
+
+<br>
+데이터 생성 함수:
+
+<br>generate_real_data(samples): 지정된 샘플 수만큼 1차원 정규 분포 데이터를 생성합니다.
+
+
+<br>
+훈련 함수:
+
+<br>train(generator, discriminator, epochs, batch_size, latent_dim): 생성자와 판별자를 훈련시키는 함수입니다.
+<br>각 에포크마다 판별자를 훈련시키고, 그 다음 생성자를 훈련시킵니다.
+
+
+<br>
+파라미터 설정:
+
+<br>latent_dim: 잠재 공간의 차원
+<br>samples: 전체 샘플 수
+<br>batch_size: 배치 크기
+<br>epochs: 학습 에포크 수
+
+
+<br>
+모델 빌드 및 컴파일:
+
+<br>생성자와 판별자 모델을 빌드하고, RMSprop 옵티마이저와 함께 wasserstein_loss 손실 함수를 사용하여 컴파일합니다.
+
+
+<br>
+GAN 모델 빌드 및 컴파일:
+
+<br>판별자의 가중치를 동결하고, 생성자와 판별자를 결합하여 GAN 모델을 빌드합니다.
+<br>결합된 모델을 RMSprop 옵티마이저와 함께 wasserstein_loss 손실 함수를 사용하여 컴파일합니다.
+
+
+<br>
+모델 훈련:
+
+<br>train(generator, discriminator, epochs, batch_size, latent_dim): GAN 모델을 훈련합니다.
+
+
+<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>Diffusion Model에 대해 추가적으로 알아보기<br><br><img alt="team-blog-코딩황제들-2024-week3.세준1.png" src="lib\media\team-blog-코딩황제들-2024-week3.세준1.png"><br><br>Reverse process는&nbsp;로부터&nbsp;으로 복원하는 과정을 말한다.&nbsp;&nbsp;랜덤 노이즈로부터 데이터를 생성하는 모델로 사용되기 때문에 필수적이지만 이것을 실제로 알아내기는 쉽지 않다. 따라서&nbsp;를 활용해서 근사화한다. 이 근사화 과정은 Gaussian transition을 활용한 Markov chain의 형태를 가진다.<br>노이즈&nbsp;에서 원래 데이터&nbsp;로 Reverse process를 통해 가는 공동 확률 분포를 나타낸다.<br>
+<br>: 시간 단계&nbsp;에서 데이터의 사전 분포.
+<br>: 역과정의 각 단계&nbsp;에서&nbsp;에서&nbsp;로 가는 조건부 확률 분포를 나타낸다.
+<br>이 수식은 각 역과정 단계의 조건부 확률 분포의 형태를 지정한다. 역과정은 가우시안 분포로 모델링된다.<br>
+<br>: 가우시안 분포의 평균으로, 현재 상태&nbsp;와 시간 단계&nbsp;의 함수이다.
+<br>: 가우시안 분포의 공분산 행렬로, 현재 상태&nbsp;​와 시간 단계&nbsp;의 함수이다.
+<br>위 식에서, 각 단계의 정규 분포의 평균&nbsp;와 표준편차&nbsp;는 학습되어야 하는 파라미터이다. 시작지점의 노이즈 분포는 표준정규분포로 정의한다.<br><br>&nbsp;Forward process&nbsp;q는 data()으로부터 noise를 더해가면서 최종 노이즈() 형태로 가는 과정이다.<br>
+Reverse process의 학습을 Forward process의 정보를 활용해서 하기 때문에 이 과정의 분포를 알아야 한다. data에 Gaussian noise를 조금씩 더하는 Markov chain의 형태를 가진다.<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>softmax에 대해 알아본다.<br><br>logit은 log odds를 뜻한다. odds는 얻을 확률과 잃을 확률의 비 라고 생각하면 된다.<br>odds에서 얻을 확률을 y라고 하면 잃을 확률은 1-y가 된다.<br>Classes : C1, C2<br>P(C1|X) : y, P(C2|X) : 1-y<br>​​<br>​신경망(Neural Network, NN)을 생각할 때, 출력층의 값 z를 계산하는 방식은<br><br>θ는 신경망의 가중치이고, x는 입력 값이다. 범위는 -∞&lt;z&lt;∞ 이다.<br>log(odds)또한 odds에 로그를 취한 것이므로 범위는 같다.<br>​logit과 z의 범위가 같으니 logit을 z로 두고 식을 전개한다.<br>z&nbsp;=&nbsp;log(y1−y​),&nbsp;ez=(y1−y​)​<br>y&nbsp;=&nbsp;ez1+ez​​<br>이 식은 sigmoid 함수와 동일하다. 여기서 e^-z를 분모와 분자에 곱해주면 같아진다.<br>따라서 sigmoid와 logit은 역함수 관계임을 알 수 있다.<br>​​<br>​softmax는 sigmoid 함수를 다중 클래스 분류로 일반화하면 유도할 수 있다.<br>[출처] <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201/223533552641" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223533552641" target="_blank">8/01</a>|작성자 <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201" target="_blank">sws040201</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>Binary Cross-Entropy (BCE) Loss의 수학적으로 이해해본다.<br><br>Binary Cross-Entropy (BCE) Loss의 수식을 수학적으로 설명하겠습니다. BCE Loss는 이진 분류 문제에서 모델의 예측 확률과 실제 라벨 간의 차이를 측정하는 손실 함수입니다. 이를 통해 모델의 성능을 평가하고, 최적화할 수 있습니다.<br>BCE Loss:<br><br>
+<br>( L )은 손실 함수의 값
+<br>( N )은 총 샘플 수
+<br>( y_i )는 i번째 샘플의 실제 라벨(이진 분류 문제에서는 0 또는 1)
+<br>( p_i )는 i번째 샘플이 클래스 1일 확률로 모델이 예측한 값 (0과 1 사이의 값)
+<br>
+<br>로그항 (( log(p_i) )와 ( log(1 - p_i) )):
+
+<br>로그는 정보 이론에서 엔트로피를 계산할 때 사용됩니다. 여기서 로그를 사용하는 이유는 예측 확률이 낮을 때 페널티를 크게 주기 위함입니다.
+<br>( \log(p_i) ): 모델이 클래스 1일 확률을 예측한 값에 로그를 취한다.
+<br>( \log(1 - p_i) ): 모델이 클래스 0일 확률을 예측한 값에 로그를 취합니다.
+
+
+<br>( p_i )가 1에 가까워질수록 ( \log(p_i) )는 0에 가까워지고, ( p_i )가 0에 가까워질수록 ( \log(p_i) )는 음의 무한대로 커진다. 로그 함수를 사용하면 예측 확률이 낮을 때 손실 값이 급격히 커지게 된다. 이는 모델이 잘못된 예측을 할 경우 큰 페널티를 부과하여, 모델이 더 정확한 예측을 하도록 유도한다.<br>
+<br>실제 라벨 (( y_i ))에 따른 조건부 손실:
+
+<br>( y_i = 1 )일 때, 손실 항목은 ( \log(p_i) )가 된다. 이는 모델이 클래스 1일 확률을 얼마나 잘 예측했는지를 나타낸다.
+<br>( y_i = 0 )일 때, 손실 항목은 ( \log(1 - p_i) )가 된다. 이는 모델이 클래스 0일 확률을 얼마나 잘 예측했는지를 나타낸다.
+
+
+<br>전체 손실 계산:
+
+<br>는 i번째 샘플의 손실을 계산한다.
+<br>각 샘플의 손실을 모두 더한 후, ( N )으로 나누어 평균 손실을 구한다. 이는 샘플 수에 관계없이 일관된 손실 값을 제공한다.
+
+
+<br>부호:
+
+<br>확률p가 0.5보다 작으면 로그 값은 음수가 되기 때문에 해석하기 어려워질 수 있고, 해석이 일관되게 하기 위해서, BCE Loss는 로그 값의 음수를 취하여 손실 값을 양수로 만든다. ( 손실 값을 양수로 만들기 위해 전체에 -1을 곱합니다.)
+
+
+<br>BCE Loss는 모델이 예측한 확률 ( p_i )와 실제 라벨 ( y_i ) 간의 차이를 로그 함수와 결합하여 측정하며, 이를 통해 모델이 얼마나 잘 예측하는지를 평가한다. 이 손실 함수를 최소화함으로써 모델의 성능을 최적화할 수 있다.<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><img alt="team-blog-코딩황제들-2024-week3.모각코3일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week3.모각코3일차회의인증.png"><br>
+<img alt="team-blog-코딩황제들-2024-week3.모각코3일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week3.모각코3일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\7월-28일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 28일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 15:40:00 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week3.세준1.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week3.세준1.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+ <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다. 더불어 energy-based model에대해서 알아본다.<br>회의방법<br>
+온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다. <br>팀원 블로그<br>
+박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
+신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/" target="_blank">https://blog.naver.com/sws040201/</a><br>
+김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br><br>Wasserstein Loss를 사용한 GAN 예제 코드와 Binary Cross-Entropy (BCE) Loss를 사용한 GAN 예제코드를 작성해보면서 BCE-loss의 기울기 소실 문제와 모드 붕괴 문제의 해결책이 될 수 있는지 직접 알아본다.<br><br><a data-tooltip-position="top" aria-label="file:///C:/Users/home/Documents/GitHub/mogacko/docs/lib/notebooks/compare%20to%20GAN%20with%20BCE%20to%20with%20WSTN/GAN%20TEST%20WITH%20THE%20DIFF%20LOSS.ipynb" rel="noopener" class="external-link" href="file:\\C:\\Users\home\Documents\GitHub\mogacko\docs\lib\notebooks\compare to GAN with BCE to with WSTN\GAN TEST WITH THE DIFF LOSS.ipynb" target="_blank">Compare GAN with BCE to with Wasser</a><br>간단한 1차원데이터(숫자)를 랜덤으로 생성을 하여 진행하였습니다.<br><br><img alt="team-blog-코딩황제들-2024-week4.BCELOSSlossgraph.png" src="lib\media\team-blog-코딩황제들-2024-week4.bcelosslossgraph.png"><br>
+<img alt="team-blog-코딩황제들-2024-week4.BCELOSSgradientgraph.png" src="lib\media\team-blog-코딩황제들-2024-week4.bcelossgradientgraph.png"><br><br>
+<br>
+Discriminator Loss: 판별자의 손실은 초기에는 약간의 변동을 보이다가 이후 안정화되는 경향을 보입니다. 하지만 전반적인 감소 추세가 뚜렷하지 않고, 일정한 범위 내에서 변동이 반복됩니다.
+
+<br>
+Generator Loss: 생성자의 손실은 초기에는 감소하는 경향을 보이다가 이후 증가하는 경향을 보입니다. 이는 생성자가 학습이 진행될수록 판별자를 속이는 능력이 감소하고 있음을 나타낼 수 있습니다.
+
+<br><br>
+<br>Gradient Mean: 그래디언트 평균이 초기에는 음수에서 시작해 점차 증가하는 경향을 보입니다. 이는 기울기 소실 문제는 발생하지 않지만, 그래디언트가 매우 작거나 큰 값을 가질 수 있다는 것을 나타냅니다.
+<br><br><br>
+<br>판별자와 생성자의 손실이 모두 안정적으로 감소하지 않는 점이 주목됩니다. 특히 생성자의 손실이 후반부에 증가하는 경향은 기울기 소실 문제로 인해 생성자의 학습이 제대로 이루어지지 않고 있음을 나타낼 수 있습니다.
+<br>손실이 감소하지 않고 변동이 계속되는 것은 모델이 최적화 과정에서 어려움을 겪고 있음을 의미할 수 있습니다.
+<br><br>
+<br>그래디언트의 평균이 증가하는 경향을 보이지만, 초기에는 매우 작은 값을 가지다가 점차 커지는 패턴을 보입니다. 이는 기울기 소실 문제는 발생하지 않지만, 그래디언트가 안정적이지 않다는 것을 나타냅니다.
+<br>그래디언트의 큰 변동은 모델 학습 과정에서 불안정성을 초래할 수 있습니다.
+<br><br><img alt="team-blog-코딩황제들-2024-week4.WASSERSTAINLOSSlossgraph.png" src="lib\media\team-blog-코딩황제들-2024-week4.wasserstainlosslossgraph.png"><br>
+<img alt="team-blog-코딩황제들-2024-week4.WASSERSTAINLOSSgradientgraph.png" src="lib\media\team-blog-코딩황제들-2024-week4.wasserstainlossgradientgraph.png"><br>
+* GP란?<br>
+GP는 Gradient Penalty로 모델 학습 중 기울기의 크기를 일정하게 유지하도록 강제하는 방법입니다. 이를 통해 기울기 소실 문제를 완화하고, 생성자와 판별자가 더 안정적으로 학습할 수 있게 합니다. Gradient Penalty는 실제 데이터와 생성된 데이터 사이의 보간(interpolation) 데이터를 사용하여 계산됩니다. 보간 데이터에서 기울기를 계산하고, 이 기울기가 1에 가깝도록 제약을 가합니다.*<br><br>
+<br>Discriminator Loss: 전반적으로 감소하는 추세를 보이지만, 중간중간 변동이 있습니다. 이는 훈련 중 판별자가 생성자의 학습에 따라 변동하는 정상적인 현상일 수 있습니다.
+<br>Generator Loss: 초기에는 거의 변동이 없지만, 점차 감소하는 추세를 보입니다. 이는 생성자가 판별자를 속이는 능력을 점차 향상시키고 있다는 것을 나타냅니다.
+<br><br>
+<br>Gradient Mean: 그래디언트 평균이 0에 가까운 값을 유지하다가 중간에 급격히 증가했다가 다시 감소하는 패턴을 보입니다. 이는 기울기 소실 문제를 해결했음을 나타낼 수 있습니다. WGAN-GP에서 그래디언트 페널티를 사용하여 기울기의 크기를 일정하게 유지하려는 목적에 부합합니다.
+<br><br><br>
+<br>생성자와 판별자 손실 모두 전반적으로 감소하는 추세를 보이는 것은 모델이 잘 학습되고 있다는 신호입니다.
+<br>판별자 손실의 변동은 생성자가 점차 더 현실적인 데이터를 생성함에 따라 판별자가 적응하고 있다는 것을 나타낼 수 있습니다.
+<br><br>
+<br>그래디언트 평균이 0에 가까운 값을 유지하고 있는 것은 좋은 신호입니다. 이는 기울기 소실 문제를 피하고 있음을 나타냅니다.
+<br>그래디언트의 변동은 모델 학습 중 발생할 수 있는 정상적인 현상입니다.
+<br><br>
+<br>WGAN-GP 모델이 기울기 소실 문제를 효과적으로 해결하고 있으며, 생성자와 판별자가 균형 있게 학습되고 있음을 나타냅니다.
+<br>기울기 소실 문제를 해결하기 위한 Gradient Penalty가 잘 작동하고 있음을 그래디언트 평균의 변동을 통해 확인할 수 있습니다.
+<br>BCE 손실을 사용하는 GAN은 기울기 소실 문제를 겪고 있지 않을 수 있지만, 학습 과정에서 안정적으로 최적화되지 않고 있음을 알 수 있습니다.
+<br>WGAN-GP와 비교했을 때, BCE 손실을 사용하는 GAN은 생성자와 판별자의 손실이 안정적으로 감소하지 않으며, 그래디언트도 안정적이지 않습니다.
+<br>이는 WGAN-GP가 기울기 소실 문제와 모델 학습의 안정성 측면에서 더 우수하다는 것을 보여줍니다.
+<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>EBGAN(Energy-Based GAN)의 개념 알기<br><br><br>기존 GAN은 Generator는 가짜 데이터를 생성하고 Discriminator는 Generator가 생성한 데이터와 진짜 데이터를 구별해가며 Discriminator가 진짜와 가짜를 구별할 수 없을 정도로 Generator잘 학습시키는 것이다.<br><img alt="team-blog-코딩황제들-2024-week4.세준1.png" src="lib\media\team-blog-코딩황제들-2024-week4.세준1.png"><br>
+Energy-model + Generative Adversarial Network = Energy-based Adversarial Network
+<br>기존 GAN과 Energy-based model을 결합한 것이 EBGAN이고, GAN과 Auto-Encoder를 결합한 구조이다.<br><img alt="team-blog-코딩황제들-2024-week4.세준2.png" src="lib\media\team-blog-코딩황제들-2024-week4.세준2.png"><br><br>Discriminator의 Loss는 진짜 데이터&nbsp;를 Discriminator에 통과시킨 값과 hinge loss로 정의된&nbsp;를 더한 값이다. 양수&nbsp;보다&nbsp;가 작은 경우에 대해서만 hinge loss가 양수가 됩니다.<br>
+Generator의 Loss는 Generator가 노이즈&nbsp;로부터 생성한 가짜 데이터를 Discriminator에 통과시켜 나온 값이다.<br><img alt="team-blog-코딩황제들-2024-week4.세준3.png" src="lib\media\team-blog-코딩황제들-2024-week4.세준3.png"><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>softmax에 대해 알아본다.<br><br>sigmoid를 다중 클래스 분류로 일반화하여 softmax를 유도해봤다.<br>softmax는 sigmoid 함수를 다중 클래스 분류로 일반화하면 유도할 수 있다.<br><br>클래스가 k개 일때로 일반화 하면<br><br>양변을 i=1부터 k-1까지 더하면<br><br><br><br>​​​<br>odds를 일반화 한 식에서 P(Ci|X)에 대해 정리하면<br><br><br>i 대신 k를 넣으면 1이므로<br><br>이를 이용하면 softmax가 된다.<br>**<br>​[출처] <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201/223537751754" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223537751754" target="_blank">sigmoid, softmax (8/05)</a>| 작성자 <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201" target="_blank">sws040201</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>Energy-Based Model (EBM)에 대해 알아본다.<br><br>Energy-Based Model (EBM) Energy-Based Model은 데이터 x의 에너지를 계산하여 확률 분포를 모델링하는 방식의 생성 모델이다. 확률을 에너지 함수로 표현하고, 이 에너지를 최소화하는 데이터를 더 높은 확률로 간주하는 것.<br>데이터의 에너지 (Energy of Data) 에너지 기반 모델(Energy-Based Model, EBM)에서 “에너지”는 데이터 x가 특정 상태에 있을 때의 “비용” 또는 “불일치”를 나타내는 값이다. 에너지가 낮을수록 해당 데이터가 모델이 예상하는 더 가능성 있는 상태를 나타냅니다. 즉, 에너지가 낮은 데이터는 모델에 의해 더 높은 확률로 간주됩니다. 에너지 함수 (Energy Function) 에너지 함수 E(x)는 주어진 데이터 x의 에너지를 계산하는 함수입니다. 이 함수는 데이터 x와 모델 파라미터 θ를 입력으로 받아 에너지 값을 출력합니다. 에너지 함수는 모델의 학습 과정에서 중요한 역할을 하며, 데이터의 패턴이나 구조를 반영하도록 설계됩니다.<br>Energy-Based Models (EBMs)의 학습 목적은 주어진 데이터 분포를 잘 모델링하고, 이를 통해 새로운 데이터를 생성하거나, 주어진 데이터의 패턴과 구조를 이해하는 것입니다. 에너지 함수 정의:<br>데이터 𝑥 에 대한 에너지 함수 𝐸(𝑥: 𝜃) 를 정의 이 함수는 모델의 파라미터 𝜃를 포함, 데이터의 패턴과 구조를 반영<br>데이터는 모델이 학습할 분포를 대표할 수 있어야한다.<br>에너지 함수 최적화: 에너지 함수의 파라미터 θ를 최적화하여, 낮은 에너지를 가지는 데이터가 높은 확률을 갖도록 이 과정에서 손실 함수(Loss Function)를 정의하고, 이를 최소화하는 방향으로 파라미터를 업데이트<br>정규화 상수 근사: 정규화 상수 (Z)는 직접 계산하기 어려운 경우가 많아, Markov Chain Monte Carlo (MCMC)와 같은 샘플링 기법을 사용하여 근사 모델의 확률 분포를 정규화<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><img alt="team-blog-코딩황제들-2024-week4.모각코4일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week4.모각코4일차회의인증.png"><br>
+<img alt="team-blog-코딩황제들-2024-week4.모각코4일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week4.모각코4일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\8월-4일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 4일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 15:40:05 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week4.bcelosslossgraph.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week4.bcelosslossgraph.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
  <br><br>energy-based model, 특히 energy-based GAN에 대해 알아보기 및 대조학습코드 구현 <br>회의방법<br>
 온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다. <br>팀원 블로그<br>
 박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
 신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/" target="_blank">https://blog.naver.com/sws040201/</a><br>
-김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br><br><br><br>Energy-Based Model에 대한 기본개념과 볼츠만 분포에대해 알아본다. 또한 볼츠만 분포에서 온도가 시스템의 상태에 미치는 영향을 알아본다.<br><br><br>머신러닝 모델 중 하나로, 주어진 입력 데이터에 대해 "에너지"라는 값을 할당합니다. 이 에너지는 어떤 상태나 결과가 얼마나 "좋은지" 또는 "가능한지"를 나타냅니다. EBM은 에너지가 낮은 상태를 찾아내는 것이 목표입니다.<br>
+김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br><br>Energy-Based Model에 대한 기본개념과 볼츠만 분포에대해 알아본다. 또한 볼츠만 분포에서 온도가 시스템의 상태에 미치는 영향을 알아본다.<br><br><br>머신러닝 모델 중 하나로, 주어진 입력 데이터에 대해 "에너지"라는 값을 할당합니다. 이 에너지는 어떤 상태나 결과가 얼마나 "좋은지" 또는 "가능한지"를 나타냅니다. EBM은 에너지가 낮은 상태를 찾아내는 것이 목표입니다.<br>
 <br>낮은 에너지: 좋은 상태나 가능성이 높은 결과.
 <br>높은 에너지: 나쁜 상태나 가능성이 낮은 결과.<br>
 EX)<br>
@@ -14,7 +302,7 @@ EX)<br>
 <br>: 상태 의 에너지
 <br>: 온도
 <br>: 정규화 상수 (모든 상태의 확률 합이 1이 되도록 조정하는 역할)
-<br>이 수식은 온도가 높을수록 더 다양한 상태가 가능하지만, 온도가 낮아질수록 에너지가 낮은 상태만 가능해진다는 것을 보여줍니다.<br><br>*온도가 높을 때: 시스템은 다양한 상태(높은 에너지, 낮은 에너지 모두)를 가질 수 있습니다. 즉, 다양한 상태들이 나타날 가능성이 있습니다. 왜냐하면 온도가 높을수록 분자들이 더 활발하게 움직입니다. 이것은 시스템이 높은 에너지를 가진 상태를 포함한 다양한 상태를 쉽게 탐색할 수 있다는 의미입니다.*<br>*장점: 모델이 다양한 상태(높은에너지와 낮은 에너지를 모두 포함)를 살펴보면서 더나은 전역 최솟값을 찾을 가능성을 높힌다.<br>단점: 안정적인 상태에 수렴하지 못하고 불안정한 상태를 유지할 수있다.<br>*온도가 낮을때:  시스템은 주로 에너지가 낮은 상태에 머무르게 됩니다. 즉, 안정적인 상태만을 나타내는 경향이 강해집니다. 왜냐하면 분자들이 덜 활발하게 움직이기 때문에 이것은 시스템이 에너지가 낮은 상태에 머무르는 경향이 강해진다는 의미입니다.*<br>*장점: 시스템에너지가 낮은 즉 안정적인 상태를 더 잘찾아내게 된다.<br>단점: 너무 낮은 온도에서는 시스템이 현재상태에 갇힐수 있어서 더 나은 상태를 탐색하지 못할수가 있다.<br>결론적으로 적절한 온도 조절이 필요하며, 보통 탐색 초기에는 높은 온도로 시작하고, 점차 온도를 낮춰가며 에너지가 낮은 최적 상태를 찾아가는 방식이 효과적입니다.<br><br><br>EBGAN을 MNIST Dataset에 대하여 구현해보며 이해하기<br><br>MNIST Dataset에 대하여 GAN이 구현된 코드를 이용하여 EBGAN을 구현해 보았다. 원본 코드가 있는 블로그의 URL을 기재하려고 했으나 블로그가 닫혀 기재하지 못했다. Discriminator model을 Auto Encoder으로 수정하였고 network가 업데이트 되는 부분을 수정하였다. 하지만 숫자 이미지를 잘 생성하지 못하고 노이즈 데이터를 생성하였다.<br><br>import torch
+<br>이 수식은 온도가 높을수록 더 다양한 상태가 가능하지만, 온도가 낮아질수록 에너지가 낮은 상태만 가능해진다는 것을 보여줍니다.<br><br>*온도가 높을 때: 시스템은 다양한 상태(높은 에너지, 낮은 에너지 모두)를 가질 수 있습니다. 즉, 다양한 상태들이 나타날 가능성이 있습니다. 왜냐하면 온도가 높을수록 분자들이 더 활발하게 움직입니다. 이것은 시스템이 높은 에너지를 가진 상태를 포함한 다양한 상태를 쉽게 탐색할 수 있다는 의미입니다.*<br>*장점: 모델이 다양한 상태(높은에너지와 낮은 에너지를 모두 포함)를 살펴보면서 더나은 전역 최솟값을 찾을 가능성을 높힌다.<br>단점: 안정적인 상태에 수렴하지 못하고 불안정한 상태를 유지할 수있다.<br>*온도가 낮을때:  시스템은 주로 에너지가 낮은 상태에 머무르게 됩니다. 즉, 안정적인 상태만을 나타내는 경향이 강해집니다. 왜냐하면 분자들이 덜 활발하게 움직이기 때문에 이것은 시스템이 에너지가 낮은 상태에 머무르는 경향이 강해진다는 의미입니다.*<br>*장점: 시스템에너지가 낮은 즉 안정적인 상태를 더 잘찾아내게 된다.<br>단점: 너무 낮은 온도에서는 시스템이 현재상태에 갇힐수 있어서 더 나은 상태를 탐색하지 못할수가 있다.<br>결론적으로 적절한 온도 조절이 필요하며, 보통 탐색 초기에는 높은 온도로 시작하고, 점차 온도를 낮춰가며 에너지가 낮은 최적 상태를 찾아가는 방식이 효과적입니다.<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>EBGAN을 MNIST Dataset에 대하여 구현해보며 이해하기<br><br>MNIST Dataset에 대하여 GAN이 구현된 코드를 이용하여 EBGAN을 구현해 보았다. 원본 코드가 있는 블로그의 URL을 기재하려고 했으나 블로그가 닫혀 기재하지 못했다. Discriminator model을 Auto Encoder으로 수정하였고 network가 업데이트 되는 부분을 수정하였다. 하지만 숫자 이미지를 잘 생성하지 못하고 노이즈 데이터를 생성하였다.<br><br>import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
@@ -163,7 +451,7 @@ print('\nElapsed time : {}s'.format(elapsed_time))
   
 torch.save(G.state_dict(), '/content/drive/MyDrive/BasicML/EBGAN_G_mnist_model.pt')
 torch.save(D.state_dict(), '/content/drive/MyDrive/BasicML/EBGAN_D_mnist_model.pt')
-Copy<br><br>아래는 50번째 Epoch의 image 생성 결과이다.<br><img alt="Pasted image 20240819221325.png" src="https://kepler-dev-3141.github.io/pasted-image-20240819221325.png" referrerpolicy="no-referrer"><br><br><br>energy based model에 대해 알아본다.<br><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ<br>energy-based model (EBM)은 스칼라 값 함수인 에너지 함수이다.<br>F(x,y)에서 x는 관측 변수이고, y는 예측해야 할 변수이다.<br>여기서 y를 생성하는게 아니고 x와 y를 주면 이 둘이 서로 호환되는지 아닌지를 알려준다.<br>y가 x와 호환될수록 F(x,y)는 낮은 값을, 호환되지 않을수록 F(x,y)는 높은 값을 가진다.<br>데이터에서 나오는 좋은 샘플에 낮은 에너지를 주고, 그 외엔 높은 에너지를 준다.<br>추론 과정은 어떤 지점에서 시작하여 가까운 에너지가 없는 지점을 찾아가는 것이다.<br>​<br>학습은 대조방법과 정규화/구조화 방법 두 가지가 존재한다.<br>대조방법은 모델이 학습 과정에서 데이터 샘플을 보고,<br>이러한 샘플의 에너지를 낮추기 위해(모델이 이 데이터를 더 잘 맞추도록) 에너지 값을 줄이는 방향으로 매개변수를 조정한다.<br>모델이 데이터 샘플의 에너지를 낮추기 위해, 경사하강법을 사용해 에너지 함수의 매개변수를 업데이트한다.<br>경사하강법은 에너지 함수의 기울기(gradient)를 계산해, 매개변수가 그 기울기 방향으로 이동하면서 에너지를 최소화하도록 한다.<br>데이터 매니폴드는 실제 데이터가 존재하는 공간을 나타낸다.<br>대조방법에서는 매니폴드의 "측면"에 있는 에너지가 더 높아야 한다고 말하는데, 이는 매니폴드(실제 데이터)에 가까운 데이터는 낮은 에너지를,<br>매니폴드 바깥에 있는 데이터(비현실적인 데이터)는 높은 에너지를 가지도록 학습해야 한다는 의미이다<br>대조학습의 성능은 어떤 샘플이 부정적인 샘플(에너지를 높여야 하는 샘플)인지 찾는 방법에 크게 좌우된다.<br>부정적인 대조샘플을 찾는 과정이 고차원 공간에서는 매우 어려워지고, 이 때문에 대조방법이 비효율적이 될 수 있다.<br>[출처] <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201/223541476039" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223541476039" target="_blank">energy based model (8/08)</a>|작성자 <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201" target="_blank">sws040201</a><br><br><br>EBM에 대해 알아본다<br><br><br>에너지 기반 모델(EBM, Energy-Based Model)은 머신러닝과 통계물리학의 중요한 개념을 바탕으로 한 모델. EBM의 핵심 아이디어는 뉴럴 네트워크가 어떤 스칼라 값을 출력하고, 이 값이 볼츠만 분포(Boltzmann distribution: 해당 상태의 에너지와 온도의 함수로 특정 상태 에 있을 확률을 제공 하는 확률 분포 )를 따르는 방식으로 로스를 정의한다는 점이다.<br><br>범용성 EBM은 특정 모델 구조에 국한되지 않고 다양한 모델에 적용할 수 있습니다. 오토인코더(AE), 정규 흐름(NF) 등 다양한 머신러닝 모델과 조합하여 사용할 수 있다. loss 의 형태가 중요하기 때문에 모델 설계의 유연성이 높다.<br>다양한 트레이닝 방식 Positive/Negative 에너지 그라디언트: 긍정/부정 에너지의 차이를 줄이는 방식으로 트레이닝이 가능하다. Positive/Partition 함수: 볼츠만 분포의 정의를 사용하여 직접 학습하는 방식이다. Score Matching: 데이터의 기울기를 맞추는 방식으로 트레이닝을 수행할 수 있다.<br>이러한 다양한 학습 방식은 EBM의 트레이닝을 상황에 맞게 최적화할 수 있게 해준다.<br>샘플 생성의 용이성 EBM을 사용하면 샘플 생성이 비교적 용이하다. 해밀토니안 몬테카를로(HMC)나 랑주뱅 다이내믹스(Langevin dynamics)와 같은 방법을 통해 효과적으로 샘플을 생성할 수 있다. 이로 인해 모델이 데이터 분포를 잘 학습하고 새로운 데이터를 생성할 수 있는 능력이 향상된다.<br>에너지 기반 해석 가능성 모델의 출력 값을 에너지로 해석할 수 있으므로, 모델의 동작을 이해하고 설명하는 데 용이하다. 이는 모델의 투명성과 신뢰성을 높이는 데 기여한다.<br>확률 분포 학습 EBM은 데이터의 확률 분포를 직접 학습할 수 있다. 복잡한 데이터 분포를 효과적으로 모델링할 수 있게 해주며, 생성 모델로서의 성능을 강화한다.<br>불확실성 평가 EBM은 모델 출력의 에너지 값을 통해 불확실성을 평가할 수 있다. 모델이 예측할 때 어느 정도의 신뢰도를 갖는지 평가할 수 있게 해준다.<br>트레이닝 안정성 다양한 트레이닝 방법을 통해 모델의 안정성을 높일 수 있으며, 에너지 기반 그라디언트 방법은 안정적인 학습을 가능하게 한다. 기존 모델과의 통합<br>EBM은 기존의 딥러닝 모델과 통합하여 성능을 향상시킬 수 있습니다. 이는 EBM이 다양한 애플리케이션에 적용될 수 있는 중요한 이유 중 하나입니다.<br><br>높은 계산 비용 에너지 기반 모델의 학습과 샘플링 과정은 계산 비용이 매우 높을 수 있다. 특히 해밀토니안 몬테카를로(HMC)나 랑주뱅 다이내믹스(Langevin dynamics)와 같은 샘플링 기법은 많은 계산 자원을 요구한다.<br>해밀토니안 몬테카를로 (Hamiltonian Monte Carlo, HMC)
+Copy<br><br>아래는 50번째 Epoch의 image 생성 결과이다.<br><img alt="team-blog-코딩황제들-2024-week5.세준1.png" src="lib\media\team-blog-코딩황제들-2024-week5.세준1.png"><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>energy based model에 대해 알아본다.<br><br>energy-based model (EBM)은 스칼라 값 함수인 에너지 함수이다.<br>F(x,y)에서 x는 관측 변수이고, y는 예측해야 할 변수이다.<br>여기서 y를 생성하는게 아니고 x와 y를 주면 이 둘이 서로 호환되는지 아닌지를 알려준다.<br>y가 x와 호환될수록 F(x,y)는 낮은 값을, 호환되지 않을수록 F(x,y)는 높은 값을 가진다.<br>데이터에서 나오는 좋은 샘플에 낮은 에너지를 주고, 그 외엔 높은 에너지를 준다.<br>추론 과정은 어떤 지점에서 시작하여 가까운 에너지가 없는 지점을 찾아가는 것이다.<br>​학습은 대조방법과 정규화/구조화 방법 두 가지가 존재한다.<br>대조방법은 모델이 학습 과정에서 데이터 샘플을 보고,<br>이러한 샘플의 에너지를 낮추기 위해(모델이 이 데이터를 더 잘 맞추도록) 에너지 값을 줄이는 방향으로 매개변수를 조정한다.<br>모델이 데이터 샘플의 에너지를 낮추기 위해, 경사하강법을 사용해 에너지 함수의 매개변수를 업데이트한다.<br>경사하강법은 에너지 함수의 기울기(gradient)를 계산해, 매개변수가 그 기울기 방향으로 이동하면서 에너지를 최소화하도록 한다.<br>데이터 매니폴드는 실제 데이터가 존재하는 공간을 나타낸다.<br>대조방법에서는 매니폴드의 "측면"에 있는 에너지가 더 높아야 한다고 말하는데, 이는 매니폴드(실제 데이터)에 가까운 데이터는 낮은 에너지를,<br>매니폴드 바깥에 있는 데이터(비현실적인 데이터)는 높은 에너지를 가지도록 학습해야 한다는 의미이다<br>대조학습의 성능은 어떤 샘플이 부정적인 샘플(에너지를 높여야 하는 샘플)인지 찾는 방법에 크게 좌우된다.<br>부정적인 대조샘플을 찾는 과정이 고차원 공간에서는 매우 어려워지고, 이 때문에 대조방법이 비효율적이 될 수 있다.<br>[출처] <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201/223541476039" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223541476039" target="_blank">energy based model (8/08)</a>|작성자 <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201" target="_blank">sws040201</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>EBM에 대해 알아본다<br><br><br>에너지 기반 모델(EBM, Energy-Based Model)은 머신러닝과 통계물리학의 중요한 개념을 바탕으로 한 모델. EBM의 핵심 아이디어는 뉴럴 네트워크가 어떤 스칼라 값을 출력하고, 이 값이 볼츠만 분포(Boltzmann distribution: 해당 상태의 에너지와 온도의 함수로 특정 상태 에 있을 확률을 제공 하는 확률 분포 )를 따르는 방식으로 로스를 정의한다는 점이다.<br><br>범용성 EBM은 특정 모델 구조에 국한되지 않고 다양한 모델에 적용할 수 있습니다. 오토인코더(AE), 정규 흐름(NF) 등 다양한 머신러닝 모델과 조합하여 사용할 수 있다. loss 의 형태가 중요하기 때문에 모델 설계의 유연성이 높다.<br>다양한 트레이닝 방식 Positive/Negative 에너지 그라디언트: 긍정/부정 에너지의 차이를 줄이는 방식으로 트레이닝이 가능하다. Positive/Partition 함수: 볼츠만 분포의 정의를 사용하여 직접 학습하는 방식이다. Score Matching: 데이터의 기울기를 맞추는 방식으로 트레이닝을 수행할 수 있다.<br>이러한 다양한 학습 방식은 EBM의 트레이닝을 상황에 맞게 최적화할 수 있게 해준다.<br>샘플 생성의 용이성 EBM을 사용하면 샘플 생성이 비교적 용이하다. 해밀토니안 몬테카를로(HMC)나 랑주뱅 다이내믹스(Langevin dynamics)와 같은 방법을 통해 효과적으로 샘플을 생성할 수 있다. 이로 인해 모델이 데이터 분포를 잘 학습하고 새로운 데이터를 생성할 수 있는 능력이 향상된다.<br>에너지 기반 해석 가능성 모델의 출력 값을 에너지로 해석할 수 있으므로, 모델의 동작을 이해하고 설명하는 데 용이하다. 이는 모델의 투명성과 신뢰성을 높이는 데 기여한다.<br>확률 분포 학습 EBM은 데이터의 확률 분포를 직접 학습할 수 있다. 복잡한 데이터 분포를 효과적으로 모델링할 수 있게 해주며, 생성 모델로서의 성능을 강화한다.<br>불확실성 평가 EBM은 모델 출력의 에너지 값을 통해 불확실성을 평가할 수 있다. 모델이 예측할 때 어느 정도의 신뢰도를 갖는지 평가할 수 있게 해준다.<br>트레이닝 안정성 다양한 트레이닝 방법을 통해 모델의 안정성을 높일 수 있으며, 에너지 기반 그라디언트 방법은 안정적인 학습을 가능하게 한다. 기존 모델과의 통합<br>EBM은 기존의 딥러닝 모델과 통합하여 성능을 향상시킬 수 있습니다. 이는 EBM이 다양한 애플리케이션에 적용될 수 있는 중요한 이유 중 하나입니다.<br><br>높은 계산 비용 에너지 기반 모델의 학습과 샘플링 과정은 계산 비용이 매우 높을 수 있다. 특히 해밀토니안 몬테카를로(HMC)나 랑주뱅 다이내믹스(Langevin dynamics)와 같은 샘플링 기법은 많은 계산 자원을 요구한다.<br>해밀토니안 몬테카를로 (Hamiltonian Monte Carlo, HMC)
 물리학의 해밀토니안 역학(Hamiltonian dynamics)을 기반으로 한 마코프 체인 몬테카를로(MCMC) 방법. 
 고차원 확률 분포의 샘플링을 개선하기 위해 설계되었다.
 장점
@@ -198,13 +486,13 @@ Leapfrog 통합: 해밀토니안 역학을 따라 잠재 변수와 대상 변수
 
 HMC는 해밀토니안 역학을 활용하여 고차원 분포에서 효율적으로 샘플링할 수 있지만, 구현과 조정이 어려울 수 있다.
 Langevin dynamics는 구현이 비교적 쉬운 대신 고차원에서의 샘플링 효율이 떨어질 수 있다.
-Copy<br>학습의 어려움 에너지 함수의 최적화를 위한 학습 과정은 복잡하고 까다로울 수 있습니다. 특히, 학습 과정에서 발생하는 수렴 문제나 에너지 경사 하강법의 불안정성은 모델 학습을 어렵게 할 수 있다.<br>정규화 상수 계산의 어려움 에너지 기반 모델에서 정규화 상수(Z)를 계산하는 것은 매우 어려운 문제이다. 이 상수는 분포를 정상화하는 데 필요하지만, 고차원 공간에서는 계산이 거의 불가능할 수 있다.<br>모델 평가의 복잡성 에너지 기반 모델의 성능을 평가하는 것은 다른 모델에 비해 더 복잡할 수 있다. 에너지 함수의 값만으로는 모델의 품질을 직관적으로 평가하기 어려울 수 있다.<br>샘플링의 어려움 샘플링 과정이 복잡하고 시간이 많이 소요될 수 있다. 특히 고차원 데이터에서는 효율적인 샘플링이 어려워질 수 있다.<br>해석의 어려움 에너지 함수의 형태나 모델의 구조가 복잡한 경우, 모델의 동작을 해석하고 이해하는 것이 어려울 수 있다. 이는 모델의 투명성과 설명 가능성을 저하시킬 수 있다.<br>하이퍼파라미터 튜닝의 복잡성 EBM은 여러 하이퍼파라미터를 가지고 있으며, 이들의 적절한 값을 찾는 것이 까다로울 수 있다. 잘못된 하이퍼파라미터 설정은 모델의 성능에 큰 영향을 미칠 수 있다.<br>학습 데이터의 의존성 EBM은 충분한 양의 고품질 학습 데이터가 필요하다. 데이터가 부족하거나 품질이 낮은 경우, 모델의 성능이 크게 저하될 수 있다. 이러한 단점들은 EBM을 실제로 적용할 때 고려해야 할 중요한 요소들이다. 모델의 강점을 최대한 활용하면서도 단점을 보완하는 방법을 찾는 것이 성공적인 EBM 응용의 핵심이다.<br><br><img alt="team-blog-코딩황제들-2024-week5.모각코5일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week5.모각코5일차회의인증.png"><br>
-<img alt="team-blog-코딩황제들-2024-week5.모각코5일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week5.모각코5일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\8월-11일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 11일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 15:03:37 GMT</pubDate><enclosure url="https://kepler-dev-3141.github.io/pasted-image-20240819221325.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="https://kepler-dev-3141.github.io/pasted-image-20240819221325.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+Copy<br>학습의 어려움 에너지 함수의 최적화를 위한 학습 과정은 복잡하고 까다로울 수 있습니다. 특히, 학습 과정에서 발생하는 수렴 문제나 에너지 경사 하강법의 불안정성은 모델 학습을 어렵게 할 수 있다.<br>정규화 상수 계산의 어려움 에너지 기반 모델에서 정규화 상수(Z)를 계산하는 것은 매우 어려운 문제이다. 이 상수는 분포를 정상화하는 데 필요하지만, 고차원 공간에서는 계산이 거의 불가능할 수 있다.<br>모델 평가의 복잡성 에너지 기반 모델의 성능을 평가하는 것은 다른 모델에 비해 더 복잡할 수 있다. 에너지 함수의 값만으로는 모델의 품질을 직관적으로 평가하기 어려울 수 있다.<br>샘플링의 어려움 샘플링 과정이 복잡하고 시간이 많이 소요될 수 있다. 특히 고차원 데이터에서는 효율적인 샘플링이 어려워질 수 있다.<br>해석의 어려움 에너지 함수의 형태나 모델의 구조가 복잡한 경우, 모델의 동작을 해석하고 이해하는 것이 어려울 수 있다. 이는 모델의 투명성과 설명 가능성을 저하시킬 수 있다.<br>하이퍼파라미터 튜닝의 복잡성 EBM은 여러 하이퍼파라미터를 가지고 있으며, 이들의 적절한 값을 찾는 것이 까다로울 수 있다. 잘못된 하이퍼파라미터 설정은 모델의 성능에 큰 영향을 미칠 수 있다.<br>학습 데이터의 의존성 EBM은 충분한 양의 고품질 학습 데이터가 필요하다. 데이터가 부족하거나 품질이 낮은 경우, 모델의 성능이 크게 저하될 수 있다. 이러한 단점들은 EBM을 실제로 적용할 때 고려해야 할 중요한 요소들이다. 모델의 강점을 최대한 활용하면서도 단점을 보완하는 방법을 찾는 것이 성공적인 EBM 응용의 핵심이다.<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><img alt="team-blog-코딩황제들-2024-week5.모각코5일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week5.모각코5일차회의인증.png"><br>
+<img alt="team-blog-코딩황제들-2024-week5.모각코5일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week5.모각코5일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\8월-11일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 11일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 15:40:15 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week5.세준1.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week5.세준1.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
  <br><br>energy-based model, 특히 energy-based GAN에 대해 알아보기 및 대조학습코드 구현 <br>회의방법<br>
 온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다. <br>팀원 블로그<br>
 박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
 신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/" target="_blank">https://blog.naver.com/sws040201/</a><br>
-김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br><br><br><br>에너지 기반 GAN(Energy-Based Generative Adversarial Network, EBGAN)에 대해 알아본다.<br><br><br>*전통적인 GAN모델의 변형으로, 에너지 기반 모델(EBM)의 개념을 도입하여 GAN의 판별자(Discriminator)를 재설계한 모델입니다. EBGAN은 전통적인 GAN보다 더 안정적이고 유연한 학습을 가능하게 하기 위해 제안되었습니다.<br><br>
+김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br><br>에너지 기반 GAN(Energy-Based Generative Adversarial Network, EBGAN)에 대해 알아본다.<br><br><br>*전통적인 GAN모델의 변형으로, 에너지 기반 모델(EBM)의 개념을 도입하여 GAN의 판별자(Discriminator)를 재설계한 모델입니다. EBGAN은 전통적인 GAN보다 더 안정적이고 유연한 학습을 가능하게 하기 위해 제안되었습니다.<br><br>
 <br>생성자(Generator): 랜덤한 노이즈 벡터를 입력으로 받아, 이로부터 현실적인 데이터를 생성하는 네트워크입니다.
 <br>판별자(Discriminator): 입력 데이터가 실제(real) 데이터인지 생성된(fake) 데이터인지 구분하는 네트워크입니다.
 <br>GAN의 목표는 생성자가 점점 더 현실적인 데이터를 생성하도록 학습하는 것입니다. 생성자가 만든 데이터가 실제 데이터를 닮아가면서, 판별자는 점점 더 어려운 구별 문제를 해결해야 하므로 두 네트워크가 서로 경쟁하면서 발전합니다.
@@ -224,7 +512,7 @@ Copy<br>학습의 어려움 에너지 함수의 최적화를 위한 학습 과�
 <br>이미지 생성: 현실적인 이미지를 생성하는 데 사용할 수 있습니다. 특히, 고해상도 이미지 생성이나 다양한 스타일의 이미지 생성에 효과적일 수 있습니다.
 <br>비디오 생성: 비디오의 연속적인 프레임을 생성할 때, 각 프레임이 이전 프레임과의 연속성을 가지면서도 개별적으로 현실적인 에너지를 가지도록 학습할 수 있습니다.
 <br>자연어 처리: 텍스트 생성에서도 EBGAN을 응용하여 더 자연스러운 문장을 생성하는 데 사용될 수 있습니다.
-<br><br><br>저번에 구현해 본 EBGAN이 왜 잘 되지 않았는지 분석하기<br><br>Github에서 EBGAN이 구현된 코드를 실행해보고 내가 구현한 코드와 어떻게 다른지 분석해보기로 하였다.<br>
+<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>저번에 구현해 본 EBGAN이 왜 잘 되지 않았는지 분석하기<br><br>Github에서 EBGAN이 구현된 코드를 실행해보고 내가 구현한 코드와 어떻게 다른지 분석해보기로 하였다.<br>
 <a rel="noopener" class="external-link" href="https://github.com/znxlwm/pytorch-generative-model-collections" target="_blank">https://github.com/znxlwm/pytorch-generative-model-collections</a><br>
 Github에 있는 코드는 Colab에서 작동되도록 구현되지 않았고 결과를 실시간으로 볼 수 없어서 코드를 수정하였다.<br>import torch, time, os, pickle
 import numpy as np
@@ -485,7 +773,8 @@ Copy<br>class EBGAN(object):
         plt.show()
 Copy<br>gan = EBGAN()
 gan.train()
-Copy<br>Github에 있는 코드를 실행한 경우 아래와 같이 결과가 잘 나왔다. 50번째 Epoch의 결과이다.<br><img alt="Pasted image 20240819230630.png" src="https://kepler-dev-3141.github.io/pasted-image-20240819230630.png" referrerpolicy="no-referrer"><br>저번에 내가 짠 코드와 어떤 부분이 다른지 비교해본 결과 network를 업데이트 하는 부분에서는 차이가 거의 없었다. Generator의 Loss를 구할 때 PT를 계산하여 과적합을 막는 부분에서 차이가 있었지만 이 부분은 제거하고 테스트 해 본 결과 이 부분 때문에 문제가 생긴 것 같지는 않았다. 모델을 설계하는 부분에서 차이가 있었다. 이 부분을 좀 더 공부해 봐야 할 것 같다.<br><br><br>EBGAN을 이해하고 코드를 돌려본다.<br><br>EBGAN의 loss를 구하는 식을 알게 되었다.<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ<br><br><br>DAE​(x): 입력 데이터 x에 대해 Autoencoder 기반 판별자가 계산한 에너지 또는 손실이다.<br>DAE​(G(z)): 생성된 데이터 G(z)에 대해 Autoencoder 기반 판별자가 계산한 에너지 또는 손실이다.<br>m: 마진(margin) 값으로, 에너지 기반 판별자의 판단을 더 명확하게 만들어주는 임계값이다. 판별자가 원본 데이터와 생성된 데이터의 에너지를 구분하는 데 사용된다.<br>max(0,m−DAE​(G(z))): 생성된 데이터의 에너지가 마진 m보다 낮을 때만 손실에 기여하게 하며, 이를 통해 판별자가 생성된 데이터를 구분하도록 유도한다.<br>​<br><br><br>DAE​(G(z)): 생성자가 생성한 데이터 G(z)에 대한 판별자의 에너지이다. 생성자는 이 에너지를 최소화하려고 시도한다.<br>λ⋅PT: 여기서 PT는 Pulling Term으로, 생성된 데이터 분포가 실제 데이터 분포와 유사하게 만들기 위한 추가적인 제약이나 규제이다.<br>λ는 이 항목의 중요성을 조정하는 하이퍼파라미터이다.<br>​<br>[출처] <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201/223553540153" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223553540153" target="_blank">EBM (8/18)</a>|작성자 <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201" target="_blank">sws040201</a><br><br><br>대조학습코드를 구현해본다.<br><br>대조 학습에서 주로 사용되는 방식 중 긍정(positive) 쌍과 부정(negative) 쌍을 구분하여 손실을 계산 ‘’’ import torch import torch.nn as nn import torch.nn.functional as F import torch.optim as optim<br><br>class SimpleContrastiveModel(nn.Module): def&nbsp;init(self, embedding_dim=128): super(SimpleContrastiveModel, self).init() # CNN 기반 인코더 정의: 입력 이미지를 임베딩 벡터로 변환 self.encoder = nn.Sequential( nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1), # 1번째 레이어 (3 -&gt; 64) nn.ReLU(), # 활성화 함수 ReLU nn.MaxPool2d(kernel_size=2, stride=2), # 풀링 레이어 nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1), # 2번째 레이어 (64 -&gt; 128) nn.ReLU(), # 활성화 함수 ReLU nn.MaxPool2d(kernel_size=2, stride=2), # 풀링 레이어 nn.Flatten(), # 출력 데이터를 1차원 벡터로 변환 nn.Linear(128  8  8, embedding_dim) # 완전 연결 레이어, 임베딩 차원으로 변환 )<br>def forward(self, x):
+Copy<br>Github에 있는 코드를 실행한 경우 아래와 같이 결과가 잘 나왔다. 50번째 Epoch의 결과이다.<br><img alt="team-blog-코딩황제들-2024-week6.세준1.png" src="lib\media\team-blog-코딩황제들-2024-week6.세준1.png"><br>저번에 내가 짠 코드와 어떤 부분이 다른지 비교해본 결과 network를 업데이트 하는 부분에서는 차이가 거의 없었다. Generator의 Loss를 구할 때 PT를 계산하여 과적합을 막는 부분에서 차이가 있었지만 이 부분은 제거하고 테스트 해 본 결과 이 부분 때문에 문제가 생긴 것 같지는 않았다. 모델을 설계하는 부분에서 차이가 있었다. 이 부분을 좀 더 공부해 봐야 할 것 같다.<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>EBGAN을 이해하고 코드를 돌려본다.<br><br>EBGAN의 loss를 구하는 식을 알게 되었다.<br><br><br>DAE​(x): 입력 데이터 x에 대해 Autoencoder 기반 판별자가 계산한 에너지 또는 손실이다.<br>DAE​(G(z)): 생성된 데이터 G(z)에 대해 Autoencoder 기반 판별자가 계산한 에너지 또는 손실이다.<br>m: 마진(margin) 값으로, 에너지 기반 판별자의 판단을 더 명확하게 만들어주는 임계값이다. 판별자가 원본 데이터와 생성된 데이터의 에너지를 구분하는 데 사용된다.<br>max(0,m−DAE​(G(z))): 생성된 데이터의 에너지가 마진 m보다 낮을 때만 손실에 기여하게 하며, 이를 통해 판별자가 생성된 데이터를 구분하도록 유도한다.<br>​<br><br><br>DAE​(G(z)): 생성자가 생성한 데이터 G(z)에 대한 판별자의 에너지이다. 생성자는 이 에너지를 최소화하려고 시도한다.<br>λ⋅PT: 여기서 PT는 Pulling Term으로, 생성된 데이터 분포가 실제 데이터 분포와 유사하게 만들기 위한 추가적인 제약이나 규제이다.<br>λ는 이 항목의 중요성을 조정하는 하이퍼파라미터이다.<br>​<br>
+[출처] <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201/223553540153" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223553540153" target="_blank">EBM (8/18)</a>|작성자 <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201" target="_blank">sws040201</a><br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><br>대조학습코드를 구현해본다.<br><br>대조 학습에서 주로 사용되는 방식 중 긍정(positive) 쌍과 부정(negative) 쌍을 구분하여 손실을 계산 ‘’’ import torch import torch.nn as nn import torch.nn.functional as F import torch.optim as optim<br><br>class SimpleContrastiveModel(nn.Module): def&nbsp;init(self, embedding_dim=128): super(SimpleContrastiveModel, self).init() # CNN 기반 인코더 정의: 입력 이미지를 임베딩 벡터로 변환 self.encoder = nn.Sequential( nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1), # 1번째 레이어 (3 -&gt; 64) nn.ReLU(), # 활성화 함수 ReLU nn.MaxPool2d(kernel_size=2, stride=2), # 풀링 레이어 nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1), # 2번째 레이어 (64 -&gt; 128) nn.ReLU(), # 활성화 함수 ReLU nn.MaxPool2d(kernel_size=2, stride=2), # 풀링 레이어 nn.Flatten(), # 출력 데이터를 1차원 벡터로 변환 nn.Linear(128  8  8, embedding_dim) # 완전 연결 레이어, 임베딩 차원으로 변환 )<br>def forward(self, x):
     # 입력 이미지 x를 임베딩 벡터로 변환하고 정규화
     return F.normalize(self.encoder(x), dim=-1)
 Copy<br><br>def contrastive_loss(out1, out2, label): # 코사인 유사도 계산: 두 임베딩 벡터 간의 유사도 측정 cosine_similarity = F.cosine_similarity(out1, out2) # BCEWithLogitsLoss를 사용하여 대조 학습 손실 계산 bce_loss = nn.BCEWithLogitsLoss() # 코사인 유사도와 실제 lable을 사용하여 손실 계산 loss = bce_loss(cosine_similarity, label) return lossine_similarity, label) return loss<br><br>model = SimpleContrastiveModel(embedding_dim=128)<br><br>optimizer = optim.Adam(model.parameters(), lr=0.001)<br><br>batch_size = 16 x1 = torch.randn(batch_size, 3, 32, 32) x2 = torch.randn(batch_size, 3, 32, 32)<br>labels = torch.randint(0, 2, (batch_size,)).float() # 1: 같은 클래스, 0: 다른 클래스<br><br>out1 = model(x1) out2 = model(x2)<br><br>loss = contrastive_loss(out1, out2, labels)<br><br>optimizer.zero_grad() loss.backward() optimizer.step()<br>print(f’Loss: {loss.item()}’) ‘’’ ————————————————————————————————– ‘’’ import torch import torch.nn as nn import torch.optim as optim<br><br><br>model = SimpleContrastiveModel(embedding_dim=128)<br><br>optimizer = optim.Adam(model.parameters(), lr=0.001)<br><br>batch_size = 16 x1_train = torch.randn(batch_size, 3, 32, 32) x2_train = torch.randn(batch_size, 3, 32, 32) train_labels = torch.randint(0, 2, (batch_size,)).float()<br><br>x1_test = torch.randn(8, 3, 32, 32) x2_test = torch.randn(8, 3, 32, 32) test_labels = torch.randint(0, 2, (8,)).float()<br><br>num_epochs = 10 for epoch in range(num_epochs): # 모델 출력 계산 out1_train = model(x1_train) out2_train = model(x2_train)<br># 대조 학습 손실 계산
@@ -512,302 +801,15 @@ print(f'Test Accuracy: {accuracy.item() * 100:.2f}%')
 print("Cosine Similarity and Labels:")
 for i in range(len(test_labels)):
     print(f"Sample {i+1}: Cosine Similarity = {cosine_similarity_test[i].item():.4f}, Label = {test_labels[i].item()}, Prediction = {predictions[i].item()}")
-Copy<br>’’’ Epoch [1/10], Loss: 0.8842123746871948 Epoch [2/10], Loss: 0.9274642467498779 Epoch [3/10], Loss: 0.9250276684761047 Epoch [4/10], Loss: 0.9145865440368652 Epoch [5/10], Loss: 0.866182267665863 Epoch [6/10], Loss: 0.5781313180923462 Epoch [7/10], Loss: 0.557551383972168 Epoch [8/10], Loss: 0.5832924842834473 Epoch [9/10], Loss: 0.41409537196159363 Epoch [10/10], Loss: 0.4382629096508026 Test Accuracy: 12.50% Cosine Similarity and Labels: Sample 1: Cosine Similarity = 0.7111, Label = 0.0, Prediction = 1.0 Sample 2: Cosine Similarity = 0.7042, Label = 0.0, Prediction = 1.0 Sample 3: Cosine Similarity = 0.7109, Label = 0.0, Prediction = 1.0 Sample 4: Cosine Similarity = 0.7049, Label = 0.0, Prediction = 1.0 Sample 5: Cosine Similarity = 0.7111, Label = 1.0, Prediction = 1.0 Sample 6: Cosine Similarity = 0.7117, Label = 0.0, Prediction = 1.0 Sample 7: Cosine Similarity = 0.7063, Label = 0.0, Prediction = 1.0 Sample 8: Cosine Similarity = 0.7098, Label = 0.0, Prediction = 1.0<br>문제점&nbsp;손실 값 감소&nbsp;훈련 중 손실 값이 감소하는 것은 모델이 훈련 데이터에 대해 학습하고 있음을 나타낸다. 그러나 손실 값의 감소가 매우 불규칙하고, 손실 값이 매우 높고 후반부에 급격히 감소하는 모양이다. 이는 모델이 안정적으로 학습되지 않았거나 데이터의 질과 양에 문제가 있을 수 있음을 의미한다.<br>테스트 정확도&nbsp;테스트 정확도가 매우 낮다. 이는 모델이 테스트 데이터에 대해 거의 무작위로 예측하고 있음을 의미한다.<br>코사인 유사도 및 예측&nbsp;코사인 유사도 값이 모든 샘플에서 매우 유사하게 높게 나타나고 있으며, 이는 모델이 제대로 된 임베딩을 학습하지 못하고 있다는 이야기다. 모든 샘플에 대해 거의 동일한 값을 출력하고 있으며, 이로 인해 예측이 실제 레이블과 일치하지 않는 상황이 발생한다.<br>해결 방안&nbsp;데이터셋 품질 개선&nbsp;가상 데이터셋 대신 실제 데이터셋으로 모델을 훈련 가상 데이터는 모델 학습에 필요한 다양성과 복잡성이 부족할 수 있다.<br>모델 구조 수정&nbsp;모델이 너무 단순하여 데이터의 복잡한 패턴을 학습하지 못할 수 있다. 더 깊고 복잡한 모델을 사용하거나, 현재 아키텍처에 더 많은 층을 추가하여 모델의 구조를 변경할 수 있다.<br>학습 하이퍼파라미터 조정&nbsp;학습률을 조정하여 모델의 학습 속도를 최적화할 수 있다. 에포크 수를 늘려 더 오랜 시간 동안 학습하게 하여 성능을 개선 배치사이즈를 조정하여 학습 안정성을 도모 커널 사이즈를 조정하여 모델의 복잡성 및 특징에 대하여 학습<br>손실 함수 및 학습 방식 검토&nbsp;BCEWithLogitsLoss를 사용하는 방법이 적절한지 확인해야 한다. 공부한 내용이라 사용하긴 하였지만, 적절한 방법인지에 대한 고려 없이 사용하여 잘못된 결과가 도출되었을 수도 있다. 코사인 유사도가 매우 좁은 범위에 몰려 있다면, 모델이 효과적으로 학습하지 못할 수 있다. 이를 위해 대조 학습 손실의 다른 변형을 사용하거나, 추가적인 정규화 기법을 도입할 수 있다.]]></description><link>team's-blog\코딩황제들\8월-18일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 18일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 15:05:05 GMT</pubDate><enclosure url="https://kepler-dev-3141.github.io/pasted-image-20240819230630.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="https://kepler-dev-3141.github.io/pasted-image-20240819230630.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
- <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다.<br>회의방법<br>
-온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다. <br>팀원 블로그<br>
-박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
-신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/" target="_blank">https://blog.naver.com/sws040201/</a><br>
-김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br><br><br><br>Wasserstein Loss를 사용한 GAN 예제 코드를 작성해보면서 이를 통해 GAN의 기본 개념과 WGAN의 작동 방식을 이해해본다<br><br>이 WGAN 예제는 단순히 1차원 정규 분포 데이터를 생성자와 판별자가 학습하도록 설계를 하였습니다.<br><a data-tooltip-position="top" aria-label="https://colab.research.google.com/drive/1aHY4LrJE3tFZJ_ZwJFUZ5qGxkTtHY0fG#scrollTo=wex4SWI7G0qU&amp;uniqifier=1" rel="noopener" class="external-link" href="https://colab.research.google.com/drive/1aHY4LrJE3tFZJ_ZwJFUZ5qGxkTtHY0fG#scrollTo=wex4SWI7G0qU&amp;uniqifier=1" target="_blank">WGAN  example.ipynb - Colab (google.com)</a><br>
-<br>
-
-
-<br>
-<br>
-라이브러리 임포트:
-
-<br>numpy와 tensorflow 라이브러리를 임포트합니다.
-
-
-<br>
-Wasserstein 손실 함수 정의:
-
-<br>wasserstein_loss(y_true, y_pred): 실제 값과 예측 값의 곱의 평균을 계산하는 손실 함수입니다.
-
-
-<br>
-생성자 모델 정의:
-
-<br>build_generator(): 단순한 두 개의 Dense 레이어로 구성된 생성자 모델입니다.
-<br>첫 번째 레이어는 16개의 노드를 사용하고, 두 번째 레이어는 단일 값을 출력합니다.
-
-
-<br>
-판별자 모델 정의:
-
-<br>build_discriminator(): 단순한 두 개의 Dense 레이어로 구성된 판별자 모델입니다.
-<br>첫 번째 레이어는 16개의 노드를 사용하고, 두 번째 레이어는 단일 값을 출력합니다.
-
-
-<br>
-데이터 생성 함수:
-
-<br>generate_real_data(samples): 지정된 샘플 수만큼 1차원 정규 분포 데이터를 생성합니다.
-
-
-<br>
-훈련 함수:
-
-<br>train(generator, discriminator, epochs, batch_size, latent_dim): 생성자와 판별자를 훈련시키는 함수입니다.
-<br>각 에포크마다 판별자를 훈련시키고, 그 다음 생성자를 훈련시킵니다.
-
-
-<br>
-파라미터 설정:
-
-<br>latent_dim: 잠재 공간의 차원
-<br>samples: 전체 샘플 수
-<br>batch_size: 배치 크기
-<br>epochs: 학습 에포크 수
-
-
-<br>
-모델 빌드 및 컴파일:
-
-<br>생성자와 판별자 모델을 빌드하고, RMSprop 옵티마이저와 함께 wasserstein_loss 손실 함수를 사용하여 컴파일합니다.
-
-
-<br>
-GAN 모델 빌드 및 컴파일:
-
-<br>판별자의 가중치를 동결하고, 생성자와 판별자를 결합하여 GAN 모델을 빌드합니다.
-<br>결합된 모델을 RMSprop 옵티마이저와 함께 wasserstein_loss 손실 함수를 사용하여 컴파일합니다.
-
-
-<br>
-모델 훈련:
-
-<br>train(generator, discriminator, epochs, batch_size, latent_dim): GAN 모델을 훈련합니다.
-
-
-<br><br><br>Diffusion Model에 대해 추가적으로 알아보기<br><br>“Pasted image 20240801223609.png” could not be found.<br><br>Reverse process는&nbsp;로부터&nbsp;으로 복원하는 과정을 말한다.&nbsp;&nbsp;랜덤 노이즈로부터 데이터를 생성하는 모델로 사용되기 때문에 필수적이지만 이것을 실제로 알아내기는 쉽지 않다. 따라서&nbsp;를 활용해서 근사화한다. 이 근사화 과정은 Gaussian transition을 활용한 Markov chain의 형태를 가진다.<br>노이즈&nbsp;에서 원래 데이터&nbsp;로 Reverse process를 통해 가는 공동 확률 분포를 나타낸다.<br>
-<br>: 시간 단계&nbsp;에서 데이터의 사전 분포.
-<br>: 역과정의 각 단계&nbsp;에서&nbsp;에서&nbsp;로 가는 조건부 확률 분포를 나타낸다.
-<br>이 수식은 각 역과정 단계의 조건부 확률 분포의 형태를 지정한다. 역과정은 가우시안 분포로 모델링된다.<br>
-<br>: 가우시안 분포의 평균으로, 현재 상태&nbsp;와 시간 단계&nbsp;의 함수이다.
-<br>: 가우시안 분포의 공분산 행렬로, 현재 상태&nbsp;​와 시간 단계&nbsp;의 함수이다.
-<br>위 식에서, 각 단계의 정규 분포의 평균&nbsp;와 표준편차&nbsp;는 학습되어야 하는 파라미터이다. 시작지점의 노이즈 분포는 표준정규분포로 정의한다.<br><br>&nbsp;Forward process&nbsp;q는 data()으로부터 noise를 더해가면서 최종 노이즈() 형태로 가는 과정이다.<br>
-Reverse process의 학습을 Forward process의 정보를 활용해서 하기 때문에 이 과정의 분포를 알아야 한다. data에 Gaussian noise를 조금씩 더하는 Markov chain의 형태를 가진다.<br><br><br>softmax에 대해 알아본다.<br><br>logit은 log odds를 뜻한다. odds는 얻을 확률과 잃을 확률의 비 라고 생각하면 된다.<br>odds에서 얻을 확률을 y라고 하면 잃을 확률은 1-y가 된다.<br>Classes : C1, C2<br>P(C1|X) : y, P(C2|X) : 1-y<br>​​<br>​<br>신경망(Neural Network, NN)을 생각할 때, 출력층의 값 z를 계산하는 방식은<br><br>θ는 신경망의 가중치이고, x는 입력 값이다. 범위는 -∞&lt;z&lt;∞ 이다.<br>log(odds)또한 odds에 로그를 취한 것이므로 범위는 같다.<br>​<br>logit과 z의 범위가 같으니 logit을 z로 두고 식을 전개한다.<br>z&nbsp;=&nbsp;log(y1−y​),&nbsp;ez=(y1−y​)​<br>y&nbsp;=&nbsp;ez1+ez​​<br>이 식은 sigmoid 함수와 동일하다. 여기서 e^-z를 분모와 분자에 곱해주면 같아진다.<br>따라서 sigmoid와 logit은 역함수 관계임을 알 수 있다.<br>​​<br>​softmax는 sigmoid 함수를 다중 클래스 분류로 일반화하면 유도할 수 있다.<br>[출처] <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201/223533552641" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223533552641" target="_blank">8/01</a>|작성자 <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201" target="_blank">sws040201</a><br><br><br><br>Binary Cross-Entropy (BCE) Loss의 수학적으로 이해해본다.<br><br>Binary Cross-Entropy (BCE) Loss의 수식을 수학적으로 설명하겠습니다. BCE Loss는 이진 분류 문제에서 모델의 예측 확률과 실제 라벨 간의 차이를 측정하는 손실 함수입니다. 이를 통해 모델의 성능을 평가하고, 최적화할 수 있습니다.<br>BCE Loss:<br>[ L = - 1/N {sum_i=1~N} [ y_i  log(p_i) + (1 - y_i)  log(1 - p_i)<br>
-<br>( L )은 손실 함수의 값
-<br>( N )은 총 샘플 수
-<br>( y_i )는 i번째 샘플의 실제 라벨(이진 분류 문제에서는 0 또는 1)
-<br>( p_i )는 i번째 샘플이 클래스 1일 확률로 모델이 예측한 값 (0과 1 사이의 값)
-<br>
-<br>로그항 (( log(p_i) )와 ( log(1 - p_i) )):
-
-<br>로그는 정보 이론에서 엔트로피를 계산할 때 사용됩니다. 여기서 로그를 사용하는 이유는 예측 확률이 낮을 때 페널티를 크게 주기 위함입니다.
-<br>( \log(p_i) ): 모델이 클래스 1일 확률을 예측한 값에 로그를 취한다.
-<br>( \log(1 - p_i) ): 모델이 클래스 0일 확률을 예측한 값에 로그를 취합니다.
-
-
-<br>( p_i )가 1에 가까워질수록 ( \log(p_i) )는 0에 가까워지고, ( p_i )가 0에 가까워질수록 ( \log(p_i) )는 음의 무한대로 커진다. 로그 함수를 사용하면 예측 확률이 낮을 때 손실 값이 급격히 커지게 된다. 이는 모델이 잘못된 예측을 할 경우 큰 페널티를 부과하여, 모델이 더 정확한 예측을 하도록 유도한다.<br>
-<br>실제 라벨 (( y_i ))에 따른 조건부 손실:
-
-<br>( y_i = 1 )일 때, 손실 항목은 ( \log(p_i) )가 된다. 이는 모델이 클래스 1일 확률을 얼마나 잘 예측했는지를 나타낸다.
-<br>( y_i = 0 )일 때, 손실 항목은 ( \log(1 - p_i) )가 된다. 이는 모델이 클래스 0일 확률을 얼마나 잘 예측했는지를 나타낸다.
-
-
-<br>전체 손실 계산:
-
-<br>( -[ y_i  log(p_i) + (1 - y_i)  log(1 - p_i) ] )는 i번째 샘플의 손실을 계산한다.
-<br>각 샘플의 손실을 모두 더한 후, ( N )으로 나누어 평균 손실을 구한다. 이는 샘플 수에 관계없이 일관된 손실 값을 제공한다.
-
-
-<br>부호:
-
-<br>확률p가 0.5보다 작으면 로그 값은 음수가 되기 때문에 해석하기 어려워질 수 있고, 해석이 일관되게 하기 위해서, BCE Loss는 로그 값의 음수를 취하여 손실 값을 양수로 만든다. ( 손실 값을 양수로 만들기 위해 전체에 -1을 곱합니다.)
-
-
-<br>BCE Loss는 모델이 예측한 확률 ( p_i )와 실제 라벨 ( y_i ) 간의 차이를 로그 함수와 결합하여 측정하며, 이를 통해 모델이 얼마나 잘 예측하는지를 평가한다. 이 손실 함수를 최소화함으로써 모델의 성능을 최적화할 수 있다.<br><br><img alt="team-blog-코딩황제들-2024-week3.모각코3일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week3.모각코3일차회의인증.png"><br>
-<img alt="team-blog-코딩황제들-2024-week3.모각코3일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week3.모각코3일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\7월-28일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 28일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 12:36:01 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week3.모각코3일차회의인증.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week3.모각코3일차회의인증.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
- <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다. 더불어 energy-based model에대해서 알아본다.<br>회의방법<br>
-온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다. <br>팀원 블로그<br>
-박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
-신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/" target="_blank">https://blog.naver.com/sws040201/</a><br>
-김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br><br><br><br>Wasserstein Loss를 사용한 GAN 예제 코드와 Binary Cross-Entropy (BCE) Loss를 사용한 GAN 예제코드를 작성해보면서 BCE-loss의 기울기 소실 문제와 모드 붕괴 문제의 해결책이 될 수 있는지 직접 알아본다.<br><br><a data-tooltip-position="top" aria-label="file:///C:/Users/home/Documents/GitHub/mogacko/docs/lib/notebooks/compare%20to%20GAN%20with%20BCE%20to%20with%20WSTN/GAN%20TEST%20WITH%20THE%20DIFF%20LOSS.ipynb" rel="noopener" class="external-link" href="file:\\C:\\Users\home\Documents\GitHub\mogacko\docs\lib\notebooks\compare to GAN with BCE to with WSTN\GAN TEST WITH THE DIFF LOSS.ipynb" target="_blank">Compare GAN with BCE to with Wasser</a><br>간단한 1차원데이터(숫자)를 랜덤으로 생성을 하여 진행하였습니다.<br><br><img alt="team-blog-코딩황제들-2024-week4.BCELOSSlossgraph.png" src="lib\media\team-blog-코딩황제들-2024-week4.bcelosslossgraph.png"><br>
-<img alt="team-blog-코딩황제들-2024-week4.BCELOSSgradientgraph.png" src="lib\media\team-blog-코딩황제들-2024-week4.bcelossgradientgraph.png"><br><br>
-<br>
-Discriminator Loss: 판별자의 손실은 초기에는 약간의 변동을 보이다가 이후 안정화되는 경향을 보입니다. 하지만 전반적인 감소 추세가 뚜렷하지 않고, 일정한 범위 내에서 변동이 반복됩니다.
-
-<br>
-Generator Loss: 생성자의 손실은 초기에는 감소하는 경향을 보이다가 이후 증가하는 경향을 보입니다. 이는 생성자가 학습이 진행될수록 판별자를 속이는 능력이 감소하고 있음을 나타낼 수 있습니다.
-
-<br><br>
-<br>Gradient Mean: 그래디언트 평균이 초기에는 음수에서 시작해 점차 증가하는 경향을 보입니다. 이는 기울기 소실 문제는 발생하지 않지만, 그래디언트가 매우 작거나 큰 값을 가질 수 있다는 것을 나타냅니다.
-<br><br><br>
-<br>판별자와 생성자의 손실이 모두 안정적으로 감소하지 않는 점이 주목됩니다. 특히 생성자의 손실이 후반부에 증가하는 경향은 기울기 소실 문제로 인해 생성자의 학습이 제대로 이루어지지 않고 있음을 나타낼 수 있습니다.
-<br>손실이 감소하지 않고 변동이 계속되는 것은 모델이 최적화 과정에서 어려움을 겪고 있음을 의미할 수 있습니다.
-<br><br>
-<br>그래디언트의 평균이 증가하는 경향을 보이지만, 초기에는 매우 작은 값을 가지다가 점차 커지는 패턴을 보입니다. 이는 기울기 소실 문제는 발생하지 않지만, 그래디언트가 안정적이지 않다는 것을 나타냅니다.
-<br>그래디언트의 큰 변동은 모델 학습 과정에서 불안정성을 초래할 수 있습니다.
-<br><br><img alt="team-blog-코딩황제들-2024-week4.WASSERSTAINLOSSlossgraph.png" src="lib\media\team-blog-코딩황제들-2024-week4.wasserstainlosslossgraph.png"><br>
-<img alt="team-blog-코딩황제들-2024-week4.WASSERSTAINLOSSgradientgraph.png" src="lib\media\team-blog-코딩황제들-2024-week4.wasserstainlossgradientgraph.png"><br>
-* GP란?<br>
-GP는 Gradient Penalty로 모델 학습 중 기울기의 크기를 일정하게 유지하도록 강제하는 방법입니다. 이를 통해 기울기 소실 문제를 완화하고, 생성자와 판별자가 더 안정적으로 학습할 수 있게 합니다. Gradient Penalty는 실제 데이터와 생성된 데이터 사이의 보간(interpolation) 데이터를 사용하여 계산됩니다. 보간 데이터에서 기울기를 계산하고, 이 기울기가 1에 가깝도록 제약을 가합니다.*<br><br>
-<br>Discriminator Loss: 전반적으로 감소하는 추세를 보이지만, 중간중간 변동이 있습니다. 이는 훈련 중 판별자가 생성자의 학습에 따라 변동하는 정상적인 현상일 수 있습니다.
-<br>Generator Loss: 초기에는 거의 변동이 없지만, 점차 감소하는 추세를 보입니다. 이는 생성자가 판별자를 속이는 능력을 점차 향상시키고 있다는 것을 나타냅니다.
-<br><br>
-<br>Gradient Mean: 그래디언트 평균이 0에 가까운 값을 유지하다가 중간에 급격히 증가했다가 다시 감소하는 패턴을 보입니다. 이는 기울기 소실 문제를 해결했음을 나타낼 수 있습니다. WGAN-GP에서 그래디언트 페널티를 사용하여 기울기의 크기를 일정하게 유지하려는 목적에 부합합니다.
-<br><br><br>
-<br>생성자와 판별자 손실 모두 전반적으로 감소하는 추세를 보이는 것은 모델이 잘 학습되고 있다는 신호입니다.
-<br>판별자 손실의 변동은 생성자가 점차 더 현실적인 데이터를 생성함에 따라 판별자가 적응하고 있다는 것을 나타낼 수 있습니다.
-<br><br>
-<br>그래디언트 평균이 0에 가까운 값을 유지하고 있는 것은 좋은 신호입니다. 이는 기울기 소실 문제를 피하고 있음을 나타냅니다.
-<br>그래디언트의 변동은 모델 학습 중 발생할 수 있는 정상적인 현상입니다.
-<br><br>
-<br>WGAN-GP 모델이 기울기 소실 문제를 효과적으로 해결하고 있으며, 생성자와 판별자가 균형 있게 학습되고 있음을 나타냅니다.
-<br>기울기 소실 문제를 해결하기 위한 Gradient Penalty가 잘 작동하고 있음을 그래디언트 평균의 변동을 통해 확인할 수 있습니다.
-<br>BCE 손실을 사용하는 GAN은 기울기 소실 문제를 겪고 있지 않을 수 있지만, 학습 과정에서 안정적으로 최적화되지 않고 있음을 알 수 있습니다.
-<br>WGAN-GP와 비교했을 때, BCE 손실을 사용하는 GAN은 생성자와 판별자의 손실이 안정적으로 감소하지 않으며, 그래디언트도 안정적이지 않습니다.
-<br>이는 WGAN-GP가 기울기 소실 문제와 모델 학습의 안정성 측면에서 더 우수하다는 것을 보여줍니다.
-<br><br><br>EBGAN(Energy-Based GAN)의 개념 알기<br><br><br>기존 GAN은 Generator는 가짜 데이터를 생성하고 Discriminator는 Generator가 생성한 데이터와 진짜 데이터를 구별해가며 Discriminator가 진짜와 가짜를 구별할 수 없을 정도로 Generator잘 학습시키는 것이다.<br>“Pasted image 20240805222239.png” could not be found.<br>
-Energy-model + Generative Adversarial Network = Energy-based Adversarial Network
-<br>기존 GAN과 Energy-based model을 결합한 것이 EBGAN이고, GAN과 Auto-Encoder를 결합한 구조이다.<br>“Pasted image 20240805224001.png” could not be found.<br><br>Discriminator의 Loss는 진짜 데이터&nbsp;를 Discriminator에 통과시킨 값과 hinge loss로 정의된&nbsp;를 더한 값이다. 양수&nbsp;보다&nbsp;가 작은 경우에 대해서만 hinge loss가 양수가 됩니다.<br>
-Generator의 Loss는 Generator가 노이즈&nbsp;로부터 생성한 가짜 데이터를 Discriminator에 통과시켜 나온 값이다.<br>“Pasted image 20240805233728.png” could not be found.<br><br><br>softmax에 대해 알아본다.<br><br>sigmoid를 다중 클래스 분류로 일반화하여 softmax를 유도해봤다.<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ<br>softmax는 sigmoid 함수를 다중 클래스 분류로 일반화하면 유도할 수 있다.<br><br>클래스가 k개 일때로 일반화 하면<br><br>양변을 i=1부터 k-1까지 더하면<br><br><br><br>​​​<br>odds를 일반화 한 식에서 P(Ci|X)에 대해 정리하면<br><br><br>i 대신 k를 넣으면 1이므로<br><br>이를 이용하면 softmax가 된다.<br>**<br>​<br>[출처] <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201/223537751754" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223537751754" target="_blank">sigmoid, softmax (8/05)</a>| 작성자 <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201" target="_blank">sws040201</a><br><br><br>Energy-Based Model (EBM)에 대해 알아본다.<br>Energy-Based Model (EBM) Energy-Based Model은 데이터 x의 에너지를 계산하여 확률 분포를 모델링하는 방식의 생성 모델이다. 확률을 에너지 함수로 표현하고, 이 에너지를 최소화하는 데이터를 더 높은 확률로 간주하는 것.<br>데이터의 에너지 (Energy of Data) 에너지 기반 모델(Energy-Based Model, EBM)에서 “에너지”는 데이터 x가 특정 상태에 있을 때의 “비용” 또는 “불일치”를 나타내는 값이다. 에너지가 낮을수록 해당 데이터가 모델이 예상하는 더 가능성 있는 상태를 나타냅니다. 즉, 에너지가 낮은 데이터는 모델에 의해 더 높은 확률로 간주됩니다. 에너지 함수 (Energy Function) 에너지 함수 E(x)는 주어진 데이터 x의 에너지를 계산하는 함수입니다. 이 함수는 데이터 x와 모델 파라미터 θ를 입력으로 받아 에너지 값을 출력합니다. 에너지 함수는 모델의 학습 과정에서 중요한 역할을 하며, 데이터의 패턴이나 구조를 반영하도록 설계됩니다.<br>Energy-Based Models (EBMs)의 학습 목적은 주어진 데이터 분포를 잘 모델링하고, 이를 통해 새로운 데이터를 생성하거나, 주어진 데이터의 패턴과 구조를 이해하는 것입니다. 에너지 함수 정의:<br>데이터 𝑥 에 대한 에너지 함수 𝐸(𝑥: 𝜃) 를 정의 이 함수는 모델의 파라미터 𝜃를 포함, 데이터의 패턴과 구조를 반영<br>데이터는 모델이 학습할 분포를 대표할 수 있어야한다.<br>에너지 함수 최적화: 에너지 함수의 파라미터 θ를 최적화하여, 낮은 에너지를 가지는 데이터가 높은 확률을 갖도록 이 과정에서 손실 함수(Loss Function)를 정의하고, 이를 최소화하는 방향으로 파라미터를 업데이트<br>정규화 상수 근사: 정규화 상수 (Z)는 직접 계산하기 어려운 경우가 많아, Markov Chain Monte Carlo (MCMC)와 같은 샘플링 기법을 사용하여 근사 모델의 확률 분포를 정규화<br><br><img alt="team-blog-코딩황제들-2024-week4.모각코4일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week4.모각코4일차회의인증.png"><br>
-<img alt="team-blog-코딩황제들-2024-week4.모각코4일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week4.모각코4일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\8월-4일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 4일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 12:36:04 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week4.bcelosslossgraph.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week4.bcelosslossgraph.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[팀 소개]]></title><description><![CDATA[ 
+Copy<br>’’’ Epoch [1/10], Loss: 0.8842123746871948 Epoch [2/10], Loss: 0.9274642467498779 Epoch [3/10], Loss: 0.9250276684761047 Epoch [4/10], Loss: 0.9145865440368652 Epoch [5/10], Loss: 0.866182267665863 Epoch [6/10], Loss: 0.5781313180923462 Epoch [7/10], Loss: 0.557551383972168 Epoch [8/10], Loss: 0.5832924842834473 Epoch [9/10], Loss: 0.41409537196159363 Epoch [10/10], Loss: 0.4382629096508026 Test Accuracy: 12.50% Cosine Similarity and Labels: Sample 1: Cosine Similarity = 0.7111, Label = 0.0, Prediction = 1.0 Sample 2: Cosine Similarity = 0.7042, Label = 0.0, Prediction = 1.0 Sample 3: Cosine Similarity = 0.7109, Label = 0.0, Prediction = 1.0 Sample 4: Cosine Similarity = 0.7049, Label = 0.0, Prediction = 1.0 Sample 5: Cosine Similarity = 0.7111, Label = 1.0, Prediction = 1.0 Sample 6: Cosine Similarity = 0.7117, Label = 0.0, Prediction = 1.0 Sample 7: Cosine Similarity = 0.7063, Label = 0.0, Prediction = 1.0 Sample 8: Cosine Similarity = 0.7098, Label = 0.0, Prediction = 1.0<br>문제점&nbsp;손실 값 감소&nbsp;훈련 중 손실 값이 감소하는 것은 모델이 훈련 데이터에 대해 학습하고 있음을 나타낸다. 그러나 손실 값의 감소가 매우 불규칙하고, 손실 값이 매우 높고 후반부에 급격히 감소하는 모양이다. 이는 모델이 안정적으로 학습되지 않았거나 데이터의 질과 양에 문제가 있을 수 있음을 의미한다.<br>테스트 정확도&nbsp;테스트 정확도가 매우 낮다. 이는 모델이 테스트 데이터에 대해 거의 무작위로 예측하고 있음을 의미한다.<br>코사인 유사도 및 예측&nbsp;코사인 유사도 값이 모든 샘플에서 매우 유사하게 높게 나타나고 있으며, 이는 모델이 제대로 된 임베딩을 학습하지 못하고 있다는 이야기다. 모든 샘플에 대해 거의 동일한 값을 출력하고 있으며, 이로 인해 예측이 실제 레이블과 일치하지 않는 상황이 발생한다.<br>해결 방안&nbsp;데이터셋 품질 개선&nbsp;가상 데이터셋 대신 실제 데이터셋으로 모델을 훈련 가상 데이터는 모델 학습에 필요한 다양성과 복잡성이 부족할 수 있다.<br>모델 구조 수정&nbsp;모델이 너무 단순하여 데이터의 복잡한 패턴을 학습하지 못할 수 있다. 더 깊고 복잡한 모델을 사용하거나, 현재 아키텍처에 더 많은 층을 추가하여 모델의 구조를 변경할 수 있다.<br>학습 하이퍼파라미터 조정&nbsp;학습률을 조정하여 모델의 학습 속도를 최적화할 수 있다. 에포크 수를 늘려 더 오랜 시간 동안 학습하게 하여 성능을 개선 배치사이즈를 조정하여 학습 안정성을 도모 커널 사이즈를 조정하여 모델의 복잡성 및 특징에 대하여 학습<br>손실 함수 및 학습 방식 검토&nbsp;BCEWithLogitsLoss를 사용하는 방법이 적절한지 확인해야 한다. 공부한 내용이라 사용하긴 하였지만, 적절한 방법인지에 대한 고려 없이 사용하여 잘못된 결과가 도출되었을 수도 있다. 코사인 유사도가 매우 좁은 범위에 몰려 있다면, 모델이 효과적으로 학습하지 못할 수 있다. 이를 위해 대조 학습 손실의 다른 변형을 사용하거나, 추가적인 정규화 기법을 도입할 수 있다.<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------<br><br><img alt="team-blog-코딩황제들-2024-week6.모각코6일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week6.모각코6일차회의인증.png"><br>
+<img alt="team-blog-코딩황제들-2024-week6.모각코6일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week6.모각코6일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\8월-18일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 18일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 15:40:19 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week6.세준1.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week6.세준1.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[팀 소개]]></title><description><![CDATA[ 
  <br><br>안녕하세요 저희는 코딩황제들입니다. 저희 팀은 인공지능학과 4명의 학생으로 구성되어 있습니다.<br><br><br><br><br><br>저희의 목표는 생성형 AI를 만들기 위한 모델 디자인 및 구조를 짜기 위해 이론적인 공부를 심도 있게 진행하는 것입니다.<br><br>매주  22:00 ~ 01:00<br>
 1회차 : 2024/07/14 22:00 ~ 01:00<br>
 2회차 : 2024/07/21&nbsp;22:00 ~ 01:00<br>
 3회차 : 2024/07/28&nbsp;22:00 ~ 01:00<br>
 4회차 : 2024/08/04&nbsp;22:00 ~ 01:00<br>
 5회차 : 2024/08/11&nbsp;22:00 ~ 01:00<br>
-6회차 : 2024/08/18&nbsp;22:00 ~ 01:00<br><br><br>첫번째 주제로 다양한 loss함수들을 공부하기로 계획하였다. 내가 맡은 Wasserstain loss함수는 제대로 이해해 볼 수 있었지만 팀원들이 맡은 loss 함수들을 이해하기에는 조금 어려움을 겪었던것같다.  두번째 주제로 energy-based model과 대조학습코드구현을 계획하였다.  하지만 EBM이 나에게는 생소한 모델이었고 딥러닝 모델을  처음 제대로 알아보는 시간이어서 이해하기 어려웠다. 그래서 EBM의 작동방식 및 개념, 공식들 정도만 이해해보았고 대조학습코드구현은 끝내 하지 못하였다.]]></description><link>team's-blog\코딩황제들\index.html</link><guid isPermaLink="false">team's blog/코딩황제들/index.md</guid><pubDate>Mon, 19 Aug 2024 12:48:55 GMT</pubDate></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
- <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다.<br>회의방법<br>
-온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다.<br>팀원 블로그<br>
-박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
-신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/" target="_blank">https://blog.naver.com/sws040201/</a><br>
-김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br><br><br><br>wassertein 손실함수의 정의 및 배경 특히 이를 이해하기 위해 필요한 개념인 Earth Mover's Distance (EMD) 에 대해 알아본다.<br><br><br>Wasserstein Distance를 최소화하는 방식으로 GAN을 훈련시키는 손실함수<br><br>GAN 에서 주로 사용하는 loss fuction인  bce loss의 문제점 때문에 나오게 되었습니다.<br>
-BCE LOSS의 문제점<br>
-*1. mode collapse(모드 붕괴): 생성자가 다양한 이미지를  만들어내지 못하고 비슷한 이미지만 계속해서 생성하는 경우<br>
-2.  vanishing gradient(기울기 소실): bce 손실함수는 판별자가 점점 더 정확해짐에 따라 0 또는 1에 가까운 극단적인 값을 출력하게 만듭니다. 이는 판별자가 실제와 가짜 데이터를 잘 구분할수록 생성자가 받는 그래디언트 값이 매우 작아져서 학습이 정체되게  됩니다. 생성자는 더 이상 유의미한 피드백을 받지 못하고, 학습이 중지될 수 있습니다.<br><br> earth는 흙, 그래서 흙을 움직이는 거리라는 의미이다.<br>
-*정의: 두 확률 분포 P와 Q 사이의 EMD는 P에서 Q로의 '흙'을 옮기는 최소 비용으로 정의된다. 즉, 생성된분포를 진짜와 동일하게 만드는 데 필요한 노력의 양을 추정하여 이 두 분포가 얼마나 다른지를 측정합니다. <br>분산은 같지만 평균이 다른 생성된 분포와 진짜 분포를 사용하며, 이들이 정규 분포라고 가정!<br><img alt="team-blog-코딩황제들-2024-week1.20240714212929.png" src="lib\media\team-blog-코딩황제들-2024-week1.20240714212929.png"><br>
-함수는 생성된 분포를 이동해야 하는 거리와 양에 따라 다릅니다.(양과 거리의 함수)<br>
-<img alt="lib/media/team-blog-코딩황제들-2024-week1.20240714225208.png" src="lib\media\team-blog-코딩황제들-2024-week1.20240714225208.png"><br>
-<br>거리의 한계 없음:
-
-<br>EMD는 두 분포 사이의 최적 운송 비용을 측정하며, 이 거리는 0과 1로 제한되지 않습니다. 즉, 분포 간의 차이가 클수록 거리가 계속 증가할 수 있습니다.
-
-
-<br>기울기 유지:<br>
-- EMD의 기울기는 분포 간 차이가 커질수록 계속해서 유의미한 값을 유지합니다. 이는 생성자가 받는 기울기가 0에 가까워지지 않음을 의미합니다.<br>
-- 결과적으로, GAN의 생성자는 계속해서 학습할 수 있는 유의미한 피드백을 받게 되어 기울기 소실 문제를 겪지 않습니다.<br>
-공식<br>
-<img alt="lib/media/team-blog-코딩황제들-2024-week1.20240714234641.png" src="lib\media\team-blog-코딩황제들-2024-week1.20240714234641.png">
-<br><br> inf(infimum): 하한, 주어진 범위에서의 최소값<br>
-*γ(감마): P와 Q사이의 가능한 모든 운송 계획, P의 질량을 Q로 옮기는 방법을 의미합니다.<br>
-E(기댓값): 주어진 결합 분포 γ에 대해, x와 y 사이의 거리에 대한 기대값을 의미합니다.<br><br><br>CLIP 학습 방법의 정의와 전반적인 개념 학습<br><br><br>
-CLIP: Contrastive Language–Image Pre-training
-<br>기존 SOTA<a data-href="1" href="1" class="internal-link" target="_self" rel="noopener">1</a>(<a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/#fn-1-e3f99f632f1087fe" target="_blank">https://kepler-dev-3141.github.io/#fn-1-e3f99f632f1087fe</a>)&nbsp;Computer vision 시스템은 ImageNet과 같이 crowd-labeled 데이터셋을 이용하여 학습합니다. 이것은 정해진 카테고리 내에서 예측하도록 학습합니다. 이러한 학습 방법은 기존 데이터셋에 없는 라벨을 분류하기 위해서는 추가적인 데이터가 필요하고, 이것은 일반성과 사용성을 해치는 단점이 있습니다.<br>
-자연어 처리 부분에서는 crowd-labeled 데이터셋을 사용하는 것 보다 웹 규모의 텍스트 모음을 사용하는 것이 좋은 결과를 가져온다는 선례가 있었습니다. 기존 SOTA Computer vision 시스템은 crowd-labeled 데이터셋을 사용하여 pre-training 하는 것이 일반적이었습니다. 이러한 방법을 Computer vision에도 적용하면 성능이 좋아지지 않을까 하며 만들어진 것이 CLIP입니다.<br><br><br>자연어를 supervision<a data-href="2" href="2" class="internal-link" target="_self" rel="noopener">2</a>(<a data-tooltip-position="top" aria-label="https://kepler-dev-3141.github.io/#fn-2-e3f99f632f1087fe)%EC%9C%BC%EB%A1%9C" rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/#fn-2-e3f99f632f1087fe)%EC%9C%BC%EB%A1%9C" target="_blank">https://kepler-dev-3141.github.io/#fn-2-e3f99f632f1087fe)으로</a> 사용하는 접근법입니다. 모델은 이미지와 자연어 문장을 한 쌍으로 학습하게 되며 이러한 접근법은 다음과 같은 장점을 가집니다.<br>
-<br>crowd-sourced labeling에 비해서 자연어 지도를 확장하는 것이 쉽다.
-<br>단순히 표현을 학습하는 것이 아니라 표현을 언어롸 연결시켜 zero-shot을 가능하도록 한다.
-<br><br>기존 연구에서는 주로 MS-COCO, Visual Genome, YFCC100M 세 가지 데이터셋을 사용 해 왔습니다. MS-COCO와 Visual Genome는 crowd-sorced labeling 된 데이터셋이지만, 각각 약 10만 개의 적은 수의 학습용 이미지를 가지고 있는 문제가 있었습니다. YFCC100M은 1억 개의 이미지로 구성되어 있지만 이미지의 메타데이터가 부족하고 데이터의 품질이 들쭉날쭉하다는 문제가 있었습니다. 이러한 문제로 기존 데이터셋을 이용하지 않고 인터넷에서 4억개의 이미지와 텍스트 쌍을 수집하여 새로운 데이터셋을 구축하였습니다.<br><br>(이미지, 텍스트)를 한 쌍으로 하는 N개의 배치에 대하여 CLIP은 N × N개의 가능한 경우에 대하여 예측하도록 학습됩니다. N개의 올바른 경우에 대해서는 이미지와 텍스트 임베딩의 코사인 유사성을 최대화하고, N² - N개의 잘못된 임베딩에 대해서는 최소화합니다. 유사성 점수는 Symmetric Cross Entropy Loss를 이용하여 최적화합니다. 학습 중 사용된 유일한 데이터 증강은 크기가 조정된 정사각형 자르기입니다.<br><img alt="Pasted image 20240715002034.png" src="https://kepler-dev-3141.github.io/pasted-image-20240715002034.png" referrerpolicy="no-referrer"><br><br>이미지 인코더는 변형된<br>
-Gloabal Average Pooling을 Attention Pooling으로 대체한 ResNet-50과 임베딩에 Layer Normalization을 적용한 Vision Transformer 두 아키텍처를 고려하였습니다.<br>텍스트 인코더는 트랜스포머를 사용했습니다. 기본 크기로 6300만 매개변수의 12 레이어, 512폭의 모델을 8개의 attention head와 함께 사용했습니다. 트랜스포머는 49,152 크기의 소문자 바이트 페어 인코딩으로 텍스트를 처리합니다.<br><br>
-<br>유연하고 일반적<br>
-CLIP 모델은 zero-shot 방식으로 사용하도록 의도되었고 실제로도 작업에서 zero-shot으로 수행을 할 수 있다. 특히 ImageNet모델에서는 발생하지 않았던 OCR 학습이 일어났다.
-<br>자연어 이해<br>
-CLIP은 이미지와 자연어를 쌍으로 학습하여 텍스트 기반 이미지 검색 또는 이미지 분류를 할 수 있습니다.
-<br>구체적이나 복잡한 작업에서는 성능 저하<br>
-CLIP 모델은 일반적인 객체를 인식하는 부분에서는 좋은 성능을 보여주지만, 이미지에서 차량이 얼마나 가까운지, 자동차 또는 꽃 종류를 구분하는 작업에서는 성능이 좋지 못함을 보여주었다.
-<br>데이터 편향성<br>
-CLIP은 데이터를 인터넷에서 수집하여 학습하므로 사회적 편향을 학습하게 되는 문제가 있다.
-<br>이 글은 아래의 글들을 참고하여 작성되었습니다.<br><a rel="noopener" class="external-link" href="https://arxiv.org/abs/2103.00020" target="_blank">https://arxiv.org/abs/2103.00020</a><br><a rel="noopener" class="external-link" href="https://openai.com/index/clip/" target="_blank">https://openai.com/index/clip/</a><br><a data-tooltip-position="top" aria-label="https://velog.io/@conel77/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0-CLIP-Learning-Transferable-Visual-Models-From-Natural-Language-Supervision%EC%9E%91%EC%84%B1%EC%A4%91" rel="noopener" class="external-link" href="https://velog.io/@conel77/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0-CLIP-Learning-Transferable-Visual-Models-From-Natural-Language-Supervision%EC%9E%91%EC%84%B1%EC%A4%91" target="_blank">https://velog.io/@conel77/논문-리뷰-CLIP-Learning-Transferable-Visual-Models-From-Natural-Language-Supervision작성중</a><br><a rel="noopener" class="external-link" href="https://ffighting.net/deep-learning-paper-review/multimodal-model/clip/#3_CLIP" target="_blank">https://ffighting.net/deep-learning-paper-review/multimodal-model/clip/#3_CLIP</a><br><br><br>categorical cross entropy (CCE)에 대해 알아본다.<br><br>Categorical Cross Entropy : 분류해야할 클래스가 3개 이상인 멀티 클래스 분포에 사용하며 one-hot 형태이다.<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ<br>정보량(놀람) : 확률과 반비례. 확률이 1이면 (0~1) 정보량은 0<br>−log(pi​),&nbsp;pi​&nbsp;=사건의&nbsp;확률​<br>​<br>cross entropy는 두 가지 확률 분포간의 차이를 나타낼 수 있다.<br>H(P,&nbsp;Q)=−n∑ipi​log(qi​)​<br>p는 실제 확률분포, q는 예측한 확률분포.<br>​<br>​Categorical Cross Entropy는 분류해야할 클래스가 3개 이상인 멀티 클래스 분포에 사용하며,<br>라벨이 one-hot 형태일 때 사용된다. ex) [1,0,0], [0,1,0], [0,0,1]<br>( 라벨이 정수 형태인 경우 Sparse_Catecorical Cross Entropy 사용. ex) [0, 1, 2, ... ] )<br>L=−1N​N∑j=1C∑i=1pij​log(qij​)​<br>N은 훈련 샘플의 갯수, C는 클래수의 갯수<br>ont-hot 형태이기 때문에 정답에 가까워 질수록 0에 수렴한다.<br> 확률이 1이면 정보량은 0이기 때문에 때문<br>softmax 활성함수와 같이 쓰이는 경우가 많아 softmax activation function이라고도 불린다.<br>softmax : 로짓(점수)이 있는 벡터를 받아 합이 1인 확률을 가진 벡터를 출력<br>[출처] <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201/223512772098" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223512772098" target="_blank">Categorical Cross Entropy</a>|작성자 <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201" target="_blank">sws040201</a><br><br><br>Binary Cross-Entropy (BCE) Loss에 대한 개념을 학습한다.<br><br>Binary Cross-Entropy (BCE) Loss란?<br>
-이진 분류 문제에서 실제 클래스와 예측 확률 사이의 차이를 측정하는 손실 함수<br><br><img alt="team-blog-코딩황제들-2024-week1.모각코1일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week1.모각코1일차회의인증.png"><img alt="team-blog-코딩황제들-2024-week1.모각코1일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week1.모각코1일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\7월-14일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 14일 모각코.md</guid><pubDate>Thu, 01 Aug 2024 12:32:23 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week1.20240714212929.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week1.20240714212929.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
- <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다.<br>회의방법<br>
-온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다.<br>팀원 블로그<br>
-박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
-신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/" target="_blank">https://blog.naver.com/sws040201/</a><br>
-김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br><br><br><br> Earth Mover's Distance (EMD) 개념을 바탕으로 wassertein distance 및 wassertein 손실함수에 대한 개념을 확실히 정립한다.<br><br><br>러시아 수학자 Leanid Vaserstein 의 이름을 딴 것으로 Roland Dobtushin 교수가 1970년에 확률론에 도입한 것이다.<br>
-<img alt="team-blog-코딩황제들-2024-week2.wasserstain공식.png" src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain공식.png"><br>
-GAN에서 discriminator가 학습도중에 잘 죽는 현상이 나타나는데, 이를 해결하고자 하는것이 wasserstain loss이다. 이는 wasserstein distance를 최소화시키는 것이 목표이다.<br>
-위식에서 위의 내용이 Wasserstein distance의 정의다.<br>여기에서 <img src="https://t1.daumcdn.net/cfile/tistory/9984A03359A4215B2E" referrerpolicy="no-referrer"> 는 두 확률분포 , P,Q의 결합확률분포(joint distribution)들을 모은 집합이고, 그 중에&nbsp;<br><img src="https://t1.daumcdn.net/cfile/tistory/991E073359A4217412" referrerpolicy="no-referrer">는 그 중 하나입니다. 즉 모든 결합확률분포&nbsp;<img src="https://t1.daumcdn.net/cfile/tistory/9951703359A4218E22" referrerpolicy="no-referrer">&nbsp;중에서 d(x,y)의 기댓값을 가장 작게 추정한 값을 의미합니다. <br>즉 두 확률분포의 연관성을 측정하여 그 거리의 기대값이 가장 작을때의 distance를 wasserstein distance라고 얘기를 합니다. <br><br>주변 확률 분포 P와 Q:<br>
-<br>
-P와 Q는 각각 X와 Y의 주변 확률 분포입니다.
-
-<br>
-주변 확률 분포는 각각의 확률 변수가 따르는 분포의 모양을 나타냅니다.
-
-<br>
-예를 들어, P와 Q가 모두 정규 분포라면, X와 Y는 각각 정규 분포를 따릅니다.<br>
-결합 확률 분포 γ:
-
-<br>
-γ는 X와 Y의 결합 확률 분포로, w에 따라 샘플링된 X와 Y의 쌍의 분포를 나타냅니다.
-
-<br>
-결합 확률 분포는 두 확률 변수 간의 관계(의존성)를 나타냅니다.
-
-<br>
-다양한 γ는 서로 다른 X와 Y의 결합 방식을 의미합니다.
-
-<br><br><img alt="team-blog-코딩황제들-2024-week2.wasserstain설명1.png" src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain설명1.png"><br>표본 공간에서 w를 하나 샘플링 하면 X(w)와 Y(w)를 뽑을 수 있고 이때 두 점 간의 거리 d(X(w),Y(w)) 역시 계산 할수 있다.<br><br><img alt="team-blog-코딩황제들-2024-week2.wasserstain설명2.png" src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain설명2.png"><br>샘플링을 계속 할수록 (X, Y)의 결합 확률 분포 γ의 윤곽이 나오게 더불어서 (P, Q)는 γ의 주변확률분포가 됩니다.<br><br><img alt="team-blog-코딩황제들-2024-week2.wasserstain설명3.png" src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain설명3.png"><br>
-이때 γ가 두 확률변수 X, Y의 연관성을 어떻게 측정하느냐에 따라 d(X, Y)의 분포가 달라지게 됩니다.<br><br><img alt="team-blog-코딩황제들-2024-week2.wasserstain설명4.png" src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain설명4.png"><br>
-주의할 점은 P와 Q는 바뀌지 않기 때문에 각 X와 Y 가 분포하는 모양은 변하지 않습니다. 다만 w에 따라 뽑히는 경향이 달라질 뿐이다.<br><br>
-<br>
-P와 Q:
-
-<br>X는 정규 분포 P를 따릅니다.
-<br>Y는 균등 분포 Q를 따릅니다.
-
-
-<br>
-결합 확률 분포 γ1​:
-
-<br>γ1​에서는 X가 클 때 Y도 클 확률이 높습니다.
-<br>즉, ω가 큰 값을 가질 때 X(ω)와 Y(ω) 모두 큰 값을 가질 경향이 있습니다.
-
-
-<br>
-결합 확률 분포 γ2​:<br>
-- γ2​에서는 X가 클 때 Y가 작을 확률이 높습니다.<br>
-- 즉, ω가 큰 값을 가질 때 X(ω)는 큰 값을, Y(ω)는 작은 값을 가질 경향이 있습니다.<br>
-요약
-
-<br>
-변하지 않는 것:
-
-<br>P와 Q의 모양(즉, X와 Y의 분포)은 변하지 않습니다.
-<br>X는 항상 정규 분포를 따르고, Y는 항상 균등 분포를 따릅니다.
-
-
-<br>
-변하는 것:
-
-<br>γ에 따라 X와 Y가 뽑히는 경향이 달라집니다.
-<br>즉, 두 변수 X와 Y의 결합 관계(의존성)가 달라집니다.
-
-
-<br><br><img alt="team-blog-코딩황제들-2024-week2.wasserstain설명5.png" src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain설명5.png"><br>
-Wasserstein distance 는 이렇게 여러가지 γ중에서 d(X, Y) 의 기댓값이 가장 작게 나오는 확률분포를 취하게 된다.<br>그래서 Wasserstein GAN은 이 Wasserstein distance를 이용해서 GAN의 문제를 푸는 것이다.<br><br><br><br>Diffusion Model의 간단한 정의와 학습 방법에 대해 알아보기<br><br><br>Diffusion Model이란 입력 이미지에 여러 단계로 노이즈를 가하고, 거꾸로 노이즈를 없애는 방향으로 학습을 하여 입력 이미지와 비슷한 이미지를 생성하는 모델입니다. Diffusion Model은 기존 모델이 가지고 있는 tractability와 flexibility의 trade-off 관계를 해결하기 위해 만들어졌습니다. tractable하다는 것은 분석적으로 평가할 수 있고 잘 설명할 수 있다는 것 이고 flexible하다는 것은 많은 데이터에 대해 설명할 수 있다는 것을 말합니다.<br>논문 저자들이 제안한 새로운 확률 모델의 특징은 아래와 같습니다.<br>
-<br>모델 구조의 극단적인 유연성
-<br>정확한 샘플링
-<br>다른 분포와의 쉬운 곱셈
-<br>모델 로그 가능도와 개별 상태의 확률을 저렴하게 평가할 수 있음
-<br><br><br><img alt="team-blog-코딩황제들-2024-week2.세준1.png" src="lib\media\team-blog-코딩황제들-2024-week2.세준1.png"><br>
-Forward Diffusion 과정은 원본 이미지 X0에서 점차 노이즈를 가해 최종적으로는 완전한 노이즈 이미지인 XT가 되게 됩니다.<br><br><img alt="team-blog-코딩황제들-2024-week2.세준2.png" src="lib\media\team-blog-코딩황제들-2024-week2.세준2.png"><br>
-Forward Diffusion 과정은 노이즈 이미지 XT로부터 노이즈를 점차 제거해 나가 X0가 되게 됩니다.<br><br><a rel="noopener" class="external-link" href="https://proceedings.mlr.press/v37/sohl-dickstein15.html" target="_blank">https://proceedings.mlr.press/v37/sohl-dickstein15.html</a><br>
-<a rel="noopener" class="external-link" href="https://aigong.tistory.com/569" target="_blank">https://aigong.tistory.com/569</a><br>
-<a rel="noopener" class="external-link" href="https://ffighting.net/deep-learning-paper-review/diffusion-model/diffusion-model-basic/" target="_blank">https://ffighting.net/deep-learning-paper-review/diffusion-model/diffusion-model-basic/</a><br><br><br>sparse_categorical cross entropy (CCE)에 대해 알아본다.<br><br>Sparse_Categorical Cross Entropy : 라벨이 정수 형태로 주어지는 CCE이다.<br>
-ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ<br>​라벨이 정수 형태인 경우 Sparse_Categorical Cross Entropy를 사용한다. ex) [0, 1, 2, ... ]<br><br>yj는\ 훈련\ 샘플의\ 라벨,\ \ qyj는\ \ 예측한\ \ 클래스\ \ yj에\ \ 대한\ \ 확률<br>​<br>모델 학습 과정<br>​입력 데이터가 모델을 통해 전달되어 각 클래스에 대한 예측 확률을 출력한다. 이때 주로 softmax 활성화 함수를 사용하여 예측 확률을 계산한다.<br>CCE 손실 함수를 사용하여 예측 확률과 실제 레이블 간의 차이를 측정한다.<br>손실 함수의 미분값(그래디언트)을 계산하여 모델의 가중치를 업데이트하여 예측을 더 정확하게 만들 수 있다.<br>[출처] <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201/223520799869" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223520799869" target="_blank">Sparse_Categorical Cross Entropy (7/21)</a>|작성자 <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201" target="_blank">sws040201</a><br><br><br>BCELoss, BCEWithLogitsLoss, CrossEntropyLoss function에 대해 알아본다.<br><br>BCELoss 크로스 엔트로피 손실 함수는 정보 이론에서 크로스 엔트로피 개념을 기계 학습에 적용한 것이다. 이 함수는 두 확률 분포 간의 차이를 측정하는 방법으로, BCE 손실 함수는 크로스 엔트로피 손실 함수를 이진 분류 문제에 적용한 형태이다.<br>[ H(P, Q) = -\sum_{x} P(x) \log Q(x) ]<br>BCELoss는 모델의 구조 상에 마지막 Layer가 Sigmoid 혹은 Softmax로 되어 있는 경우 이를 사용한다. 즉, 모델의 출력이 각 라벨에 대한 확률값으로 구성되었을 때 사용이 가능하다. ''' torch.nn.BCELoss(weight=None, size_average=None, reduce=None, reduction='mean') '''<br>''' import torch import torch.nn as nn m = nn.Sigmoid() loss = nn.BCELoss() input = torch.randn(3, 2, requires_grad=True) target = torch.rand(3, 2) output = loss(m(input), target) output.backward() '''<br>BCEWithLogitsLoss ''' torch.nn.BCEWithLogitsLoss(weight=None, size_average=None, reduce=None, reduction='mean', pos_weight=None) '''<br>BCEWithLogitsLoss는 이름에서도 유추해볼 수 있듯 BCELoss를 위 과정에서 확률값(Logits)으로 변환하지 않더라도 계산되는 것을 의미한다. 기본적인 BCE 손실 함수는 모델의 출력이 시그모이드 함수를 통과한 확률 값이어야 한다. 그러나 이 경우수치적 불안정성(시그모이드 함수의 출력은 0과 1 사이의 값이기 때문에, 극단적인 값(예: 매우 큰 음수나 양수)에 대해 수치적으로 불안정할 수 있다.) 효율성 문제(시그모이드 함수와 BCE 손실 함수를 따로 적용하면 계산 비용이 증가할 수 있다.)가 존재할 수 있다<br>따라서 BCEWithLogitsLoss는 시그모이드 활성화 함수를 적용한 후 BCE 손실을 계산하는 과정을 하나의 함수로 처리한다. 내부적으로 시그모이드 함수를 적용하고 BCE 손실을 계산하므로, 더 안정적이고 효율적이다.<br>[ \text{BCEWithLogitsLoss} = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\sigma(z_i)) + (1 - y_i) \log(1 - \sigma(z_i)) \right] ]<br>여기서:<br>
-<br>( N )은 샘플의 수
-<br>( y_i )는 실제 레이블 (0 또는 1)
-<br>( z_i )는 모델의 출력(로그 확률)
-<br>( \sigma(z) )는 시그모이드 함수로, (\sigma(z) = \frac{1}{1 + e^{-z}} )
-<br>CrossEntropyLoss ''' torch.nn.CrossEntropyLoss(weight=None, size_average=None, ignore_index=-100, reduce=None, reduction='mean', label_smoothing=0.0) ''' weight:<br>타입: Tensor, 선택 사항 설명: 각 클래스에 대한 가중치를 지정할 수 있습니다. 클래스 불균형 문제를 해결하기 위해 사용됩니다. None으로 설정하면 모든 클래스에 동일한 가중치가 적용됩니다. size_average:<br>타입: bool, 선택 사항 (기본값: None) 설명: 이 파라미터는 더 이상 사용되지 않습니다. reduction 파라미터로 대체되었습니다. True로 설정하면 손실이 평균화되고, False로 설정하면 합산됩니다. ignore_index:<br>타입: int, 선택 사항 설명: 특정 클래스 인덱스를 무시할 수 있습니다. 주로 시퀀스 모델링에서 패딩 토큰을 무시하는 데 사용됩니다. 기본값은 -100입니다. reduce:<br>타입: bool, 선택 사항 (기본값: None) 설명: 이 파라미터도 더 이상 사용되지 않습니다. reduction 파라미터로 대체되었습니다. True로 설정하면 손실이 축소되고, False로 설정하면 축소되지 않습니다. reduction:<br>타입: str, 선택 사항 설명: 손실 결과를 어떻게 축소할지를 정의합니다. 세 가지 옵션이 있습니다: 'none': 손실을 축소하지 않고 각 샘플에 대한 손실을 반환합니다. 'mean': 손실을 평균화합니다. (size_average=True와 동일) 'sum': 손실을 합산합니다. (reduce=False와 동일) label_smoothing:<br>타입: float, 선택 사항 설명: 라벨 스무딩을 적용합니다. label_smoothing 값을 [0, 1] 사이로 설정하면, 라벨을 약간의 확률로 스무딩합니다. 이는 모델이 과도하게 확신하는 것을 방지하고 일반화 성능을 향상시킬 수 있습니다. 기본값은 0.0입니다.<br>이전에 다룬 BCELoss와 BCEWithLogitsLoss는 Binary Classification을 위한 손실 함수다. 반면에 CrossEntropyLoss는 다중 분류를 위한 손실 함수다. 예를 들어, 라벨이 5개라고 한다면 입력은 각 라벨에 대한 확률값을 표현하고, 정답 라벨은 라벨 값 혹은 라벨에 대한 확률값으로 표현할 수 있다. 소프트맥스 활성화 함수와 크로스 엔트로피 손실을 결합한 함수로 예측 값과 실제 값 간의 차이를 직관적으로 표현할 수 있지만, 확률이 매우 작은 경우, 로그 함수로 인해 수치적 불안정성이 발생할 수 있고, 클래스가 불균형한 경우 성능이 저하될 수 있습니다. 이 문제를 해결하기 위해 가중치 조정 등을 사용할 수 있다.<br>[ \text{CrossEntropyLoss} = -\sum{i=1}^{N} \sum{c=1}^{C} y{ic} \log(p{ic}) ]<br>여기서:<br>
-<br>( N )은 샘플의 수
-<br>( C )는 클래스의 수
-<br>( y_{ic} )는 실제 레이블의 원-핫 인코딩 (실제 레이블이 ( c ) 클래스일 때 1, 그렇지 않으면 0)
-<br>( p_{ic} )는 모델이 샘플 ( i )에 대해 클래스 ( c )일 확률로 예측한 값 (소프트맥스 함수의 출력)
-<br><br><img alt="team-blog-코딩황제들-2024-week2.모각코2일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week2.모각코2일차회의인증.png"><br><img alt="team-blog-코딩황제들-2024-week2.모각코2일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week2.모각코2일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\7월-21일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 21일 모각코.md</guid><pubDate>Mon, 22 Jul 2024 17:12:55 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week2.wasserstain공식.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain공식.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[코딩황제들]]></title><description><![CDATA[ 
+6회차 : 2024/08/18&nbsp;22:00 ~ 01:00<br><br><br>첫번째 주제로 다양한 loss함수들을 공부하기로 계획하였다. 내가 맡은 Wasserstain loss함수는 제대로 이해해 볼 수 있었지만 팀원들이 맡은 loss 함수들을 이해하기에는 조금 어려움을 겪었던것같다.  두번째 주제로 energy-based model과 대조학습코드구현을 계획하였다.  하지만 EBM이 나에게는 생소한 모델이었고 딥러닝 모델을  처음 제대로 알아보는 시간이어서 이해하기 어려웠다. 그래서 EBM의 작동방식 및 개념, 공식들 정도만 이해해보았고 대조학습코드구현은 끝내 하지 못하였다.]]></description><link>team's-blog\코딩황제들\index.html</link><guid isPermaLink="false">team's blog/코딩황제들/index.md</guid><pubDate>Mon, 19 Aug 2024 12:48:55 GMT</pubDate></item><item><title><![CDATA[코딩황제들]]></title><description><![CDATA[ 
  ]]></description><link>team's-blog\코딩황제들\코딩황제들.html</link><guid isPermaLink="false">team's blog/코딩황제들/코딩황제들.md</guid><pubDate>Mon, 15 Jul 2024 18:19:59 GMT</pubDate></item><item><title><![CDATA[team's blog]]></title><description><![CDATA[ 
  ]]></description><link>team's-blog\team's-blog.html</link><guid isPermaLink="false">team's blog/team's blog.md</guid><pubDate>Mon, 15 Jul 2024 18:16:01 GMT</pubDate></item><item><title><![CDATA[index]]></title><description><![CDATA[ 
  ]]></description><link>mogacko\team's-blog\코딩황제들\index.html</link><guid isPermaLink="false">mogacko/team's-blog/코딩황제들/index.md</guid><pubDate>Sun, 14 Jul 2024 14:30:27 GMT</pubDate></item></channel></rss>
