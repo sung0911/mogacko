@@ -1,56 +1,4 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[mogacko]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>mogacko</title><link/></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Mon, 19 Aug 2024 12:34:27 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Mon, 19 Aug 2024 12:34:26 GMT</pubDate><ttl>60</ttl><dc:creator/><item><title><![CDATA[계획]]></title><description><![CDATA[ 
- <br><br>energy-based model, 특히 energy-based GAN에 대해 알아보기 및 대조학습코드 구현 <br>회의방법<br>
-온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다. <br>팀원 블로그<br>
-박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
-신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/" target="_blank">https://blog.naver.com/sws040201/</a><br>
-김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br><br><br><br>에너지 기반 GAN(Energy-Based Generative Adversarial Network, EBGAN)에 대해 알아본다.<br><br><br>*전통적인 GAN모델의 변형으로, 에너지 기반 모델(EBM)의 개념을 도입하여 GAN의 판별자(Discriminator)를 재설계한 모델입니다. EBGAN은 전통적인 GAN보다 더 안정적이고 유연한 학습을 가능하게 하기 위해 제안되었습니다.<br><br>
-<br>생성자(Generator): 랜덤한 노이즈 벡터를 입력으로 받아, 이로부터 현실적인 데이터를 생성하는 네트워크입니다.
-<br>판별자(Discriminator): 입력 데이터가 실제(real) 데이터인지 생성된(fake) 데이터인지 구분하는 네트워크입니다.
-<br>GAN의 목표는 생성자가 점점 더 현실적인 데이터를 생성하도록 학습하는 것입니다. 생성자가 만든 데이터가 실제 데이터를 닮아가면서, 판별자는 점점 더 어려운 구별 문제를 해결해야 하므로 두 네트워크가 서로 경쟁하면서 발전합니다.
-<br><br>
-<br>에너지 기반 판별자: EBGAN에서 판별자는 단순히 이진 분류를 수행하는 대신, 데이터를 입력받아 그 데이터의 "에너지"를 계산합니다. 이 에너지는 데이터가 얼마나 "현실적인지"를 나타내며, EBM에서 사용되는 에너지 함수와 유사한 역할을 합니다.
-<br>목표: EBGAN의 목표는 생성된 데이터에 높은 에너지를, 실제 데이터에 낮은 에너지를 할당하는 것입니다.
-<br><br>
-<br>판별자의 역할: EBGAN에서 판별자는 입력 데이터 xxx에 대해 에너지 값 E(x)E(x)E(x)를 계산합니다. 이 에너지는 데이터가 실제에 가까울수록 낮게, 비현실적일수록 높게 설정됩니다.
-<br>생성자의 역할: 생성자는 낮은 에너지를 가진 데이터를 생성하도록 학습합니다. 즉, 판별자가 낮은 에너지를 할당하는 데이터를 생성하려고 시도합니다.
-<br>손실 함수: EBGAN의 손실 함수는 전통적인 GAN과 다르게, 판별자가 계산한 에너지 값을 최소화하거나 최대화하는 방식으로 정의됩니다.
-<br><br>
-<br>학습의 안정성: 전통적인 GAN에서는 종종 학습이 불안정해지거나 모드 붕괴(mode collapse)가 발생할 수 있습니다. EBGAN은 에너지 기반 접근 방식을 통해 이러한 문제를 완화할 수 있습니다.
-<br>유연성: 판별자가 에너지를 계산하는 방식은 단순한 이진 분류보다 더 유연하여, 다양한 형태의 손실 함수나 학습 전략을 적용할 수 있습니다.
-<br><br>
-<br>예를 들어, 이미지 생성 문제에서 EBGAN은 판별자가 이미지에 대해 "에너지"를 계산하고, 생성자는 이 에너지를 낮추는 방향으로 이미지를 생성합니다. 결과적으로, 생성된 이미지는 더 현실적이고, 판별자는 더 까다로운 기준으로 이미지를 평가하게 됩니다.
-<br><br>
-<br>이미지 생성: 현실적인 이미지를 생성하는 데 사용할 수 있습니다. 특히, 고해상도 이미지 생성이나 다양한 스타일의 이미지 생성에 효과적일 수 있습니다.
-<br>비디오 생성: 비디오의 연속적인 프레임을 생성할 때, 각 프레임이 이전 프레임과의 연속성을 가지면서도 개별적으로 현실적인 에너지를 가지도록 학습할 수 있습니다.
-<br>자연어 처리: 텍스트 생성에서도 EBGAN을 응용하여 더 자연스러운 문장을 생성하는 데 사용될 수 있습니다.
-<br><br><br><br><br><br><br><br><br>대조학습코드를 구현해본다.<br><br>대조 학습에서 주로 사용되는 방식 중 긍정(positive) 쌍과 부정(negative) 쌍을 구분하여 손실을 계산 ‘’’ import torch import torch.nn as nn import torch.nn.functional as F import torch.optim as optim<br><br>class SimpleContrastiveModel(nn.Module): def&nbsp;init(self, embedding_dim=128): super(SimpleContrastiveModel, self).init() # CNN 기반 인코더 정의: 입력 이미지를 임베딩 벡터로 변환 self.encoder = nn.Sequential( nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1), # 1번째 레이어 (3 -&gt; 64) nn.ReLU(), # 활성화 함수 ReLU nn.MaxPool2d(kernel_size=2, stride=2), # 풀링 레이어 nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1), # 2번째 레이어 (64 -&gt; 128) nn.ReLU(), # 활성화 함수 ReLU nn.MaxPool2d(kernel_size=2, stride=2), # 풀링 레이어 nn.Flatten(), # 출력 데이터를 1차원 벡터로 변환 nn.Linear(128  8  8, embedding_dim) # 완전 연결 레이어, 임베딩 차원으로 변환 )<br>def forward(self, x):
-    # 입력 이미지 x를 임베딩 벡터로 변환하고 정규화
-    return F.normalize(self.encoder(x), dim=-1)
-Copy<br><br>def contrastive_loss(out1, out2, label): # 코사인 유사도 계산: 두 임베딩 벡터 간의 유사도 측정 cosine_similarity = F.cosine_similarity(out1, out2) # BCEWithLogitsLoss를 사용하여 대조 학습 손실 계산 bce_loss = nn.BCEWithLogitsLoss() # 코사인 유사도와 실제 lable을 사용하여 손실 계산 loss = bce_loss(cosine_similarity, label) return lossine_similarity, label) return loss<br><br>model = SimpleContrastiveModel(embedding_dim=128)<br><br>optimizer = optim.Adam(model.parameters(), lr=0.001)<br><br>batch_size = 16 x1 = torch.randn(batch_size, 3, 32, 32) x2 = torch.randn(batch_size, 3, 32, 32)<br>labels = torch.randint(0, 2, (batch_size,)).float() # 1: 같은 클래스, 0: 다른 클래스<br><br>out1 = model(x1) out2 = model(x2)<br><br>loss = contrastive_loss(out1, out2, labels)<br><br>optimizer.zero_grad() loss.backward() optimizer.step()<br>print(f’Loss: {loss.item()}’) ‘’’ ————————————————————————————————– ‘’’ import torch import torch.nn as nn import torch.optim as optim<br><br><br>model = SimpleContrastiveModel(embedding_dim=128)<br><br>optimizer = optim.Adam(model.parameters(), lr=0.001)<br><br>batch_size = 16 x1_train = torch.randn(batch_size, 3, 32, 32) x2_train = torch.randn(batch_size, 3, 32, 32) train_labels = torch.randint(0, 2, (batch_size,)).float()<br><br>x1_test = torch.randn(8, 3, 32, 32) x2_test = torch.randn(8, 3, 32, 32) test_labels = torch.randint(0, 2, (8,)).float()<br><br>num_epochs = 10 for epoch in range(num_epochs): # 모델 출력 계산 out1_train = model(x1_train) out2_train = model(x2_train)<br># 대조 학습 손실 계산
-loss = contrastive_loss(out1_train, out2_train, train_labels)
-
-# 역전파 및 파라미터 업데이트
-optimizer.zero_grad()
-loss.backward()
-optimizer.step()
-
-print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item()}')
-Copy<br><br>with torch.no_grad(): out1_test = model(x1_test) out2_test = model(x2_test)<br># 코사인 유사도 계산
-cosine_similarity_test = torch.sigmoid(F.cosine_similarity(out1_test, out2_test))
-
-# 예측 결과
-predictions = (cosine_similarity_test &gt; 0.5).float()
-
-# 정확도 계산
-accuracy = (predictions == test_labels).float().mean()
-
-print(f'Test Accuracy: {accuracy.item() * 100:.2f}%')
-
-# 각 테스트 샘플에 대한 코사인 유사도와 실제 레이블 출력
-print("Cosine Similarity and Labels:")
-for i in range(len(test_labels)):
-    print(f"Sample {i+1}: Cosine Similarity = {cosine_similarity_test[i].item():.4f}, Label = {test_labels[i].item()}, Prediction = {predictions[i].item()}")
-Copy<br>’’’ Epoch [1/10], Loss: 0.8842123746871948 Epoch [2/10], Loss: 0.9274642467498779 Epoch [3/10], Loss: 0.9250276684761047 Epoch [4/10], Loss: 0.9145865440368652 Epoch [5/10], Loss: 0.866182267665863 Epoch [6/10], Loss: 0.5781313180923462 Epoch [7/10], Loss: 0.557551383972168 Epoch [8/10], Loss: 0.5832924842834473 Epoch [9/10], Loss: 0.41409537196159363 Epoch [10/10], Loss: 0.4382629096508026 Test Accuracy: 12.50% Cosine Similarity and Labels: Sample 1: Cosine Similarity = 0.7111, Label = 0.0, Prediction = 1.0 Sample 2: Cosine Similarity = 0.7042, Label = 0.0, Prediction = 1.0 Sample 3: Cosine Similarity = 0.7109, Label = 0.0, Prediction = 1.0 Sample 4: Cosine Similarity = 0.7049, Label = 0.0, Prediction = 1.0 Sample 5: Cosine Similarity = 0.7111, Label = 1.0, Prediction = 1.0 Sample 6: Cosine Similarity = 0.7117, Label = 0.0, Prediction = 1.0 Sample 7: Cosine Similarity = 0.7063, Label = 0.0, Prediction = 1.0 Sample 8: Cosine Similarity = 0.7098, Label = 0.0, Prediction = 1.0<br>문제점&nbsp;손실 값 감소&nbsp;훈련 중 손실 값이 감소하는 것은 모델이 훈련 데이터에 대해 학습하고 있음을 나타낸다. 그러나 손실 값의 감소가 매우 불규칙하고, 손실 값이 매우 높고 후반부에 급격히 감소하는 모양이다. 이는 모델이 안정적으로 학습되지 않았거나 데이터의 질과 양에 문제가 있을 수 있음을 의미한다.<br>테스트 정확도&nbsp;테스트 정확도가 매우 낮다. 이는 모델이 테스트 데이터에 대해 거의 무작위로 예측하고 있음을 의미한다.<br>코사인 유사도 및 예측&nbsp;코사인 유사도 값이 모든 샘플에서 매우 유사하게 높게 나타나고 있으며, 이는 모델이 제대로 된 임베딩을 학습하지 못하고 있다는 이야기다. 모든 샘플에 대해 거의 동일한 값을 출력하고 있으며, 이로 인해 예측이 실제 레이블과 일치하지 않는 상황이 발생한다.<br>해결 방안&nbsp;데이터셋 품질 개선&nbsp;가상 데이터셋 대신 실제 데이터셋으로 모델을 훈련 가상 데이터는 모델 학습에 필요한 다양성과 복잡성이 부족할 수 있다.<br>모델 구조 수정&nbsp;모델이 너무 단순하여 데이터의 복잡한 패턴을 학습하지 못할 수 있다. 더 깊고 복잡한 모델을 사용하거나, 현재 아키텍처에 더 많은 층을 추가하여 모델의 구조를 변경할 수 있다.<br>학습 하이퍼파라미터 조정&nbsp;학습률을 조정하여 모델의 학습 속도를 최적화할 수 있다. 에포크 수를 늘려 더 오랜 시간 동안 학습하게 하여 성능을 개선 배치사이즈를 조정하여 학습 안정성을 도모 커널 사이즈를 조정하여 모델의 복잡성 및 특징에 대하여 학습<br>손실 함수 및 학습 방식 검토&nbsp;BCEWithLogitsLoss를 사용하는 방법이 적절한지 확인해야 한다. 공부한 내용이라 사용하긴 하였지만, 적절한 방법인지에 대한 고려 없이 사용하여 잘못된 결과가 도출되었을 수도 있다. 코사인 유사도가 매우 좁은 범위에 몰려 있다면, 모델이 효과적으로 학습하지 못할 수 있다. 이를 위해 대조 학습 손실의 다른 변형을 사용하거나, 추가적인 정규화 기법을 도입할 수 있다.]]></description><link>team's-blog\코딩황제들\8월-18일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 18일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 12:33:37 GMT</pubDate></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[mogacko]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>mogacko</title><link/></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Mon, 19 Aug 2024 12:51:14 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Mon, 19 Aug 2024 12:51:12 GMT</pubDate><ttl>60</ttl><dc:creator/><item><title><![CDATA[계획]]></title><description><![CDATA[ 
  <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다.<br>회의방법<br>
 온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다. <br>팀원 블로그<br>
 박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
@@ -166,7 +114,7 @@ Reverse process의 학습을 Forward process의 정보를 활용해서 하기 �
 
 
 <br>BCE Loss는 모델이 예측한 확률 ( p_i )와 실제 라벨 ( y_i ) 간의 차이를 로그 함수와 결합하여 측정하며, 이를 통해 모델이 얼마나 잘 예측하는지를 평가한다. 이 손실 함수를 최소화함으로써 모델의 성능을 최적화할 수 있다.<br><br><img alt="team-blog-코딩황제들-2024-week3.모각코3일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week3.모각코3일차회의인증.png"><br>
-<img alt="team-blog-코딩황제들-2024-week3.모각코3일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week3.모각코3일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\7월-28일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 28일 모각코.md</guid><pubDate>Sun, 18 Aug 2024 15:22:20 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week3.모각코3일차회의인증.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week3.모각코3일차회의인증.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+<img alt="team-blog-코딩황제들-2024-week3.모각코3일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week3.모각코3일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\7월-28일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 28일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 12:36:01 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week3.모각코3일차회의인증.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week3.모각코3일차회의인증.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
  <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다. 더불어 energy-based model에대해서 알아본다.<br>회의방법<br>
 온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다. <br>팀원 블로그<br>
 박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
@@ -211,7 +159,7 @@ GP는 Gradient Penalty로 모델 학습 중 기울기의 크기를 일정하게 
 Energy-model + Generative Adversarial Network = Energy-based Adversarial Network
 <br>기존 GAN과 Energy-based model을 결합한 것이 EBGAN이고, GAN과 Auto-Encoder를 결합한 구조이다.<br>“Pasted image 20240805224001.png” could not be found.<br><br>Discriminator의 Loss는 진짜 데이터&nbsp;를 Discriminator에 통과시킨 값과 hinge loss로 정의된&nbsp;를 더한 값이다. 양수&nbsp;보다&nbsp;가 작은 경우에 대해서만 hinge loss가 양수가 됩니다.<br>
 Generator의 Loss는 Generator가 노이즈&nbsp;로부터 생성한 가짜 데이터를 Discriminator에 통과시켜 나온 값이다.<br>“Pasted image 20240805233728.png” could not be found.<br><br><br>softmax에 대해 알아본다.<br><br>sigmoid를 다중 클래스 분류로 일반화하여 softmax를 유도해봤다.<br>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ<br>softmax는 sigmoid 함수를 다중 클래스 분류로 일반화하면 유도할 수 있다.<br><br>클래스가 k개 일때로 일반화 하면<br><br>양변을 i=1부터 k-1까지 더하면<br><br><br><br>​​​<br>odds를 일반화 한 식에서 P(Ci|X)에 대해 정리하면<br><br><br>i 대신 k를 넣으면 1이므로<br><br>이를 이용하면 softmax가 된다.<br>**<br>​<br>[출처] <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201/223537751754" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/223537751754" target="_blank">sigmoid, softmax (8/05)</a>| 작성자 <a data-tooltip-position="top" aria-label="https://blog.naver.com/sws040201" rel="noopener" class="external-link" href="https://blog.naver.com/sws040201" target="_blank">sws040201</a><br><br><br>Energy-Based Model (EBM)에 대해 알아본다.<br>Energy-Based Model (EBM) Energy-Based Model은 데이터 x의 에너지를 계산하여 확률 분포를 모델링하는 방식의 생성 모델이다. 확률을 에너지 함수로 표현하고, 이 에너지를 최소화하는 데이터를 더 높은 확률로 간주하는 것.<br>데이터의 에너지 (Energy of Data) 에너지 기반 모델(Energy-Based Model, EBM)에서 “에너지”는 데이터 x가 특정 상태에 있을 때의 “비용” 또는 “불일치”를 나타내는 값이다. 에너지가 낮을수록 해당 데이터가 모델이 예상하는 더 가능성 있는 상태를 나타냅니다. 즉, 에너지가 낮은 데이터는 모델에 의해 더 높은 확률로 간주됩니다. 에너지 함수 (Energy Function) 에너지 함수 E(x)는 주어진 데이터 x의 에너지를 계산하는 함수입니다. 이 함수는 데이터 x와 모델 파라미터 θ를 입력으로 받아 에너지 값을 출력합니다. 에너지 함수는 모델의 학습 과정에서 중요한 역할을 하며, 데이터의 패턴이나 구조를 반영하도록 설계됩니다.<br>Energy-Based Models (EBMs)의 학습 목적은 주어진 데이터 분포를 잘 모델링하고, 이를 통해 새로운 데이터를 생성하거나, 주어진 데이터의 패턴과 구조를 이해하는 것입니다. 에너지 함수 정의:<br>데이터 𝑥 에 대한 에너지 함수 𝐸(𝑥: 𝜃) 를 정의 이 함수는 모델의 파라미터 𝜃를 포함, 데이터의 패턴과 구조를 반영<br>데이터는 모델이 학습할 분포를 대표할 수 있어야한다.<br>에너지 함수 최적화: 에너지 함수의 파라미터 θ를 최적화하여, 낮은 에너지를 가지는 데이터가 높은 확률을 갖도록 이 과정에서 손실 함수(Loss Function)를 정의하고, 이를 최소화하는 방향으로 파라미터를 업데이트<br>정규화 상수 근사: 정규화 상수 (Z)는 직접 계산하기 어려운 경우가 많아, Markov Chain Monte Carlo (MCMC)와 같은 샘플링 기법을 사용하여 근사 모델의 확률 분포를 정규화<br><br><img alt="team-blog-코딩황제들-2024-week4.모각코4일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week4.모각코4일차회의인증.png"><br>
-<img alt="team-blog-코딩황제들-2024-week4.모각코4일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week4.모각코4일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\8월-4일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 4일 모각코.md</guid><pubDate>Sun, 18 Aug 2024 15:19:20 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week4.bcelosslossgraph.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week4.bcelosslossgraph.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+<img alt="team-blog-코딩황제들-2024-week4.모각코4일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week4.모각코4일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\8월-4일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 4일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 12:36:04 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week4.bcelosslossgraph.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week4.bcelosslossgraph.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
  <br><br>energy-based model, 특히 energy-based GAN에 대해 알아보기 및 대조학습코드 구현 <br>회의방법<br>
 온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다. <br>팀원 블로그<br>
 박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
@@ -263,7 +211,66 @@ Leapfrog 통합: 해밀토니안 역학을 따라 잠재 변수와 대상 변수
 HMC는 해밀토니안 역학을 활용하여 고차원 분포에서 효율적으로 샘플링할 수 있지만, 구현과 조정이 어려울 수 있다.
 Langevin dynamics는 구현이 비교적 쉬운 대신 고차원에서의 샘플링 효율이 떨어질 수 있다.
 Copy<br>학습의 어려움 에너지 함수의 최적화를 위한 학습 과정은 복잡하고 까다로울 수 있습니다. 특히, 학습 과정에서 발생하는 수렴 문제나 에너지 경사 하강법의 불안정성은 모델 학습을 어렵게 할 수 있다.<br>정규화 상수 계산의 어려움 에너지 기반 모델에서 정규화 상수(Z)를 계산하는 것은 매우 어려운 문제이다. 이 상수는 분포를 정상화하는 데 필요하지만, 고차원 공간에서는 계산이 거의 불가능할 수 있다.<br>모델 평가의 복잡성 에너지 기반 모델의 성능을 평가하는 것은 다른 모델에 비해 더 복잡할 수 있다. 에너지 함수의 값만으로는 모델의 품질을 직관적으로 평가하기 어려울 수 있다.<br>샘플링의 어려움 샘플링 과정이 복잡하고 시간이 많이 소요될 수 있다. 특히 고차원 데이터에서는 효율적인 샘플링이 어려워질 수 있다.<br>해석의 어려움 에너지 함수의 형태나 모델의 구조가 복잡한 경우, 모델의 동작을 해석하고 이해하는 것이 어려울 수 있다. 이는 모델의 투명성과 설명 가능성을 저하시킬 수 있다.<br>하이퍼파라미터 튜닝의 복잡성 EBM은 여러 하이퍼파라미터를 가지고 있으며, 이들의 적절한 값을 찾는 것이 까다로울 수 있다. 잘못된 하이퍼파라미터 설정은 모델의 성능에 큰 영향을 미칠 수 있다.<br>학습 데이터의 의존성 EBM은 충분한 양의 고품질 학습 데이터가 필요하다. 데이터가 부족하거나 품질이 낮은 경우, 모델의 성능이 크게 저하될 수 있다. 이러한 단점들은 EBM을 실제로 적용할 때 고려해야 할 중요한 요소들이다. 모델의 강점을 최대한 활용하면서도 단점을 보완하는 방법을 찾는 것이 성공적인 EBM 응용의 핵심이다.<br><br><img alt="team-blog-코딩황제들-2024-week5.모각코5일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week5.모각코5일차회의인증.png"><br>
-<img alt="team-blog-코딩황제들-2024-week5.모각코5일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week5.모각코5일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\8월-11일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 11일 모각코.md</guid><pubDate>Sun, 18 Aug 2024 15:10:11 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week5.모각코5일차회의인증.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week5.모각코5일차회의인증.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+<img alt="team-blog-코딩황제들-2024-week5.모각코5일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week5.모각코5일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\8월-11일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 11일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 12:36:08 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week5.모각코5일차회의인증.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week5.모각코5일차회의인증.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
+ <br><br>energy-based model, 특히 energy-based GAN에 대해 알아보기 및 대조학습코드 구현 <br>회의방법<br>
+온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다. <br>팀원 블로그<br>
+박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
+신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/" target="_blank">https://blog.naver.com/sws040201/</a><br>
+김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br><br><br><br>에너지 기반 GAN(Energy-Based Generative Adversarial Network, EBGAN)에 대해 알아본다.<br><br><br>*전통적인 GAN모델의 변형으로, 에너지 기반 모델(EBM)의 개념을 도입하여 GAN의 판별자(Discriminator)를 재설계한 모델입니다. EBGAN은 전통적인 GAN보다 더 안정적이고 유연한 학습을 가능하게 하기 위해 제안되었습니다.<br><br>
+<br>생성자(Generator): 랜덤한 노이즈 벡터를 입력으로 받아, 이로부터 현실적인 데이터를 생성하는 네트워크입니다.
+<br>판별자(Discriminator): 입력 데이터가 실제(real) 데이터인지 생성된(fake) 데이터인지 구분하는 네트워크입니다.
+<br>GAN의 목표는 생성자가 점점 더 현실적인 데이터를 생성하도록 학습하는 것입니다. 생성자가 만든 데이터가 실제 데이터를 닮아가면서, 판별자는 점점 더 어려운 구별 문제를 해결해야 하므로 두 네트워크가 서로 경쟁하면서 발전합니다.
+<br><br>
+<br>에너지 기반 판별자: EBGAN에서 판별자는 단순히 이진 분류를 수행하는 대신, 데이터를 입력받아 그 데이터의 "에너지"를 계산합니다. 이 에너지는 데이터가 얼마나 "현실적인지"를 나타내며, EBM에서 사용되는 에너지 함수와 유사한 역할을 합니다.
+<br>목표: EBGAN의 목표는 생성된 데이터에 높은 에너지를, 실제 데이터에 낮은 에너지를 할당하는 것입니다.
+<br><br>
+<br>판별자의 역할: EBGAN에서 판별자는 입력 데이터 xxx에 대해 에너지 값 E(x)E(x)E(x)를 계산합니다. 이 에너지는 데이터가 실제에 가까울수록 낮게, 비현실적일수록 높게 설정됩니다.
+<br>생성자의 역할: 생성자는 낮은 에너지를 가진 데이터를 생성하도록 학습합니다. 즉, 판별자가 낮은 에너지를 할당하는 데이터를 생성하려고 시도합니다.
+<br>손실 함수: EBGAN의 손실 함수는 전통적인 GAN과 다르게, 판별자가 계산한 에너지 값을 최소화하거나 최대화하는 방식으로 정의됩니다.
+<br><br>
+<br>학습의 안정성: 전통적인 GAN에서는 종종 학습이 불안정해지거나 모드 붕괴(mode collapse)가 발생할 수 있습니다. EBGAN은 에너지 기반 접근 방식을 통해 이러한 문제를 완화할 수 있습니다.
+<br>유연성: 판별자가 에너지를 계산하는 방식은 단순한 이진 분류보다 더 유연하여, 다양한 형태의 손실 함수나 학습 전략을 적용할 수 있습니다.
+<br><br>
+<br>예를 들어, 이미지 생성 문제에서 EBGAN은 판별자가 이미지에 대해 "에너지"를 계산하고, 생성자는 이 에너지를 낮추는 방향으로 이미지를 생성합니다. 결과적으로, 생성된 이미지는 더 현실적이고, 판별자는 더 까다로운 기준으로 이미지를 평가하게 됩니다.
+<br><br>
+<br>이미지 생성: 현실적인 이미지를 생성하는 데 사용할 수 있습니다. 특히, 고해상도 이미지 생성이나 다양한 스타일의 이미지 생성에 효과적일 수 있습니다.
+<br>비디오 생성: 비디오의 연속적인 프레임을 생성할 때, 각 프레임이 이전 프레임과의 연속성을 가지면서도 개별적으로 현실적인 에너지를 가지도록 학습할 수 있습니다.
+<br>자연어 처리: 텍스트 생성에서도 EBGAN을 응용하여 더 자연스러운 문장을 생성하는 데 사용될 수 있습니다.
+<br><br><br><br><br><br><br><br><br>대조학습코드를 구현해본다.<br><br>대조 학습에서 주로 사용되는 방식 중 긍정(positive) 쌍과 부정(negative) 쌍을 구분하여 손실을 계산 ‘’’ import torch import torch.nn as nn import torch.nn.functional as F import torch.optim as optim<br><br>class SimpleContrastiveModel(nn.Module): def&nbsp;init(self, embedding_dim=128): super(SimpleContrastiveModel, self).init() # CNN 기반 인코더 정의: 입력 이미지를 임베딩 벡터로 변환 self.encoder = nn.Sequential( nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1), # 1번째 레이어 (3 -&gt; 64) nn.ReLU(), # 활성화 함수 ReLU nn.MaxPool2d(kernel_size=2, stride=2), # 풀링 레이어 nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1), # 2번째 레이어 (64 -&gt; 128) nn.ReLU(), # 활성화 함수 ReLU nn.MaxPool2d(kernel_size=2, stride=2), # 풀링 레이어 nn.Flatten(), # 출력 데이터를 1차원 벡터로 변환 nn.Linear(128  8  8, embedding_dim) # 완전 연결 레이어, 임베딩 차원으로 변환 )<br>def forward(self, x):
+    # 입력 이미지 x를 임베딩 벡터로 변환하고 정규화
+    return F.normalize(self.encoder(x), dim=-1)
+Copy<br><br>def contrastive_loss(out1, out2, label): # 코사인 유사도 계산: 두 임베딩 벡터 간의 유사도 측정 cosine_similarity = F.cosine_similarity(out1, out2) # BCEWithLogitsLoss를 사용하여 대조 학습 손실 계산 bce_loss = nn.BCEWithLogitsLoss() # 코사인 유사도와 실제 lable을 사용하여 손실 계산 loss = bce_loss(cosine_similarity, label) return lossine_similarity, label) return loss<br><br>model = SimpleContrastiveModel(embedding_dim=128)<br><br>optimizer = optim.Adam(model.parameters(), lr=0.001)<br><br>batch_size = 16 x1 = torch.randn(batch_size, 3, 32, 32) x2 = torch.randn(batch_size, 3, 32, 32)<br>labels = torch.randint(0, 2, (batch_size,)).float() # 1: 같은 클래스, 0: 다른 클래스<br><br>out1 = model(x1) out2 = model(x2)<br><br>loss = contrastive_loss(out1, out2, labels)<br><br>optimizer.zero_grad() loss.backward() optimizer.step()<br>print(f’Loss: {loss.item()}’) ‘’’ ————————————————————————————————– ‘’’ import torch import torch.nn as nn import torch.optim as optim<br><br><br>model = SimpleContrastiveModel(embedding_dim=128)<br><br>optimizer = optim.Adam(model.parameters(), lr=0.001)<br><br>batch_size = 16 x1_train = torch.randn(batch_size, 3, 32, 32) x2_train = torch.randn(batch_size, 3, 32, 32) train_labels = torch.randint(0, 2, (batch_size,)).float()<br><br>x1_test = torch.randn(8, 3, 32, 32) x2_test = torch.randn(8, 3, 32, 32) test_labels = torch.randint(0, 2, (8,)).float()<br><br>num_epochs = 10 for epoch in range(num_epochs): # 모델 출력 계산 out1_train = model(x1_train) out2_train = model(x2_train)<br># 대조 학습 손실 계산
+loss = contrastive_loss(out1_train, out2_train, train_labels)
+
+# 역전파 및 파라미터 업데이트
+optimizer.zero_grad()
+loss.backward()
+optimizer.step()
+
+print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item()}')
+Copy<br><br>with torch.no_grad(): out1_test = model(x1_test) out2_test = model(x2_test)<br># 코사인 유사도 계산
+cosine_similarity_test = torch.sigmoid(F.cosine_similarity(out1_test, out2_test))
+
+# 예측 결과
+predictions = (cosine_similarity_test &gt; 0.5).float()
+
+# 정확도 계산
+accuracy = (predictions == test_labels).float().mean()
+
+print(f'Test Accuracy: {accuracy.item() * 100:.2f}%')
+
+# 각 테스트 샘플에 대한 코사인 유사도와 실제 레이블 출력
+print("Cosine Similarity and Labels:")
+for i in range(len(test_labels)):
+    print(f"Sample {i+1}: Cosine Similarity = {cosine_similarity_test[i].item():.4f}, Label = {test_labels[i].item()}, Prediction = {predictions[i].item()}")
+Copy<br>’’’ Epoch [1/10], Loss: 0.8842123746871948 Epoch [2/10], Loss: 0.9274642467498779 Epoch [3/10], Loss: 0.9250276684761047 Epoch [4/10], Loss: 0.9145865440368652 Epoch [5/10], Loss: 0.866182267665863 Epoch [6/10], Loss: 0.5781313180923462 Epoch [7/10], Loss: 0.557551383972168 Epoch [8/10], Loss: 0.5832924842834473 Epoch [9/10], Loss: 0.41409537196159363 Epoch [10/10], Loss: 0.4382629096508026 Test Accuracy: 12.50% Cosine Similarity and Labels: Sample 1: Cosine Similarity = 0.7111, Label = 0.0, Prediction = 1.0 Sample 2: Cosine Similarity = 0.7042, Label = 0.0, Prediction = 1.0 Sample 3: Cosine Similarity = 0.7109, Label = 0.0, Prediction = 1.0 Sample 4: Cosine Similarity = 0.7049, Label = 0.0, Prediction = 1.0 Sample 5: Cosine Similarity = 0.7111, Label = 1.0, Prediction = 1.0 Sample 6: Cosine Similarity = 0.7117, Label = 0.0, Prediction = 1.0 Sample 7: Cosine Similarity = 0.7063, Label = 0.0, Prediction = 1.0 Sample 8: Cosine Similarity = 0.7098, Label = 0.0, Prediction = 1.0<br>문제점&nbsp;손실 값 감소&nbsp;훈련 중 손실 값이 감소하는 것은 모델이 훈련 데이터에 대해 학습하고 있음을 나타낸다. 그러나 손실 값의 감소가 매우 불규칙하고, 손실 값이 매우 높고 후반부에 급격히 감소하는 모양이다. 이는 모델이 안정적으로 학습되지 않았거나 데이터의 질과 양에 문제가 있을 수 있음을 의미한다.<br>테스트 정확도&nbsp;테스트 정확도가 매우 낮다. 이는 모델이 테스트 데이터에 대해 거의 무작위로 예측하고 있음을 의미한다.<br>코사인 유사도 및 예측&nbsp;코사인 유사도 값이 모든 샘플에서 매우 유사하게 높게 나타나고 있으며, 이는 모델이 제대로 된 임베딩을 학습하지 못하고 있다는 이야기다. 모든 샘플에 대해 거의 동일한 값을 출력하고 있으며, 이로 인해 예측이 실제 레이블과 일치하지 않는 상황이 발생한다.<br>해결 방안&nbsp;데이터셋 품질 개선&nbsp;가상 데이터셋 대신 실제 데이터셋으로 모델을 훈련 가상 데이터는 모델 학습에 필요한 다양성과 복잡성이 부족할 수 있다.<br>모델 구조 수정&nbsp;모델이 너무 단순하여 데이터의 복잡한 패턴을 학습하지 못할 수 있다. 더 깊고 복잡한 모델을 사용하거나, 현재 아키텍처에 더 많은 층을 추가하여 모델의 구조를 변경할 수 있다.<br>학습 하이퍼파라미터 조정&nbsp;학습률을 조정하여 모델의 학습 속도를 최적화할 수 있다. 에포크 수를 늘려 더 오랜 시간 동안 학습하게 하여 성능을 개선 배치사이즈를 조정하여 학습 안정성을 도모 커널 사이즈를 조정하여 모델의 복잡성 및 특징에 대하여 학습<br>손실 함수 및 학습 방식 검토&nbsp;BCEWithLogitsLoss를 사용하는 방법이 적절한지 확인해야 한다. 공부한 내용이라 사용하긴 하였지만, 적절한 방법인지에 대한 고려 없이 사용하여 잘못된 결과가 도출되었을 수도 있다. 코사인 유사도가 매우 좁은 범위에 몰려 있다면, 모델이 효과적으로 학습하지 못할 수 있다. 이를 위해 대조 학습 손실의 다른 변형을 사용하거나, 추가적인 정규화 기법을 도입할 수 있다.]]></description><link>team's-blog\코딩황제들\8월-18일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/8월 18일 모각코.md</guid><pubDate>Mon, 19 Aug 2024 12:36:12 GMT</pubDate></item><item><title><![CDATA[팀 소개]]></title><description><![CDATA[ 
+ <br><br>안녕하세요 저희는 코딩황제들입니다. 저희 팀은 인공지능학과 4명의 학생으로 구성되어 있습니다.<br><br><br><br><br><br>저희의 목표는 생성형 AI를 만들기 위한 모델 디자인 및 구조를 짜기 위해 이론적인 공부를 심도 있게 진행하는 것입니다.<br><br>매주  22:00 ~ 01:00<br>
+1회차 : 2024/07/14 22:00 ~ 01:00<br>
+2회차 : 2024/07/21&nbsp;22:00 ~ 01:00<br>
+3회차 : 2024/07/28&nbsp;22:00 ~ 01:00<br>
+4회차 : 2024/08/04&nbsp;22:00 ~ 01:00<br>
+5회차 : 2024/08/11&nbsp;22:00 ~ 01:00<br>
+6회차 : 2024/08/18&nbsp;22:00 ~ 01:00<br><br><br>첫번째 주제로 다양한 loss함수들을 공부하기로 계획하였다. 내가 맡은 Wasserstain loss함수는 제대로 이해해 볼 수 있었지만 팀원들이 맡은 loss 함수들을 이해하기에는 조금 어려움을 겪었던것같다.  두번째 주제로 energy-based model과 대조학습코드구현을 계획하였다.  하지만 EBM이 나에게는 생소한 모델이었고 딥러닝 모델을  처음 제대로 알아보는 시간이어서 이해하기 어려웠다. 그래서 EBM의 작동방식 및 개념, 공식들 정도만 이해해보았고 대조학습코드구현은 끝내 하지 못하였다.]]></description><link>team's-blog\코딩황제들\index.html</link><guid isPermaLink="false">team's blog/코딩황제들/index.md</guid><pubDate>Mon, 19 Aug 2024 12:48:55 GMT</pubDate></item><item><title><![CDATA[계획]]></title><description><![CDATA[ 
  <br><br>프로젝트의 목표에 맞는 데이터 특성에 가장 적합한 손실 함수를 찾기 위해 다양한 손실함수에 대해 공부한다. 각 로스함수의 수학적 정의 및 유도과정 이해, 각 로스함수가 사용되는 모델과 그 이유(어떤 모델과 문제에 적합한지), 장 단점 분석, 간단한 구현예제를 작성해보면서 이해해본다. 또한 다양한 학습방법 및 디퓨전모델에 대해서도 알아본다.<br>회의방법<br>
 온라인(naver whale on) *zoom은 40분이상하려면 유료로 결제를 해야하기 때문에 whale on을 활용했습니다.<br>팀원 블로그<br>
 박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
@@ -390,16 +397,7 @@ Forward Diffusion 과정은 노이즈 이미지 XT로부터 노이즈를 점차 
 <br>( C )는 클래스의 수
 <br>( y_{ic} )는 실제 레이블의 원-핫 인코딩 (실제 레이블이 ( c ) 클래스일 때 1, 그렇지 않으면 0)
 <br>( p_{ic} )는 모델이 샘플 ( i )에 대해 클래스 ( c )일 확률로 예측한 값 (소프트맥스 함수의 출력)
-<br><br><img alt="team-blog-코딩황제들-2024-week2.모각코2일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week2.모각코2일차회의인증.png"><br><img alt="team-blog-코딩황제들-2024-week2.모각코2일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week2.모각코2일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\7월-21일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 21일 모각코.md</guid><pubDate>Mon, 22 Jul 2024 17:12:55 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week2.wasserstain공식.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain공식.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[팀 소개]]></title><description><![CDATA[ 
- <br><br>안녕하세요 저희는 코딩황제들입니다. 저희 팀은 인공지능학과 4명의 학생으로 구성되어 있습니다.<br><br>박세준 <a rel="noopener" class="external-link" href="https://kepler-dev-3141.github.io/" target="_blank">https://kepler-dev-3141.github.io/</a><br>
-신우석 <a rel="noopener" class="external-link" href="https://blog.naver.com/sws040201/" target="_blank">https://blog.naver.com/sws040201/</a><br>
-김채연 <a rel="noopener" class="external-link" href="https://kcyeon0127.github.io/" target="_blank">https://kcyeon0127.github.io/</a><br><br>저희의 목표는 생성형 AI를 만들기 위한 모델 디자인 및 구조를 짜기 위해 이론적인 공부를 심도 있게 진행하는 것입니다.<br><br>매주  22:00 ~ 01:00<br>
-1회차 : 2024/07/14 22:00 ~ 01:00<br>
-2회차 : 2024/07/21&nbsp;22:00 ~ 01:00<br>
-3회차 : 2024/07/28&nbsp;22:00 ~ 01:00<br>
-4회차 : 2024/08/04&nbsp;22:00 ~ 01:00<br>
-5회차 : 2024/08/11&nbsp;22:00 ~ 01:00<br>
-6회차 : 2024/08/18&nbsp;22:00 ~ 01:00<br>]]></description><link>team's-blog\코딩황제들\index.html</link><guid isPermaLink="false">team's blog/코딩황제들/index.md</guid><pubDate>Mon, 22 Jul 2024 16:16:36 GMT</pubDate></item><item><title><![CDATA[코딩황제들]]></title><description><![CDATA[ 
+<br><br><img alt="team-blog-코딩황제들-2024-week2.모각코2일차회의인증.png" src="lib\media\team-blog-코딩황제들-2024-week2.모각코2일차회의인증.png"><br><img alt="team-blog-코딩황제들-2024-week2.모각코2일차시간인증.jpg" src="lib\media\team-blog-코딩황제들-2024-week2.모각코2일차시간인증.jpg">]]></description><link>team's-blog\코딩황제들\7월-21일-모각코.html</link><guid isPermaLink="false">team's blog/코딩황제들/7월 21일 모각코.md</guid><pubDate>Mon, 22 Jul 2024 17:12:55 GMT</pubDate><enclosure url="lib\media\team-blog-코딩황제들-2024-week2.wasserstain공식.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src="lib\media\team-blog-코딩황제들-2024-week2.wasserstain공식.png"&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[코딩황제들]]></title><description><![CDATA[ 
  ]]></description><link>team's-blog\코딩황제들\코딩황제들.html</link><guid isPermaLink="false">team's blog/코딩황제들/코딩황제들.md</guid><pubDate>Mon, 15 Jul 2024 18:19:59 GMT</pubDate></item><item><title><![CDATA[team's blog]]></title><description><![CDATA[ 
  ]]></description><link>team's-blog\team's-blog.html</link><guid isPermaLink="false">team's blog/team's blog.md</guid><pubDate>Mon, 15 Jul 2024 18:16:01 GMT</pubDate></item><item><title><![CDATA[index]]></title><description><![CDATA[ 
  ]]></description><link>mogacko\team's-blog\코딩황제들\index.html</link><guid isPermaLink="false">mogacko/team's-blog/코딩황제들/index.md</guid><pubDate>Sun, 14 Jul 2024 14:30:27 GMT</pubDate></item></channel></rss>
